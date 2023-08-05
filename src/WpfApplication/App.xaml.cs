@@ -5,12 +5,14 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using DapperExtension;
 
 namespace WpfApplication
 {
     /// <summary>
     /// Interaction logic for App.xaml
-    /// </summary>
+    /// /// </summary>
+    
     public partial class App : Application
     {
     }

@@ -1,17 +1,27 @@
 namespace DapperExtension.DBContext.Models;
+using Microsoft.EntityFrameworkCore;
 
-class Customer
+public class Customer : Descriptable
 {
-    public int ID { get; set; }
+    public int CustomerId { get; set; }
 
-    public string Name { get; set; }
-    public string Shortcut { get; set; }
     public List<SubjectArea> SubjectAreas { get; set; }
 
     public HelpDeskStatus DeskStatus { get; set; }
 
-    public string Description { get; set; }
-
+    public override void Up(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Customer>(entityBuilder =>
+          {
+              entityBuilder.HasKey(e => e.CustomerId);
+              entityBuilder.Property(e => e.DeskStatus)
+                .IsRequired();
+              entityBuilder.HasMany(e => e.SubjectAreas)
+                .WithOne()
+                .HasForeignKey(e => e.SubjectAreaId);
+          }
+          );
+    }
 }
 
 public enum HelpDeskStatus

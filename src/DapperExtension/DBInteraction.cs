@@ -1,6 +1,12 @@
 ﻿namespace DapperExtension;
 
-public class Class1
+using DapperExtension.DBContext;
+public class DBInteraction
 {
-   
+    private readonly InventoryManagementContext model;
+
+    public DBInteraction() {
+        this.model = new InventoryManagementContext();
+        this.model.Database.EnsureCreated();
+    }
 }

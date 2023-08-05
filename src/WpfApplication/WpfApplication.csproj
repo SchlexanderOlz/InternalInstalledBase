@@ -6,5 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="../DapperExtension/DapperExtension.csproj"/>
+    </ItemGroup>
 </Project>
