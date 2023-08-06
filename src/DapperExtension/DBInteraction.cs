@@ -1,12 +1,59 @@
 ﻿namespace DapperExtension;
 
 using DapperExtension.DBContext;
+using System.Security.Cryptography;
+using System.Diagnostics;
+using System.Text;
+using DBContext.Models;
+using DBContext.Models.Products;
+using DBContext.Models.Users;
+
 public class DBInteraction
 {
-    private readonly InventoryManagementContext model;
+    private readonly InventoryManagementContext context;
 
-    public DBInteraction() {
-        this.model = new InventoryManagementContext();
-        this.model.Database.EnsureCreated();
+    public DBInteraction()
+    {
+        this.context = new InventoryManagementContext();
+        Debug.Assert(this.context.Database.EnsureCreated());
     }
+
+    public void InsertProduct(Product product)
+    {
+        this.context.Products.Add(product);
+    }
+
+    public List<Product> GetProducts()
+    {
+        return this.context.Products.Select(p => p).ToList();
+    }
+
+    public User GetUserByCredentials(string username, string password)
+    {
+        try
+        {
+            string passwordHash = DBInteraction.HashPassword(in password);
+            return this.context.Users
+                .Select(u => u)
+                .Where(u => u.UserName == username && u.Password == passwordHash)
+                .First();
+        }
+        catch (ArgumentNullException)
+        {
+            throw new UserDoesNotExistException();
+        }
+    }
+
+    public static string HashPassword(in string password)
+    {
+        byte[] hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
+
+        StringBuilder stringBuilder = new();
+        foreach (byte b in hashedBytes)
+        {
+            stringBuilder.Append(b);
+        }
+        return stringBuilder.ToString();
+    }
+
 }

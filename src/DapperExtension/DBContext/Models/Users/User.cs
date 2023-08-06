@@ -1,5 +1,6 @@
 namespace DapperExtension.DBContext.Models.Users;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 public class User : IDataObject {
     public int UserId { get; set; }
@@ -30,6 +31,7 @@ public class User : IDataObject {
                 .HasDefaultValue(UserType.kUser);
         });
     }
+
 }
 
 public enum UserType {
