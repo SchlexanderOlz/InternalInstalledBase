@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DapperExtension;
+using DapperExtension.DBContext.Models;
 
 namespace WpfApplication
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    /// 
+
     public partial class MainWindow : Window
     {
-        private readonly DBInteraction dbInteraction;
+        private DBInteraction dbInteraction;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,8 +32,22 @@ namespace WpfApplication
                 this.dbInteraction = new DBInteraction();
             } catch (Exception e) {
                 MessageBox.Show(e.Message);
+                return;
+            }
+            var newHardware = new Hardware {Name="Some Hardware", Shortcut="SM",
+                Description="Some description", Ip=1230, MaterialNumber=5000};
+
+            try {
+              this.dbInteraction.InsertHarware(newHardware);
+            } catch (Exception e) {
+              MessageBox.Show(e.Message);
             }
 
+            MessageBox.Show(newHardware.Description);
+            var products = this.dbInteraction.GetProducts();
+            foreach(var product in products) {
+              MessageBox.Show(product.Name);
+            }
         }
     }
 }

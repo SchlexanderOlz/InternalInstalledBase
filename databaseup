@@ -1,0 +1,1 @@
+docker run --name IIB -p 7400:3306 -e MYSQL_ROOT_PASSWORD=tmp -e MYSQL_DATABASE=IIB -e MYSQL_USER=user -e MYSQL_PASSWORD=tmp -d mysql:latest

@@ -1,13 +1,13 @@
 namespace DapperExtension.DBContext.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 public class Customer : Descriptable
 {
     public int CustomerId { get; set; }
-
-    public List<SubjectArea> SubjectAreas { get; set; }
-
     public HelpDeskStatus DeskStatus { get; set; }
+    public ICollection<Product> Products { get; set; }
+    public ICollection<SubjectArea> SubjectAreas { get; set; }
 
     public override void Up(ModelBuilder modelBuilder)
     {
@@ -19,14 +19,10 @@ public class Customer : Descriptable
               entityBuilder.HasMany(e => e.SubjectAreas)
                 .WithOne()
                 .HasForeignKey(e => e.SubjectAreaId);
+              entityBuilder.HasMany(e => e.Products)
+                .WithMany(p => p.Customers);
           }
           );
     }
 }
 
-public enum HelpDeskStatus
-{
-    kTransmitted,
-    kTemporaryTransmitted,
-    kNotTransmitted
-}

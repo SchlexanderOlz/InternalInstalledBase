@@ -5,6 +5,7 @@ public class Software : Descriptable
 {
     public int SoftwareID { get; set; }
     public uint Version { get; set; }
+    public ICollection<Product> Products { get; set; }
 
     public override void Up(ModelBuilder modelBuilder)
     {

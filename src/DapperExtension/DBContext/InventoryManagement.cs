@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DapperExtension.DBContext;
 using Models;
-using Models.Products;
 using Models.Users;
 
 public class InventoryManagementContext : DbContext
@@ -15,14 +14,9 @@ public class InventoryManagementContext : DbContext
   public DbSet<Customer> Customers { get; set; }
   public DbSet<Product> Products { get; set; }
   public DbSet<SubjectArea> SubjectAreas { get; set; }
-  public DbSet<Hardware> Hardwares { get; set; }
-  public DbSet<Software> Softwares { get; set; }
+  public DbSet<Hardware> Hardware { get; set; }
+  public DbSet<Software> Software { get; set; }
   public DbSet<User> Users { get; set; }
-
-  public InventoryManagementContext() : base()
-  {
-
-  }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
@@ -34,12 +28,13 @@ public class InventoryManagementContext : DbContext
     base.OnModelCreating(modelBuilder);
     new SubjectArea().Up(modelBuilder);
     new Hardware().Up(modelBuilder);
-    new Customer().Up(modelBuilder);
     new Software().Up(modelBuilder);
     new Product().Up(modelBuilder);
-    new VCB().Up(modelBuilder);
+    new Customer().Up(modelBuilder);
     new User().Up(modelBuilder);
+    new DataChange().Up(modelBuilder);
+    new Session().Up(modelBuilder);
+    new Property().Up(modelBuilder);
+    new Moderator().Up(modelBuilder);
   }
-
-
 }
