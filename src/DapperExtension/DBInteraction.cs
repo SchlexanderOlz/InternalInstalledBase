@@ -2,7 +2,6 @@
 
 using DapperExtension.DBContext;
 using System.Security.Cryptography;
-using System.Diagnostics;
 using System.Text;
 using DBContext.Models.Users;
 using DBContext.Models;
@@ -14,6 +13,7 @@ public class DBInteraction
     public DBInteraction()
     {
         this.context = new InventoryManagementContext();
+        this.context.Database.EnsureCreated();
     }
 
     public void InsertProduct(Product product)

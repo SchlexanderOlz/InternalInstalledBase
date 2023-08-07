@@ -35,7 +35,7 @@ namespace WpfApplication
                 return;
             }
             var newHardware = new Hardware {Name="Some Hardware", Shortcut="SM",
-                Description="Some description", Ip=1230, MaterialNumber=5000};
+                Description="Some description", Ip=1230, MaterialNumber=5010, Products=null};
 
             try {
               this.dbInteraction.InsertHarware(newHardware);
