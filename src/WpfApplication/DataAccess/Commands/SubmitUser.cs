@@ -2,19 +2,16 @@ namespace DataAccess.Commands;
 
 using System.Windows.Input;
 using System;
+using System.Windows;
 using DapperExtension;
 using DapperExtension.DBContext.Models.Users;
 
 public class SubmitUser : ICommand {
 
-  private static SubmitUser? submitUser;
-  private SubmitUser() {}
+  public event EventHandler LogonSuccess;
+  public event EventHandler LogonFailure;
 
-  public static SubmitUser GetInstance() {
-    if (SubmitUser.submitUser == null) {
-      SubmitUser.submitUser = new();
-    }
-    return SubmitUser.submitUser;
+  public SubmitUser() {
   }
 
   public bool CanExecute(object parameter)
@@ -24,12 +21,17 @@ public class SubmitUser : ICommand {
 
   public void Execute(object parameter)
   {
-    UserLogonData logonData = parameter as UserLogonData;
+    UserCredentials? logonData = parameter as UserCredentials;
     if (logonData == null) {
       throw new InvalidOperationException("Execute function was not passed valid UserDatvalid UserDataa");
     }
-    User? user = DBInteraction.GetInstance().GetUserByCredentials(logonData.username, logonData.password);
-
+    var dbInteraction = DBInteraction.GetInstance();
+    try {
+     dbInteraction.GetUserByCredentials(logonData.Username, logonData.Password);   
+    } catch (Exception e) {
+      MessageBox.Show(e.Message);
+    }
+    User? user = dbInteraction.GetUserByCredentials(logonData.Username, logonData.Password);
     if (user != null) {
       OnLogonSuccess(new LogonSuccessArgs(user));
     } else {
@@ -43,14 +45,10 @@ public class SubmitUser : ICommand {
     remove { CommandManager.RequerySuggested -= value; }
   }
 
-  public event EventHandler LogonSuccess;
-
   protected virtual void OnLogonSuccess(LogonSuccessArgs args)
   {
     LogonSuccess?.Invoke(this, args);
   }
-
-  public event EventHandler LogonFailure;
 
   protected virtual void OnLogonFailure()
   {

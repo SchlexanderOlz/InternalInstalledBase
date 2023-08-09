@@ -1,23 +1,16 @@
 namespace DataAccess;
 
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Commands;
-using DapperExtension.DBContext.Models.Users;
-using DapperExtension;
+using System.Windows;
+using System;
 
-public class MainWindowData : INotifyPropertyChanged {
+public class MainWindowData {
 
-  public ICommand SubmitUserCommand; 
+  public SubmitUser SubmitUserCommand { get; set; } 
 
   public MainWindowData() {
-
+      this.SubmitUserCommand = new SubmitUser();
   }
-  
-  public event PropertyChangedEventHandler PropertyChanged;
 
-  protected void OnPropertyChanged([CallerMemberName] string propertyName = "") { 
-    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-  }
 }

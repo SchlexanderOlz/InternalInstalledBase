@@ -1,0 +1,10 @@
+<UserControl x:Class="WpfApplication.UserControls.UserContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WpfApplication">
+    <Grid>
+        <local:UserNavBar x:Name="navBar" />
+        <TextBlock Text="User" />
+    </Grid>
+</UserControl>
+

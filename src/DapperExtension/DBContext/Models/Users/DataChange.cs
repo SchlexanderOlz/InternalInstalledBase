@@ -10,6 +10,7 @@ public class DataChange : IDataObject {
   public ActionType ActionType {get; set; }
   public Moderator ChangeActor { get; set; }
   public DateTime TimeStamp { get; set; }
+  public User User { get; set; }
 
   public void Up(ModelBuilder modelBuilder) {
     modelBuilder.Entity<DataChange>(entityBuilder => {

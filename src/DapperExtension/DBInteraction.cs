@@ -4,6 +4,7 @@ using DapperExtension.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
+using System;
 using DBContext.Models.Users;
 using DBContext.Models;
 
@@ -18,29 +19,29 @@ public class DBInteraction
     this.context.Database.EnsureCreated();
   }
 
-  public static ref DBInteraction GetInstance() {
+  public static DBInteraction GetInstance() {
     if (DBInteraction.dbInteraction == null) {
       DBInteraction.dbInteraction = new(); 
     } 
-    return ref DBInteraction.dbInteraction;
+    return DBInteraction.dbInteraction;
   }
 
   #region InsertStatements
   public void InsertProduct(Product product)
   {
-    this.context.GetProductDataSet().Add(product);
+    this.context.Products.Add(product);
     this.context.SaveChanges();
   }
 
   public void InsertHardware(Hardware hardware)
   {
-    this.context.GetHardwareDataSet().Add(hardware);
+    this.context.Hardware.Add(hardware);
     this.context.SaveChanges();
   }
 
   public void InsertUser(User user)
   {
-    this.context.GetUserDataSet().Add(user);
+    this.context.Users.Add(user);
     this.context.SaveChanges();
   }
   #endregion
@@ -48,36 +49,36 @@ public class DBInteraction
   #region SelectStatements
   public User? GetUserByCredentials(string username, string password)
   {
-      string passwordHash = DBInteraction.HashPassword(in password);
-      return this.context.GetUserDataSet()
-          .Where(u => u.UserName == username && u.Password == passwordHash)
+      byte[] passwordHash = User.HashPassword(password);
+      return this.context.Users
+          .Where(u => u.UserName == username && u.Password.SequenceEqual(passwordHash))
           .FirstOrDefault();
   }
 
   public ICollection<Customer> GetAllCustomers()
   {
-    return this.context.GetCustomerDataSet().ToList();
+    return this.context.Customers.ToList();
   }
 
   public ICollection<Product> GetAllProducts()
   {
-    return this.context.GetProductDataSet().ToList();
+    return this.context.Products.ToList();
   }
 
   public ICollection<Hardware> GetAllHardware()
   {
-    return this.context.GetHardwareDataSet().ToList();
+    return this.context.Hardware.ToList();
   }
 
   public ICollection<Software> GetAllSoftware()
   {
-    return this.context.GetSoftwareDataSet().ToList();
+    return this.context.Software.ToList();
   }
 
   public Software GetSoftwareByParam(string? name, string? shortcut, string? description,
                                      uint? versionNumber)
   {
-    return this.context.GetSoftwareDataSet()
+    return this.context.Software
             .Where(software => isDecriptableSimilar(software, name, shortcut, description)
                   || software.Version == versionNumber)
             .First();
@@ -90,18 +91,6 @@ public class DBInteraction
     return EF.Functions.Like(evaluator.Name, $"%{name}%")
                 || EF.Functions.Like(evaluator.Shortcut, $"%{shortcut}%")
                 || EF.Functions.Like(evaluator.Description, $"%{descritpion}%");
-  }
-
-  public static string HashPassword(in string password)
-  {
-    byte[] hashedBytes = SHA256.HashData(Encoding.UTF8.GetBytes(password));
-
-    StringBuilder stringBuilder = new();
-    foreach (byte b in hashedBytes)
-    {
-      stringBuilder.Append(b);
-    }
-    return stringBuilder.ToString();
   }
 
 }

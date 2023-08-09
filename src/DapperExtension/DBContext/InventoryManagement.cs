@@ -7,12 +7,12 @@ using Models.Users;
 public class InventoryManagementContext : DbContext
 {
 
-  private DbSet<Customer> customers;
-  private DbSet<Product> products;
-  private DbSet<SubjectArea> subjectAreas;
-  private DbSet<Hardware> hardware;
-  private DbSet<Software> software;
-  private DbSet<User> users;
+  public DbSet<Customer> Customers { get; set; }
+  public DbSet<Product> Products { get; set; }
+  public DbSet<SubjectArea> SubjectAreas { get; set; }
+  public DbSet<Hardware> Hardware { get; set; }
+  public DbSet<Software> Software { get; set; }
+  public DbSet<User> Users { get; set; }
 
   #region ModelConnection
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,40 +33,6 @@ public class InventoryManagementContext : DbContext
     new Session().Up(modelBuilder);
     new Property().Up(modelBuilder);
     new Moderator().Up(modelBuilder);
-  }
-
-  #endregion
-
-  #region GettersSetters
-
-  internal DbSet<Customer> GetCustomerDataSet()
-  {
-    return this.customers;
-  }
-
-  internal DbSet<Hardware> GetHardwareDataSet()
-  {
-    return this.hardware;
-  }
-
-  internal DbSet<Software> GetSoftwareDataSet()
-  {
-    return this.software;
-  }
-
-  internal DbSet<User> GetUserDataSet()
-  {
-    return this.users;
-  }
-
-  internal DbSet<Product> GetProductDataSet()
-  {
-    return this.products;
-  }
-
-  internal DbSet<SubjectArea> GetSubjectAreaSet()
-  {
-    return this.subjectAreas;
   }
 
   #endregion

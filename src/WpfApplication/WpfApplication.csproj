@@ -8,6 +8,5 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../DapperExtension/DapperExtension.csproj" />
-    <ProjectReference Include="./DataAccess/DataAccess.csproj" />
     </ItemGroup>
 </Project>

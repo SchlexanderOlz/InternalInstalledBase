@@ -14,12 +14,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DataAccess;
 using DataAccess.Commands;
+using DapperExtension.DBContext.Models.Users;
+using WpfApplication.UserControls;
 
 namespace WpfApplication
 {
-  /// <summary>
-  /// Interaction logic for MainWindow.xaml
-  /// </summary>
 
   public partial class MainWindow : Window
   {
@@ -27,12 +26,26 @@ namespace WpfApplication
     public MainWindow()
     {
       InitializeComponent();
-      var submitUser = SubmitUser.GetInstance();
-      submitUser.LogonFailure += DisplayLogonFailed;     
+      MainWindowData data = new();
+      SubmitUser submitUser = data.SubmitUserCommand;
+      this.DataContext = data;
+      submitUser.LogonFailure += logonFailed;     
+      submitUser.LogonSuccess += logon;
     }
 
-    public void DisplayLogonFailed(object sender, EventArgs e) {
+    private void logonFailed(object sender, EventArgs e) {
+      MessageBox.Show("Password or user not found!");
+    }
 
+    private void logon(object sender, EventArgs e) {
+      LogonSuccessArgs? args = e as LogonSuccessArgs; 
+      if (args == null) {
+        throw new InvalidOperationException(
+            $"The event-argument given did not match the expecte type ({typeof(LogonSuccessArgs)})"
+        );
+      }
+      var content = new UserContentFactory().CreateUserContent(args.User);
+      this.Content = new UserContent(args.User);
     }
   }
 }
