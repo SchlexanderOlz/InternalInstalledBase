@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfApplication">
     <Grid>
-        <local:UserNavBar x:Name="navBar" />
-        <TextBlock Text="User" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <local:UserNavBar x:Name="navBar" Grid.Row="0" Controls="{Binding NavBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <TextBlock Text="User" Grid.Row="1" />
     </Grid>
 </UserControl>
 

@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using DataAccess;
 using DataAccess.Commands;
 using DapperExtension.DBContext.Models.Users;
-using WpfApplication.UserControls;
 
 namespace WpfApplication
 {
@@ -25,7 +24,7 @@ namespace WpfApplication
 
     public MainWindow()
     {
-      InitializeComponent();
+      this.InitializeComponent();
       MainWindowData data = new();
       SubmitUser submitUser = data.SubmitUserCommand;
       this.DataContext = data;
@@ -45,7 +44,7 @@ namespace WpfApplication
         );
       }
       var content = new UserContentFactory().CreateUserContent(args.User);
-      this.Content = new UserContent(args.User);
+      this.Content = content;
     }
   }
 }

@@ -11,18 +11,18 @@ public class UserNavBar : Control {
         new FrameworkPropertyMetadata(typeof(UserNavBar)));
   }
 
-  // Contains Windows between which the user can switch
-  public ObservableCollection<Window> Windows
+  // Contains Controls between which the user can switch
+  public ObservableCollection<Control> Controls 
   {
-    get { return (ObservableCollection<Window>)GetValue(WindowsProperty); }
-    set { SetValue(WindowsProperty, value); }
+    get { return (ObservableCollection<Control>)GetValue(ControlsProperty); }
+    set { SetValue(ControlsProperty, value); }
   }
 
-  public static readonly DependencyProperty WindowsProperty =
-    DependencyProperty.Register("Windows", typeof(ObservableCollection<Window>),
+  public static readonly DependencyProperty ControlsProperty =
+    DependencyProperty.Register("Controls", typeof(ObservableCollection<Control>),
         typeof(UserNavBar), new PropertyMetadata(null));
 
-  public UserNavBar() {
-    this.Windows = new ObservableCollection<Window>();
+  public UserNavBar() : base() {
+    this.Controls = new ObservableCollection<Control>();
   }
 }

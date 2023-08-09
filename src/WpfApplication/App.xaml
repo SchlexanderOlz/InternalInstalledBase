@@ -4,6 +4,10 @@
              xmlns:local="clr-namespace:WpfApplication"
              StartupUri="Windows/MainWindow/MainWindow.xaml">
     <Application.Resources>
-         
+      <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="Windows/Navbars/UserNavBar.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+      </ResourceDictionary>        
     </Application.Resources>
 </Application>
