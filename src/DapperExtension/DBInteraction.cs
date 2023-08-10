@@ -75,13 +75,22 @@ public class DBInteraction
     return this.context.Software.ToList();
   }
 
-  public Software GetSoftwareByParam(string? name, string? shortcut, string? description,
-                                     uint? versionNumber)
+  public ICollection<Software> GetSoftwareByParam(string? name, string? shortcut, string? description,
+      uint? versionNumber)
   {
     return this.context.Software
             .Where(software => isDecriptableSimilar(software, name, shortcut, description)
                   || software.Version == versionNumber)
-            .First();
+            .ToList();
+  }
+
+  public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
+      string? descritpion, HelpDeskStatus? status)
+  {
+    return this.context.Customers
+            .Where(customer => isDecriptableSimilar(customer, name, shortcut, descritpion)
+                  || customer.DeskStatus == status)
+            .ToList();
   }
   #endregion
 
