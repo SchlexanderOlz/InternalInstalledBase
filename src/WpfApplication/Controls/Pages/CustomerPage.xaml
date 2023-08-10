@@ -1,0 +1,45 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:WpfApplication.Pages"
+                    xmlns:action="clr-namespace:WpfApplication">
+    <Style TargetType="{x:Type local:CustomerPage}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomerPage}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Options:"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1">
+                            <ComboBoxItem>Option 1</ComboBoxItem>
+                            <ComboBoxItem>Option 2</ComboBoxItem>
+                            <ComboBoxItem>Option 3</ComboBoxItem>
+                        </ComboBox>
+
+                        <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
+                        <TextBox Grid.Row="1" Grid.Column="1"/>
+
+                        <Label Grid.Row="2" Grid.Column="0" Content="Description:"/>
+                        <TextBox Grid.Row="2" Grid.Column="1"/>
+
+                        <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
+                        <TextBox Grid.Row="3" Grid.Column="1"/>
+
+    <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=local:CustomerPage}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
+

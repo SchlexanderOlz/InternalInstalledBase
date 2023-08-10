@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\WpfApplication",
+    "\\src\\WpfApplication\\DataAccess",
+    "\\src\\WpfApplication\\DataAccess\\Commands",
+    "\\src\\WpfApplication\\Windows"
+  ],
+  "SelectedNode": "\\src\\WpfApplication\\DataAccess\\Commands\\SubmitUser.cs",
+  "PreviewInSolutionExplorer": false
+}

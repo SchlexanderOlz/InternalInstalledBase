@@ -44,6 +44,7 @@ namespace WpfApplication
         );
       }
       var content = new UserContentFactory().CreateUserContent(args.User);
+      content.InitializeComponent();
       this.Content = content;
     }
   }
