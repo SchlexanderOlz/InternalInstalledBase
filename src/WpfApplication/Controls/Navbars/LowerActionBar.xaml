@@ -9,7 +9,7 @@
                 <Border Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                    <ListBox ItemsSource="{TemplateBinding Controls}">
+                    <ListBox ItemsSource="{TemplateBinding ActionControls}">
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel Orientation="Horizontal" />

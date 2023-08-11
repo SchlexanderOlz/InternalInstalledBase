@@ -10,7 +10,7 @@ public partial class UserContent : UserControl {
   public UserNavBar NavBar { get; set; }
   protected User user;
 
-  public UserContent(User user) {
+  public UserContent(User user) : base() {
     this.user = user;
     var customerButton = new Button { Content = "Customers" };
     var productButton = new Button { Content = "Content" };
@@ -38,8 +38,9 @@ public partial class UserContent : UserControl {
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
-    CustomerPage page = new CustomerPage(this.user);
+    var page = new CustomerPage(this.user);
     appendToGrid(page);
+    page.InitializeComponent();
   }
 
   protected virtual void loadProductPage(object sender, RoutedEventArgs e) {

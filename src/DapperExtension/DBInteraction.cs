@@ -44,6 +44,11 @@ public class DBInteraction
     this.context.Users.Add(user);
     this.context.SaveChanges();
   }
+
+  public void InsertCustomer(Customer customer) {
+    this.context.Customers.Add(customer);
+    this.context.SaveChanges();
+  }
   #endregion
 
   #region SelectStatements
@@ -78,28 +83,49 @@ public class DBInteraction
   public ICollection<Software> GetSoftwareByParam(string? name, string? shortcut, string? description,
       uint? versionNumber)
   {
-    return this.context.Software
-            .Where(software => isDecriptableSimilar(software, name, shortcut, description)
-                  || software.Version == versionNumber)
-            .ToList();
+    IQueryable<Software> query = this.context.Software.AsQueryable();
+    isDecriptableSimilar(ref query, name, shortcut, description);
+
+    if (versionNumber.HasValue) {
+      query.Where(software => software.Version == versionNumber);
+    }
+    return query.ToList();
   }
 
-  public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
-      string? descritpion, HelpDeskStatus? status)
-  {
-    return this.context.Customers
-            .Where(customer => isDecriptableSimilar(customer, name, shortcut, descritpion)
-                  || customer.DeskStatus == status)
-            .ToList();
-  }
+public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
+    string? description, HelpDeskStatus? status)
+{
+    IQueryable<Customer> query = this.context.Customers.AsQueryable();
+
+    isDecriptableSimilar(ref query, name, shortcut, description);
+    if (status.HasValue)
+    {
+        query = query.Where(customer => customer.DeskStatus == status);
+    }
+
+    return query.ToList();
+}
+
   #endregion
 
-  private bool isDecriptableSimilar(Descriptable evaluator, string? name,
-                                    string? shortcut, string? descritpion)
+  private void isDecriptableSimilar<T>(ref IQueryable<T> query, string? name,
+                                    string? shortcut, string? description)
+  where T : Descriptable
   {
-    return EF.Functions.Like(evaluator.Name, $"%{name}%")
-                || EF.Functions.Like(evaluator.Shortcut, $"%{shortcut}%")
-                || EF.Functions.Like(evaluator.Description, $"%{descritpion}%");
+    if (!string.IsNullOrEmpty(name))
+    {
+        query = query.Where(descriptable => EF.Functions.Like(descriptable.Name, $"%{name}%"));
+    }
+
+    if (!string.IsNullOrEmpty(shortcut))
+    {
+        query = query.Where(descriptable => EF.Functions.Like(descriptable.Shortcut, $"%{shortcut}%"));
+    }
+
+    if (!string.IsNullOrEmpty(description))
+    {
+        query = query.Where(descriptable => EF.Functions.Like(descriptable.Description, $"%{description}%"));
+    }
   }
 
 }

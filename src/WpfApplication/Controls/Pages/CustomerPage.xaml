@@ -1,45 +1,46 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WpfApplication.Pages"
-                    xmlns:action="clr-namespace:WpfApplication">
-    <Style TargetType="{x:Type local:CustomerPage}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:CustomerPage}">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+<UserControl x:Class="WpfApplication.Pages.CustomerPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:commands="clr-namespace:DataAccess.Commands"
+             xmlns:converters="clr-namespace:WpfApplication.ValueConverters"
+             xmlns:action="clr-namespace:WpfApplication">
+    <Grid x:Name="contentGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <commands:CustomerSearchData x:Key="CustomerSearchData" />
+            <converters:HelpdeskStatusConverter x:Key="HelpdeskStatusConverter" />
+        </Grid.Resources>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="Options:"/>
-                        <ComboBox Grid.Row="0" Grid.Column="1">
-                            <ComboBoxItem>Option 1</ComboBoxItem>
-                            <ComboBoxItem>Option 2</ComboBoxItem>
-                            <ComboBoxItem>Option 3</ComboBoxItem>
-                        </ComboBox>
+        <Label Grid.Row="0" Grid.Column="0" Content="Helpdesk Status:"/>
+        <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="{Binding Source={
+          StaticResource CustomerSearchData}, Path=Status, UpdateSourceTrigger=PropertyChanged,
+          Converter={StaticResource HelpdeskStatusConverter}
+        }">
+            <ComboBoxItem>Transmitted</ComboBoxItem>
+            <ComboBoxItem>Temporarily transmitted</ComboBoxItem>
+            <ComboBoxItem>Not transmitted</ComboBoxItem>
+        </ComboBox>
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
-                        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="Description:"/>
-                        <TextBox Grid.Row="2" Grid.Column="1"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Description:"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="descriptionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Description, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
-                        <TextBox Grid.Row="3" Grid.Column="1"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
 
-    <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=local:CustomerPage}}" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-</ResourceDictionary>
+        <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" ActionControls="{Binding ActionBar.ActionControls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
+    </Grid>
+</UserControl>

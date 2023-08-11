@@ -11,17 +11,17 @@ public class LowerActionBar : Control {
         new FrameworkPropertyMetadata(typeof(LowerActionBar)));
   }
 
-  public ObservableCollection<Control> Controls 
+  public ObservableCollection<Control> ActionControls 
   {
-    get { return (ObservableCollection<Control>)GetValue(ControlsProperty); }
-    set { SetValue(ControlsProperty, value); }
+    get { return (ObservableCollection<Control>)GetValue(ActionControlsProperty); }
+    set { SetValue(ActionControlsProperty, value); }
   }
 
-  public static readonly DependencyProperty ControlsProperty =
-    DependencyProperty.Register("Controls", typeof(ObservableCollection<Control>),
+  public static readonly DependencyProperty ActionControlsProperty =
+    DependencyProperty.Register("ActionControls", typeof(ObservableCollection<Control>),
         typeof(LowerActionBar), new PropertyMetadata(null));
 
   public LowerActionBar() : base() {
-    this.Controls = new ObservableCollection<Control>();
+    this.ActionControls = new ObservableCollection<Control>();
   }
 }
