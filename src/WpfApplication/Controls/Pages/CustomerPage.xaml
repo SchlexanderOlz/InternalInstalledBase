@@ -15,15 +15,16 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.Resources>
-            <commands:CustomerSearchData x:Key="CustomerSearchData" />
+            <commands:CustomerData x:Key="CustomerData" />
             <converters:HelpdeskStatusConverter x:Key="HelpdeskStatusConverter" />
         </Grid.Resources>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Helpdesk Status:"/>
         <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="{Binding Source={
-          StaticResource CustomerSearchData}, Path=Status, UpdateSourceTrigger=PropertyChanged,
+          StaticResource CustomerData}, Path=Status, UpdateSourceTrigger=PropertyChanged,
           Converter={StaticResource HelpdeskStatusConverter}
         }">
             <ComboBoxItem>Transmitted</ComboBoxItem>
@@ -32,15 +33,35 @@
         </ComboBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
-        <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerData}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Grid.Row="2" Grid.Column="0" Content="Description:"/>
-        <TextBox Grid.Row="2" Grid.Column="1" x:Name="descriptionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Description, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="descriptionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerData}, Path=Description, UpdateSourceTrigger=PropertyChanged}" />
 
         <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
-        <TextBox Grid.Row="3" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerSearchData}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerData}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
 
         <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" ActionControls="{Binding ActionBar.ActionControls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+        <DataGrid Grid.Column="2" Grid.RowSpan="5" x:Name="dataGrid" ItemsSource="{Binding Customers}"
+         AutoGenerateColumns="False">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
+            <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+            <DataGridTextColumn Header="Shortcut" Binding="{Binding Shortcut}" />
+            <DataGridTextColumn Header="Helpesk Status" Binding="{Binding DeskStatus}" />
+            <DataGridTemplateColumn Header="Actions">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                      <Button Content="Show Interests"/>
+                      <Button Content="Show Products" />
+                    </StackPanel>
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+          </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

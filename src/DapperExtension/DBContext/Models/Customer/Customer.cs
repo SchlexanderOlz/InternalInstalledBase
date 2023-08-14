@@ -9,6 +9,13 @@ public class Customer : Descriptable
   public ICollection<Product> Products { get; set; }
   public ICollection<SubjectArea> SubjectAreas { get; set; }
 
+  public Customer(string name, string description, string shortcut, HelpDeskStatus status)
+    : base(name, description, shortcut) {
+      this.DeskStatus = status;
+  }
+
+  internal Customer() : base() {}
+
   public override void Up(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<Customer>(entityBuilder =>

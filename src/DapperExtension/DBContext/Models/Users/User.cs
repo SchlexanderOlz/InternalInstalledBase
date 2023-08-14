@@ -5,7 +5,7 @@ using System.Text;
 
 public class User : IDataObject {
     public int? UserId { get; set; }
-    public string UserName {get; set; }
+    public string UserName { get; set; }
     public byte[] Password { get; set;}
     public UserType UserType { get; set; }
     public ICollection<Session> ?Sessions { get; set; }

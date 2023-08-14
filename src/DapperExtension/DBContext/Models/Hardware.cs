@@ -6,6 +6,9 @@ public class Hardware : Descriptable
     public uint Ip { get; set; }
     public ICollection<Product>? Products { get; set; }
 
+    public Hardware(string name, string description, string shortcut) : base(name, description, shortcut) {}
+    internal Hardware() : base() {}
+
     public override void Up(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Hardware>(entityBuilder =>

@@ -10,6 +10,9 @@ public class Product : Descriptable
   public ICollection<Customer> Customers { get; set; }
   public ICollection<Property> Properties { get; set; }
 
+  public Product(string name, string description, string shortcut) : base(name, description, shortcut) {}
+  internal Product() : base() {}
+
   public override void Up(ModelBuilder modelBuilder)
   {
     modelBuilder.Entity<Product>(entityBuilder =>

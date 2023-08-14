@@ -28,16 +28,13 @@ public class SearchCustomer : ICommand {
   }
 
   public void Execute(object param) {
-    CustomerSearchData? data = param as CustomerSearchData;
+    CustomerData? data = param as CustomerData;
     if (data == null) {
-      throw new InvalidOperationException($"Data passed was not {typeof(CustomerSearchData)}");
+      throw new InvalidOperationException($"Data passed was not {typeof(CustomerData)}");
     }
     ICollection<Customer> customers = this.dbConnection.GetCustomersByParam(
         data.Name, data.Shortcut, data.Description, data.Status); 
-    foreach (var customer in customers)
-    {
-      MessageBox.Show(customer.Name); 
-    }
+
     if (customers.Count > 0) {
       OnSearchResult(new SearchResultsInArgs(customers));
     }
