@@ -3,9 +3,12 @@ namespace WpfApplication.Pages;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Collections.ObjectModel;
+using System;
+using System.Windows;
 using DapperExtension.DBContext.Models.Users;
 using DataAccess;
 using DapperExtension.DBContext.Models;
+
 
 public partial class CustomerPage : UserControl {
 
@@ -31,4 +34,7 @@ public partial class CustomerPage : UserControl {
     // TODO: Load enum members dynamically through iteration -> Maybe create another table
   }
 
+  public void EditCell(object sender, DataGridCellEditEndingEventArgs args) {
+    this.dataContext.Edit.Execute(null);
+  }
 }

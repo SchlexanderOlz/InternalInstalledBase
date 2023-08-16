@@ -44,7 +44,7 @@
         <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" ActionControls="{Binding ActionBar.ActionControls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
         <DataGrid Grid.Column="2" Grid.RowSpan="5" x:Name="dataGrid" ItemsSource="{Binding Customers}"
-         AutoGenerateColumns="False">
+         AutoGenerateColumns="False" CellEditEnding="EditCell">
           <DataGrid.Columns>
             <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
             <DataGridTextColumn Header="Description" Binding="{Binding Description}" />

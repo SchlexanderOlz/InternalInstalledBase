@@ -8,26 +8,13 @@ using DapperExtension.DBContext.Models;
 using DapperExtension;
 
 
-public class SearchCustomer : ICommand {
-  private readonly DBInteraction dbConnection;
+public class SearchCustomer : DBCommand {
+  public event EventHandler<SearchResultsInArgs> SearchCustomerResultIn; 
 
-  public event EventHandler SearchCustomerResultIn; 
+  public SearchCustomer() : base() {}
 
-  public SearchCustomer() {
-    this.dbConnection = DBInteraction.GetInstance();
-  }
 
-  public bool CanExecute(object param) {
-    return true;
-  }
-
-  public event EventHandler CanExecuteChanged
-  {
-    add { CommandManager.RequerySuggested += value; }
-    remove { CommandManager.RequerySuggested -= value; }
-  }
-
-  public void Execute(object param) {
+  public override void Execute(object param) {
     CustomerData? data = param as CustomerData;
     if (data == null) {
       throw new InvalidOperationException($"Data passed was not {typeof(CustomerData)}");

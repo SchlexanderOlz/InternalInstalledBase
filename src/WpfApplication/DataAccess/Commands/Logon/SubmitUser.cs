@@ -6,20 +6,14 @@ using System.Windows;
 using DapperExtension;
 using DapperExtension.DBContext.Models.Users;
 
-public class SubmitUser : ICommand {
+public class SubmitUser : DBCommand {
 
   public event EventHandler LogonSuccess;
   public event EventHandler LogonFailure;
 
-  public SubmitUser() {
-  }
+  public SubmitUser() : base() {}
 
-  public bool CanExecute(object parameter)
-  {
-    return true;
-  }
-
-  public void Execute(object parameter)
+  public override void Execute(object parameter)
   {
     UserCredentials? logonData = parameter as UserCredentials;
     if (logonData == null) {
@@ -37,12 +31,6 @@ public class SubmitUser : ICommand {
     } else {
       OnLogonFailure();
     }
-  }
-
-  public event EventHandler CanExecuteChanged
-  {
-    add { CommandManager.RequerySuggested += value; }
-    remove { CommandManager.RequerySuggested -= value; }
   }
 
   protected virtual void OnLogonSuccess(LogonSuccessArgs args)

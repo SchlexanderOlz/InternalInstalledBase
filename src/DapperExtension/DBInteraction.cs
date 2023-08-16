@@ -19,6 +19,10 @@ public class DBInteraction
     this.context.Database.EnsureCreated();
   }
 
+  public void SaveChanges() {
+    this.context.SaveChanges();
+  }
+
   public static DBInteraction GetInstance() {
     if (DBInteraction.dbInteraction == null) {
       DBInteraction.dbInteraction = new(); 
