@@ -7,7 +7,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <local:UserNavBar x:Name="navBar" Grid.Row="0" Controls="{Binding NavBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <local:NavBar x:Name="navBar" Grid.Row="0" Controls="{Binding NavBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
     </Grid>
 </UserControl>
 

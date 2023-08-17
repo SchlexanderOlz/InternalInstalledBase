@@ -4,6 +4,7 @@ using DapperExtension.DBContext.Models.Users;
 using System.Windows.Controls;
 using System.Windows;
 using WpfApplication.Pages;
+using System;
 
 
 public partial class AdminContent : ModeratorContent {
@@ -17,8 +18,12 @@ public partial class AdminContent : ModeratorContent {
   }
 
   protected override void loadCustomerPage(object sender, RoutedEventArgs e) {
-    var page = new AdminCustomerPage(this.user);
+    AdminCustomerPage page = new AdminCustomerPage(this.user);
     appendToGrid(page);
-    page.InitializeComponent();
+    try {
+      page.InitializeComponent();
+    } catch (Exception ex) {
+      MessageBox.Show(ex.ToString());
+    }
   }
 }

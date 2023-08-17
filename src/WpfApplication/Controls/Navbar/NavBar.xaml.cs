@@ -4,14 +4,13 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Collections.ObjectModel;
 
-public class UserNavBar : Control {
+public class NavBar : Control {
   
-  static UserNavBar() {
-    DefaultStyleKeyProperty.OverrideMetadata(typeof(UserNavBar),
-        new FrameworkPropertyMetadata(typeof(UserNavBar)));
+  static NavBar() {
+    DefaultStyleKeyProperty.OverrideMetadata(typeof(NavBar),
+        new FrameworkPropertyMetadata(typeof(NavBar)));
   }
 
-  // Contains Controls between which the user can switch
   public ObservableCollection<Control> Controls 
   {
     get { return (ObservableCollection<Control>)GetValue(ControlsProperty); }
@@ -20,9 +19,9 @@ public class UserNavBar : Control {
 
   public static readonly DependencyProperty ControlsProperty =
     DependencyProperty.Register("Controls", typeof(ObservableCollection<Control>),
-        typeof(UserNavBar), new PropertyMetadata(null));
+        typeof(NavBar), new PropertyMetadata(null));
 
-  public UserNavBar() : base() {
+  public NavBar() : base() {
     this.Controls = new ObservableCollection<Control>();
   }
 }

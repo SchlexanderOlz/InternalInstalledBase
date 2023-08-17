@@ -111,6 +111,12 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
 }
 
   #endregion
+  #region DeleteQueries
+  public void DeleteCustomers(ICollection<Customer> customers) {
+    this.context.Customers.RemoveRange(customers); 
+    this.SaveChanges();
+  }
+  #endregion
 
   private void isDecriptableSimilar<T>(ref IQueryable<T> query, string? name,
                                     string? shortcut, string? description)

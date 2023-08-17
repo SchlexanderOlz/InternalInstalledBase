@@ -6,8 +6,7 @@
     <Application.Resources>
       <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
-            <ResourceDictionary Source="Controls/Navbars/UserNavBar.xaml" />
-            <ResourceDictionary Source="Controls/Navbars/LowerActionBar.xaml" />
+            <ResourceDictionary Source="Controls/Navbar/NavBar.xaml" />
         </ResourceDictionary.MergedDictionaries>
       </ResourceDictionary>        
     </Application.Resources>

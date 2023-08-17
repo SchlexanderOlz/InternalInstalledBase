@@ -4,10 +4,11 @@ using System.Windows.Controls;
 using System.Windows;
 using DapperExtension.DBContext.Models.Users;
 using WpfApplication.Pages;
+using System;
 
 
 public partial class UserContent : UserControl {
-  public UserNavBar NavBar { get; set; }
+  public NavBar NavBar { get; set; }
   protected User user;
 
   public UserContent(User user) : base() {
@@ -38,7 +39,7 @@ public partial class UserContent : UserControl {
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
-    var page = new CustomerPage(this.user);
+    CustomerPage page = new CustomerPage(this.user);
     appendToGrid(page);
     page.InitializeComponent();
   }

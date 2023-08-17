@@ -7,34 +7,47 @@ using System;
 using System.Windows;
 using DapperExtension.DBContext.Models.Users;
 using DataAccess;
+using DataAccess.Commands;
 using DapperExtension.DBContext.Models;
 
 
 public partial class CustomerPage : UserControl {
 
-  public LowerActionBar ActionBar { get; set; }
-  public Button SearchButton { get; set; }
-  public Button BackButton { get; set; }
+  public NavBar ActionBar { get; set; }
+  public CustomerExcelLikeGrid DataGrid { get; }
   protected readonly CustomerPageData dataContext;
   
   public CustomerPage(User user) : base() {
-    this.ActionBar = new();
-    this.ActionBar.DataContext = this;
+    this.InitializeComponent();
     this.dataContext = new();
     this.DataContext = this.dataContext;
 
-    this.SearchButton = new Button { Content = "Search", Command = this.dataContext.SearchCustomer};
-    this.BackButton = new Button { Content = "Back" };
+    this.ActionBar = new();
+    this.DataGrid = new(this.dataContext.Customers);
+    this.DataGrid.MakeReadOnly();
+    this.appendToGrid(this.DataGrid);
 
-    this.SearchButton.SetResourceReference(Button.CommandParameterProperty, "CustomerData");
+    this.dataContext.SearchCustomer.Execute(new CustomerData {});
+    this.ActionBar.DataContext = this;
 
-    this.ActionBar.ActionControls.Add(this.BackButton);
-    this.ActionBar.ActionControls.Add(this.SearchButton);
+    var searchButton = new Button { Content = "Search", Command = this.dataContext.SearchCustomer};
+    var backButton = new Button { Content = "Back" };
+    var saveButton = new Button { Content = "Save", Command = this.dataContext.Edit};
+
+    searchButton.SetResourceReference(Button.CommandParameterProperty, "CustomerData");
+
+    this.ActionBar.Controls.Add(backButton);
+    this.ActionBar.Controls.Add(searchButton);
+    this.ActionBar.Controls.Add(saveButton);
 
     // TODO: Load enum members dynamically through iteration -> Maybe create another table
   }
 
-  public void EditCell(object sender, DataGridCellEditEndingEventArgs args) {
+  protected void appendToGrid(Control element) {
+    this.contentGrid.Children.Add(element);
+  }
+
+  public void EditCell(object sender, EventArgs args) {
     this.dataContext.Edit.Execute(null);
   }
 }

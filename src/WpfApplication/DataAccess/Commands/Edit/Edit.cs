@@ -10,7 +10,7 @@ public class Edit : DBCommand {
   
   public Edit() : base() {}
 
-  public override void Execute(object param) {
+  public override void Execute(object? param) {
     this.dbConnection.SaveChanges();
   }
   

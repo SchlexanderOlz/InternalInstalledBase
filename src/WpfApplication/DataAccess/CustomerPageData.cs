@@ -7,8 +7,8 @@ using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
 using System.Windows;
 
-public class CustomerPageData : IPageData {
-
+public class CustomerPageData : IPageData 
+{
   public SearchCustomer SearchCustomer { get; set; } 
   public AddCustomer AddCustomer { get; set; }
   public Edit Edit { get; set; }

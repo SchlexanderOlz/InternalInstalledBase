@@ -41,27 +41,8 @@
         <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
         <TextBox Grid.Row="3" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource CustomerData}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
 
-        <action:LowerActionBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" ActionControls="{Binding ActionBar.ActionControls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <action:NavBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
 
-        <DataGrid Grid.Column="2" Grid.RowSpan="5" x:Name="dataGrid" ItemsSource="{Binding Customers}"
-         AutoGenerateColumns="False" CellEditEnding="EditCell">
-          <DataGrid.Columns>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}" />
-            <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-            <DataGridTextColumn Header="Shortcut" Binding="{Binding Shortcut}" />
-            <DataGridTextColumn Header="Helpesk Status" Binding="{Binding DeskStatus}" />
-            <DataGridTemplateColumn Header="Actions">
-              <DataGridTemplateColumn.CellTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                      <Button Content="Show Interests"/>
-                      <Button Content="Show Products" />
-                    </StackPanel>
-                </DataTemplate>
-              </DataGridTemplateColumn.CellTemplate>
-            </DataGridTemplateColumn>
-          </DataGrid.Columns>
-        </DataGrid>
 
     </Grid>
 </UserControl>
