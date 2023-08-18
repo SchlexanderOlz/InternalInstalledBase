@@ -108,7 +108,12 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     }
 
     return query.ToList();
-}
+  }
+
+  public ICollection<Product> GetProductsByParam(string? name, string? shortcut,
+    string? description, Hardware? hardware, Software? software) {
+
+  }
 
   #endregion
   #region DeleteQueries

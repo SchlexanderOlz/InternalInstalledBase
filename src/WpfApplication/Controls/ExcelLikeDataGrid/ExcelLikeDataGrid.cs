@@ -40,5 +40,13 @@ public class ExcelLikeDataGrid<T> : UserControl
 
     }
 
+    public void MakeReadOnly() {
+      this.dataGrid.IsReadOnly = true;
+    }
+
+    public void MakeWritable() {
+      this.dataGrid.IsReadOnly = false;
+    }
+
     static ExcelLikeDataGrid() {}
 }

@@ -8,8 +8,7 @@ using DapperExtension.DBContext.Models;
 using DapperExtension;
 
 
-public class AddCustomer : DBCommand {
-  public event EventHandler<ErrorEventArgs> AddFailed;
+public class AddCustomer : AddCommand {
   public AddCustomer() : base() {}
 
   public override void Execute(object param) {
@@ -37,7 +36,4 @@ public class AddCustomer : DBCommand {
           customerData.Description, customerData.Shortcut, customerData.Status));
   }
 
-  protected virtual void OnAddFailed(ErrorEventArgs e) {
-    AddFailed?.Invoke(this, e); 
-  }
 }

@@ -1,7 +1,6 @@
 namespace DapperExtension.DBContext.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 public class Product : Descriptable
 {
   public int ProductId { get; set; }

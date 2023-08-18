@@ -35,13 +35,5 @@ public class CustomerExcelLikeGrid : ExcelLikeDataGrid<Customer>
         this.dataGrid.Columns.Add(actionsColumn);
   }
 
-  public void MakeReadOnly() {
-    this.dataGrid.IsReadOnly = true;
-  }
-
-  public void MakeWritable() {
-    this.dataGrid.IsReadOnly = false;
-  }
-
   static CustomerExcelLikeGrid() {}
 }

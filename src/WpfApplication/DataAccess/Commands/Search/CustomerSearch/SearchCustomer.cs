@@ -1,18 +1,13 @@
 namespace DataAccess.Commands;
 
-using System.Windows.Input;
-using System.Windows;
 using System;
 using System.Collections.Generic;
 using DapperExtension.DBContext.Models;
-using DapperExtension;
 
 
-public class SearchCustomer : DBCommand {
-  public event EventHandler<SearchResultsInArgs> SearchCustomerResultIn; 
+public class SearchCustomer : SearchCommand<Customer> {
 
   public SearchCustomer() : base() {}
-
 
   public override void Execute(object param) {
     CustomerData? data = param as CustomerData;
@@ -23,11 +18,8 @@ public class SearchCustomer : DBCommand {
         data.Name, data.Shortcut, data.Description, data.Status); 
 
     if (customers.Count > 0) {
-      OnSearchResult(new SearchResultsInArgs(customers));
+      OnSearchResult(new SearchResults<Customer>(customers));
     }
   }
 
-  protected virtual void OnSearchResult(SearchResultsInArgs args) {
-    SearchCustomerResultIn?.Invoke(this, args); 
-  }
 }

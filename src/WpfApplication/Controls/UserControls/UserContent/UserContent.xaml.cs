@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using System.Windows;
 using DapperExtension.DBContext.Models.Users;
 using WpfApplication.Pages;
-using System;
 
 
 public partial class UserContent : UserControl {
@@ -14,7 +13,7 @@ public partial class UserContent : UserControl {
   public UserContent(User user) : base() {
     this.user = user;
     var customerButton = new Button { Content = "Customers" };
-    var productButton = new Button { Content = "Content" };
+    var productButton = new Button { Content = "Products" };
     var hardwareButton = new Button { Content = "Hardware" };
     var softwareButton = new Button { Content = "Software" };
     this.NavBar = new();
