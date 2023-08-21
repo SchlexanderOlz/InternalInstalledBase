@@ -32,9 +32,6 @@ public partial class UserContent : UserControl {
     Grid.SetRow(element, 6);
     Grid.SetColumn(element, 1);
     this.userContent.Content = element;
-    // Grid grid = (Grid)this.Content;
-    // Grid.SetRow(element, 1);
-    // grid.Children.Add(element);
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
@@ -48,7 +45,8 @@ public partial class UserContent : UserControl {
   }
 
   protected virtual void loadHardwarePage(object sender, RoutedEventArgs e) {
-
+    HardwarePage page = new HardwarePage(this.user);
+    appendToGrid(page);
   }
 
   protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e) {

@@ -6,7 +6,12 @@ public class Hardware : Descriptable
     public uint Ip { get; set; }
     public ICollection<Product>? Products { get; set; }
 
-    public Hardware(string name, string description, string shortcut) : base(name, description, shortcut) {}
+    public Hardware(string name, string description, string shortcut, uint ip, uint materialNumber)
+      : base(name, description, shortcut)
+    {
+      this.Ip = ip;
+      this.MaterialNumber = materialNumber;
+    }
     internal Hardware() : base() {}
 
     public override void Up(ModelBuilder modelBuilder)

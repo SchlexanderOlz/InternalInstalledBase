@@ -2,8 +2,6 @@
 
 using DapperExtension.DBContext;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Cryptography;
-using System.Text;
 using System;
 using DBContext.Models.Users;
 using DBContext.Models;
@@ -88,7 +86,7 @@ public class DBInteraction
       uint? versionNumber)
   {
     IQueryable<Software> query = this.context.Software.AsQueryable();
-    isDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
 
     if (versionNumber.HasValue) {
       query.Where(software => software.Version == versionNumber);
@@ -101,7 +99,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
 {
     IQueryable<Customer> query = this.context.Customers.AsQueryable();
 
-    isDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
     if (status.HasValue)
     {
         query = query.Where(customer => customer.DeskStatus == status);
@@ -114,7 +112,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     string? description, Hardware? hardware, Software? software) {
 
     IQueryable<Product> query = this.context.Products.AsQueryable();
-    isDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
     if (hardware != null)
     {
       query = query.Where(product => product.Hardware == hardware);
@@ -127,6 +125,26 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     return query.ToList();
   }
 
+  public ICollection<Hardware> GetHardwareByParam(string? name, string? shortcut,
+    string? description, uint? ip, uint? materialNumber) {
+
+    IQueryable<Hardware> query = this.context.Hardware.AsQueryable();
+    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
+    if (ip != null)
+    {
+      query = query.Where(hardware => hardware.Ip == ip);
+    }
+
+    if (materialNumber != null)
+    {
+      query = query.Where(hardware => hardware.MaterialNumber == materialNumber);
+    }
+
+    return query.ToList();
+  }
+
+
+
   #endregion
   #region DeleteQueries
   public void DeleteCustomers(ICollection<Customer> customers) {
@@ -135,7 +153,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   }
   #endregion
 
-  private void isDecriptableSimilar<T>(ref IQueryable<T> query, string? name,
+  private void buildQueryDecriptableSimilar<T>(ref IQueryable<T> query, string? name,
                                     string? shortcut, string? description)
   where T : Descriptable
   {
