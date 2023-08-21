@@ -5,7 +5,7 @@ using DapperExtension.DBContext.Models;
 
 public class ProductPageData : PageData<Product> 
 {
-  public CustomerPageData() : base(new SaveProduct(), new AddProduct(),
+  public ProductPageData() : base(new Save(), new AddProduct(),
       new SearchProduct())
   {
 

@@ -25,26 +25,26 @@ public partial class UserContent : UserControl {
     customerButton.Click += loadCustomerPage;
     productButton.Click += loadProductPage;
     hardwareButton.Click += loadHardwarePage;
-    softwareButton.Click += loadSoftwarePage;
+    softwareButton.Click += loadSoftwarePage; 
   }
 
-  protected void appendToGrid(Control element) {
-    Grid? grid = this.Content as Grid;
-    if (grid == null) {
-      return;
-    }
-    Grid.SetRow(element, 1);
-    grid.Children.Add(element);
+  protected void appendToGrid(UserControl element) {
+    Grid.SetRow(element, 6);
+    Grid.SetColumn(element, 1);
+    this.userContent.Content = element;
+    // Grid grid = (Grid)this.Content;
+    // Grid.SetRow(element, 1);
+    // grid.Children.Add(element);
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
     CustomerPage page = new CustomerPage(this.user);
     appendToGrid(page);
-    page.InitializeComponent();
   }
 
   protected virtual void loadProductPage(object sender, RoutedEventArgs e) {
-
+    ProductPage page = new ProductPage(this.user);
+    appendToGrid(page);
   }
 
   protected virtual void loadHardwarePage(object sender, RoutedEventArgs e) {

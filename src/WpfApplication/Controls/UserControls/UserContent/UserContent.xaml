@@ -8,6 +8,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <local:NavBar x:Name="navBar" Grid.Row="0" Controls="{Binding NavBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+        <UserControl x:Name="userContent" Grid.Row="1" />
     </Grid>
 </UserControl>
 

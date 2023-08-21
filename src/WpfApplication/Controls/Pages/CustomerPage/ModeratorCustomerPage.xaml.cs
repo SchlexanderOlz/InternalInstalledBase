@@ -6,7 +6,7 @@ using System.Windows.Controls;
 public partial class ModeratorCustomerPage : CustomerPage {
 
   public ModeratorCustomerPage(User user) : base(user) {
-    Button addButton = new Button { Content = "Add", Command = this.dataContext.AddCustomer };
+    Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
 
     this.ActionBar.Controls.Add(addButton);
     this.DataGrid.MakeWritable();

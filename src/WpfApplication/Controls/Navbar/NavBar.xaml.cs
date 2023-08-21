@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Collections.ObjectModel;
 
-public class NavBar : Control {
+public class NavBar : ContentControl {
   
   static NavBar() {
     DefaultStyleKeyProperty.OverrideMetadata(typeof(NavBar),

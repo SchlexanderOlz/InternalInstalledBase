@@ -7,13 +7,9 @@ using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
 
 
-public class CustomerExcelLikeGrid : ExcelLikeDataGrid<Customer>
+public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer> 
 {
   public CustomerExcelLikeGrid(ObservableCollection<Customer> itemSource) : base(itemSource) {
-        this.dataGrid.ItemsSource = itemSource;
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Name", Binding = new Binding("Name") });
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Description", Binding = new Binding("Description") });
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Shortcut", Binding = new Binding("Shortcut") });
         this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Helpdesk Status", Binding = new Binding("DeskStatus") });
 
         var actionsColumn = new DataGridTemplateColumn { Header = "Actions" };

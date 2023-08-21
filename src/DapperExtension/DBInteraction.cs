@@ -113,6 +113,18 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   public ICollection<Product> GetProductsByParam(string? name, string? shortcut,
     string? description, Hardware? hardware, Software? software) {
 
+    IQueryable<Product> query = this.context.Products.AsQueryable();
+    isDecriptableSimilar(ref query, name, shortcut, description);
+    if (hardware != null)
+    {
+      query = query.Where(product => product.Hardware == hardware);
+    }
+
+    if (software != null)
+    {
+      query = query.Where(product => product.Software == software);
+    }
+    return query.ToList();
   }
 
   #endregion

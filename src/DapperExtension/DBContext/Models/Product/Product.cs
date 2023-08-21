@@ -6,10 +6,15 @@ public class Product : Descriptable
   public int ProductId { get; set; }
   public Software Software { get; set; }
   public Hardware Hardware { get; set; }
-  public ICollection<Customer> Customers { get; set; }
-  public ICollection<Property> Properties { get; set; }
+  public ICollection<Customer>? Customers { get; set; }
+  public ICollection<Property>? Properties { get; set; }
 
-  public Product(string name, string description, string shortcut) : base(name, description, shortcut) {}
+  public Product(string name, string description, string shortcut, Hardware hardware,
+      Software software) : base(name, description, shortcut)
+  {
+    this.Software = software;
+    this.Hardware = hardware;
+  }
   internal Product() : base() {}
 
   public override void Up(ModelBuilder modelBuilder)

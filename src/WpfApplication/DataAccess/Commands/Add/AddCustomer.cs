@@ -1,17 +1,12 @@
 namespace DataAccess.Commands;
 
-using System.Windows.Input;
-using System.Windows;
-using System;
-using System.Collections.Generic;
 using DapperExtension.DBContext.Models;
-using DapperExtension;
 
 
 public class AddCustomer : AddCommand {
   public AddCustomer() : base() {}
 
-  public override void Execute(object param) {
+  public override void Execute(object? param) {
     CustomerData? customerData = param as CustomerData;
     if (customerData == null) {
       OnAddFailed(new ErrorEventArgs($"Data passed to Execute was not typeof {typeof(CustomerData)}"));
