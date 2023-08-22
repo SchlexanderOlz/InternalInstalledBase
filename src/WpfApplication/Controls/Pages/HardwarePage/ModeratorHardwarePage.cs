@@ -9,6 +9,7 @@ public partial class ModeratorHardwarePage : HardwarePage {
     Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
 
     this.ActionBar.Controls.Add(addButton);
+    this.DataGrid.DeleteEntry += deleteEntry;
     this.DataGrid.MakeWritable();
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
   }

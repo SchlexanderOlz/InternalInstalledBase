@@ -4,3 +4,4 @@ bin/
 .vscode
 .log
 .vs
+neovide_backtraces.log

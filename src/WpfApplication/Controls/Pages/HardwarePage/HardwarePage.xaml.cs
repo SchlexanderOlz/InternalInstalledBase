@@ -15,8 +15,6 @@ public partial class HardwarePage : ContentPage<Hardware> {
     Grid.SetRow(this.DataGrid, 0);
     Grid.SetColumn(this.DataGrid, 3);
     Grid.SetRowSpan(this.DataGrid, 5);
-
-    this.DataGrid.DeleteEntry += deleteEntry;
     this.contentGrid.Children.Add(this.DataGrid);
 
     this.dataContext.Search.Execute(new HardwareData{});

@@ -5,6 +5,8 @@ using System.Windows.Data;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
+using WpfApplication.Pages;
+using System;
 
 
 public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer> 
@@ -24,11 +26,40 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 
         var showProductsButtonFactory = new FrameworkElementFactory(typeof(Button));
         showProductsButtonFactory.SetValue(Button.ContentProperty, "Show Products");
+        showProductsButtonFactory.AddHandler(Button.ClickEvent,
+            new RoutedEventHandler(loadProductList));
+
         stackPanelFactory.AppendChild(showProductsButtonFactory);
 
         actionsColumn.CellTemplate.VisualTree = stackPanelFactory;
 
         this.dataGrid.Columns.Add(actionsColumn);
+  }
+
+  protected void loadProductList(object sender, RoutedEventArgs e)
+  {
+    Button? button = sender as Button;
+    if (button == null)
+    {
+      return;
+    }
+
+    Customer? customer = button?.DataContext as Customer;
+    if (customer == null)
+    {
+      return;
+    }
+    
+    ObservableCollection<Product> data;
+    if (customer.Products == null)
+    {
+      data = new();
+    } else
+    {
+      data = new(customer.Products);
+    }
+    ProductDataGridWindow gridWindow = new(new ObservableCollection<Product>());
+    gridWindow.Show();
   }
 
   static CustomerExcelLikeGrid() {}

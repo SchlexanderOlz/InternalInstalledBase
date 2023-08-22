@@ -12,10 +12,10 @@ public partial class UserContent : UserControl {
 
   public UserContent(User user) : base() {
     this.user = user;
-    var customerButton = new Button { Content = "Customers" };
-    var productButton = new Button { Content = "Products" };
-    var hardwareButton = new Button { Content = "Hardware" };
-    var softwareButton = new Button { Content = "Software" };
+    Button customerButton = new Button { Content = "Customers" };
+    Button productButton = new Button { Content = "Products" };
+    Button hardwareButton = new Button { Content = "Hardware" };
+    Button softwareButton = new Button { Content = "Software" };
     this.NavBar = new();
     this.NavBar.Controls.Add(customerButton);
     this.NavBar.Controls.Add(productButton);

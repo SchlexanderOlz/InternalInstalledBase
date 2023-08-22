@@ -4,7 +4,6 @@ using System.Windows.Controls;
 using DataAccess;
 using System;
 using System.Collections.Generic;
-using DapperExtension.DBContext.Models;
 
 public abstract class ContentPage<T> : UserControl {
   public NavBar ActionBar { get; set; }

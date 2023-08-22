@@ -31,8 +31,8 @@ public abstract class PageData<T> {
 
   private void displaySearch(object? sender, SearchResults<T> args) {
     this.GridData.Clear();
-    foreach(var customer in args.Data) {
-      this.GridData.Add(customer);
+    foreach(var data in args.Data) {
+      this.GridData.Add(data);
     }
   }
 }

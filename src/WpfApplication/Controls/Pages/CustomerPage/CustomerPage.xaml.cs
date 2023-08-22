@@ -16,7 +16,6 @@ public partial class CustomerPage : ContentPage<Customer> {
     this.contentGrid.Children.Add(this.DataGrid);
 
     this.dataContext.Search.Execute(new CustomerData {});
-    // TODO: Load enum members dynamically through iteration -> Maybe create another table
   }
 
 }
