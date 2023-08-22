@@ -7,6 +7,22 @@ using System.Globalization;
 public class IpConverter : IValueConverter {
 
   public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+    if (value is uint ipAddr)
+    {
+      string ipString = "";
+      while (ipAddr != 0)
+      {
+        byte right = (byte)(ipAddr & 0xFF);
+        ipString = right + (ipString.Length > 0 ? "." : "") + ipString;
+        ipAddr >>= 8;
+      }
+      return ipString;
+    }
+   return Binding.DoNothing;
+  }
+
+  public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+  {
     if (value is string ipString) 
     {
       string[] addrParts = ipString.Split("."); 
@@ -28,22 +44,6 @@ public class IpConverter : IValueConverter {
         ipInt = (ipInt << 8) | num;
       }
       return ipInt;
-    }
-    return Binding.DoNothing;
-  }
-
-  public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-  {
-    if (value is uint ipAddr)
-    {
-      string ipString = "";
-      while (ipAddr != 0)
-      {
-        byte right = (byte)(ipAddr & 0xFF);
-        ipString = right + (ipString.Length > 0 ? "." : "") + ipString;
-        ipAddr >>= 8;
-      }
-      return ipString;
     }
     return Binding.DoNothing;
   }

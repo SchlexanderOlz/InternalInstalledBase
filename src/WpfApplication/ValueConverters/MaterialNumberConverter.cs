@@ -7,18 +7,22 @@ using System.Globalization;
 public class MaterialNumberConverter : IValueConverter {
 
   public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-    if (value is string materialString) 
+    if (value is uint materialNumber)
     {
-      return uint.Parse(materialString);
+      return materialNumber.ToString();
     }
     return Binding.DoNothing;
   }
 
   public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
   {
-    if (value is uint materialNumber)
+    if (value is string materialString) 
     {
-      return materialNumber.ToString();
+      try {
+        return uint.Parse(materialString);
+      } catch (Exception) {
+        return Binding.DoNothing;
+      }
     }
     return Binding.DoNothing;
   }
