@@ -3,6 +3,8 @@ namespace WpfApplication.Pages;
 using System.Windows.Controls;
 using DataAccess;
 using System;
+using System.Collections.Generic;
+using DapperExtension.DBContext.Models;
 
 public abstract class ContentPage<T> : UserControl {
   public NavBar ActionBar { get; set; }
@@ -26,7 +28,12 @@ public abstract class ContentPage<T> : UserControl {
     this.ActionBar.Controls.Add(saveButton);
   }
 
-  public void EditCell(object sender, EventArgs args) {
+  public void EditCell(object? sender, EventArgs args) {
     this.dataContext.Save.Execute(null);
+  }
+
+  protected void deleteEntry(object? sender, ICollection<T> deleted)
+  {
+    this.dataContext.Delete.Execute(deleted);
   }
 }

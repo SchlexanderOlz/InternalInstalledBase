@@ -10,7 +10,9 @@ public partial class ModeratorCustomerPage : CustomerPage {
 
     this.ActionBar.Controls.Add(addButton);
     this.DataGrid.MakeWritable();
+    this.DataGrid.DeleteEntry += deleteEntry;
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
   }
+
 }
 

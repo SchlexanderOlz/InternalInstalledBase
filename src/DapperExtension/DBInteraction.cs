@@ -51,6 +51,11 @@ public class DBInteraction
     this.context.Customers.Add(customer);
     this.context.SaveChanges();
   }
+
+  public void InsertSoftware(Software software) {
+    this.context.Software.Add(software);
+    this.context.SaveChanges();
+  }
   #endregion
 
   #region SelectStatements
@@ -149,6 +154,26 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   #region DeleteQueries
   public void DeleteCustomers(ICollection<Customer> customers) {
     this.context.Customers.RemoveRange(customers); 
+    this.SaveChanges();
+  }
+  
+  public void DeleteHardware(ICollection<Hardware> hardware) {
+    this.context.Hardware.RemoveRange(hardware);
+    this.SaveChanges();
+  }
+
+  public void DeleteProducts(ICollection<Product> products) {
+    this.context.Products.RemoveRange(products);
+    this.SaveChanges();
+  }
+
+  public void DeleteUsers(ICollection<User> users) {
+    this.context.Users.RemoveRange(users);
+    this.SaveChanges();
+  }
+
+  public void DeleteSoftware(ICollection<Software> software) {
+    this.context.Software.RemoveRange(software);
     this.SaveChanges();
   }
   #endregion

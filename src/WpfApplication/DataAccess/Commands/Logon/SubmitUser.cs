@@ -8,7 +8,7 @@ using DapperExtension.DBContext.Models.Users;
 
 public class SubmitUser : DBCommand {
 
-  public event EventHandler LogonSuccess;
+  public event EventHandler<LogonSuccessArgs> LogonSuccess;
   public event EventHandler LogonFailure;
 
   public SubmitUser() : base() {}

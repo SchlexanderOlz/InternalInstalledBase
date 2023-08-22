@@ -7,7 +7,11 @@ public class Software : Descriptable
     public uint Version { get; set; }
     public ICollection<Product> Products { get; set; }
 
-    public Software(string name, string description, string shortcut) : base(name, description, shortcut) {}
+    public Software(string name, string description, string shortcut, uint version)
+      : base(name, description, shortcut)
+    {
+      this.Version = version;
+    }
 
     internal Software() : base() {}
 

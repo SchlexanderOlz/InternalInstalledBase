@@ -1,0 +1,41 @@
+<local:ContentPage x:Class="WpfApplication.Pages.SoftwarePage"
+             x:TypeArguments="models:Software"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:models="clr-namespace:DapperExtension.DBContext.Models"
+             xmlns:local="clr-namespace:WpfApplication.Pages"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:action="clr-namespace:WpfApplication"
+             xmlns:commands="clr-namespace:DataAccess.Commands">
+    <Grid x:Name="contentGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <commands:SoftwareData x:Key="Data" />
+        </Grid.Resources>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Description:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="descriptionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Description, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="Shortcut:"/>
+        <TextBox Grid.Row="2" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="3" Grid.Column="0" Content="Version:"/>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="versionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Version, UpdateSourceTrigger=PropertyChanged}" />
+
+        <action:NavBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+    </Grid>
+</local:ContentPage>

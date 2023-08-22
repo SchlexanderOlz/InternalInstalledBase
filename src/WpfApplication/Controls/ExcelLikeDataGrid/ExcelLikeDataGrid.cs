@@ -3,14 +3,17 @@ namespace WpfApplication;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using DapperExtension.DBContext.Models;
 using DapperExtension;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 public class ExcelLikeDataGrid<T> : UserControl
 {
     protected DataGrid dataGrid;
     protected DBInteraction dbConnection;
+    public event EventHandler<ICollection<T>>? DeleteEntry;
+
     public ExcelLikeDataGrid(ObservableCollection<T> itemSource) : base()
     {
       this.dataGrid = new DataGrid
@@ -27,6 +30,11 @@ public class ExcelLikeDataGrid<T> : UserControl
       this.dataGrid.PreviewKeyDown += this.keyDown;
     }
 
+    protected void OnDeleteEntry(ICollection<T> deleted)
+    {
+      this.DeleteEntry?.Invoke(this, deleted);
+    }
+
     private void keyDown(object sender, KeyEventArgs e) {
       if (this.dataGrid.IsReadOnly) {
         return;
@@ -34,7 +42,7 @@ public class ExcelLikeDataGrid<T> : UserControl
 
       if (e.Key == Key.Delete)
       {
-        this.dbConnection.DeleteCustomers(this.dataGrid.SelectedItems.Cast<Customer>().ToList());
+        this.OnDeleteEntry(this.dataGrid.SelectedItems.Cast<T>().ToList());
         return;
       }
 

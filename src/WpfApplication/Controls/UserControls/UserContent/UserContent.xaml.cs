@@ -50,6 +50,7 @@ public partial class UserContent : UserControl {
   }
 
   protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e) {
-
+    SoftwarePage page = new SoftwarePage(this.user);
+    appendToGrid(page);
   }
 }

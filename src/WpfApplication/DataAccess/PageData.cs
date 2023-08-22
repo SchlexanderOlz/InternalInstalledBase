@@ -9,13 +9,16 @@ public abstract class PageData<T> {
   public ICommand Save { get; set; }
   public ICommand Add { get; set; }
   public ICommand Search { get; set; }
+  public ICommand Delete { get; set; }
   public ObservableCollection<T> GridData { get; set; } 
 
-  public PageData(ICommand save, AddCommand add, SearchCommand<T> search)
+  public PageData(ICommand save, AddCommand add, SearchCommand<T> search,
+      ICommand delete)
   {
     this.Save = save;
     this.Add = add;
     this.Search = search;
+    this.Delete = delete;
 
     search.SearchResultIn += displaySearch; 
     add.AddFailed += displayError;
