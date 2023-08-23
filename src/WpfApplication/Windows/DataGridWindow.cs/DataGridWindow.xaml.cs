@@ -2,11 +2,10 @@ namespace WpfApplication;
 
 using System.Windows;
 using DataAccess;
-using System.Collections.Generic;
 using System.Windows.Controls;
 
 
-public partial class DataGridWindow<T> : Window
+public abstract partial class DataGridWindow<T> : Window
 {
   protected PageData<T> dataContext;
 
@@ -14,7 +13,10 @@ public partial class DataGridWindow<T> : Window
   {
     this.dataContext = pageData;
     NavBar navBar = new();
-    Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
+
+    // Load the other page here instead
+    Button addButton = new Button { Content = "Add" };
+    addButton.Click += loadAddSearchPage;
     navBar.Controls.Add(addButton);
 
     grid.MakeReadOnly();
@@ -26,4 +28,6 @@ public partial class DataGridWindow<T> : Window
 
     this.Content = dockPanel;
   }
+
+  protected abstract void loadAddSearchPage(object sender, RoutedEventArgs e); 
 }

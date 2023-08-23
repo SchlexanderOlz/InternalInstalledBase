@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
 using WpfApplication.Pages;
-using System;
 
 
 public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer> 
@@ -22,6 +21,9 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 
         var showInterestsButtonFactory = new FrameworkElementFactory(typeof(Button));
         showInterestsButtonFactory.SetValue(Button.ContentProperty, "Show Interests");
+        showInterestsButtonFactory.AddHandler(Button.ClickEvent,
+            new RoutedEventHandler(loadSubjectAreaList));
+
         stackPanelFactory.AppendChild(showInterestsButtonFactory);
 
         var showProductsButtonFactory = new FrameworkElementFactory(typeof(Button));
@@ -58,8 +60,35 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     {
       data = new(customer.Products);
     }
-    ProductDataGridWindow gridWindow = new(new ObservableCollection<Product>());
+    ProductDataGridWindow gridWindow = new(customer, data);
     gridWindow.Show();
+  }
+
+  private void loadSubjectAreaList(object sender, RoutedEventArgs e)
+  {
+    Button? button = sender as Button;
+    if (button == null)
+    {
+      return;
+    }
+
+    Customer? customer = button?.DataContext as Customer;
+    if (customer == null)
+    {
+      return;
+    }
+    
+    ObservableCollection<SubjectArea> data;
+    if (customer.Products == null)
+    {
+      data = new();
+    } else
+    {
+      data = new(customer.SubjectAreas);
+    }
+    SubjectAreaAddSearch gridWindow = new(customer);
+    gridWindow.Show();
+
   }
 
   static CustomerExcelLikeGrid() {}

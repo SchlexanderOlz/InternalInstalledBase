@@ -35,6 +35,12 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
+  public void InsertSubjectArea(SubjectArea subjectArea)
+  {
+    this.context.SubjectAreas.Add(subjectArea);
+    this.context.SaveChanges();
+  }
+
   public void InsertHardware(Hardware hardware)
   {
     this.context.Hardware.Add(hardware);
@@ -113,6 +119,19 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     return query.ToList();
   }
 
+
+  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name) {
+
+    IQueryable<SubjectArea> query = this.context.SubjectAreas.AsQueryable();
+
+    if (name != null)
+    {
+      query = query.Where(subjectArea => subjectArea.Name == name);
+    }
+    return query.ToList();
+  }
+
+
   public ICollection<Product> GetProductsByParam(string? name, string? shortcut,
     string? description, Hardware? hardware, Software? software) {
 
@@ -166,6 +185,11 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
 
   #endregion
   #region DeleteQueries
+
+  public void DeleteSubjectAreas(ICollection<SubjectArea> subjectAreas) {
+    this.context.SubjectAreas.RemoveRange(subjectAreas);
+    this.SaveChanges();
+  }
   public void DeleteCustomers(ICollection<Customer> customers) {
     this.context.Customers.RemoveRange(customers); 
     this.SaveChanges();

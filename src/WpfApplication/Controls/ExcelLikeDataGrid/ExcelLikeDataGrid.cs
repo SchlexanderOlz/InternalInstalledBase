@@ -42,10 +42,9 @@ public class ExcelLikeDataGrid<T> : UserControl
 
       if (e.Key == Key.Delete)
       {
-        this.OnDeleteEntry(this.dataGrid.SelectedItems.Cast<T>().ToList());
+        this.OnDeleteEntry(this.GetSelectedItems());
         return;
       }
-
     }
 
     public void MakeReadOnly() {
@@ -54,6 +53,10 @@ public class ExcelLikeDataGrid<T> : UserControl
 
     public void MakeWritable() {
       this.dataGrid.IsReadOnly = false;
+    }
+
+    public ICollection<T> GetSelectedItems() {
+      return this.dataGrid.SelectedItems.Cast<T>().ToList();
     }
 
     static ExcelLikeDataGrid() {}

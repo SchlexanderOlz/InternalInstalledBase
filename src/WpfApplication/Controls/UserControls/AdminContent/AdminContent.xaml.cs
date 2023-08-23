@@ -17,10 +17,6 @@ public partial class AdminContent : ModeratorContent {
   protected void loadUserPage(object sender, RoutedEventArgs args) {
     UserPage page = new UserPage(this.user);
     appendToGrid(page);
-  }
-
-  protected override void loadCustomerPage(object sender, RoutedEventArgs e) {
-    AdminCustomerPage page = new AdminCustomerPage(this.user);
-    appendToGrid(page);
+    page.InitializeComponent();
   }
 }

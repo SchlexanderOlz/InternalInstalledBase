@@ -37,20 +37,24 @@ public partial class UserContent : UserControl {
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
     CustomerPage page = new CustomerPage(this.user);
     appendToGrid(page);
+    page.InitializeComponent();
   }
 
   protected virtual void loadProductPage(object sender, RoutedEventArgs e) {
     ProductPage page = new ProductPage(this.user);
     appendToGrid(page);
+    page.InitializeComponent();
   }
 
   protected virtual void loadHardwarePage(object sender, RoutedEventArgs e) {
     HardwarePage page = new HardwarePage(this.user);
     appendToGrid(page);
+    page.InitializeComponent();
   }
 
   protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e) {
     SoftwarePage page = new SoftwarePage(this.user);
     appendToGrid(page);
+    page.InitializeComponent();
   }
 }
