@@ -1,6 +1,8 @@
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
+using System;
+using System.Windows;
 
 
 public class AddSubjectArea : AddCommand {
@@ -13,7 +15,7 @@ public class AddSubjectArea : AddCommand {
       return;
     }
 
-    if (userData.Name == null) {
+    if (userData.Name == null || userData.Customers == null) {
       string msg = "Missing fields";
       if (userData.Name == null) {
         msg += ", " + nameof(userData.Name);
@@ -22,6 +24,12 @@ public class AddSubjectArea : AddCommand {
       OnAddFailed(new ErrorEventArgs(msg));
       return;
     }
-    this.dbConnection.InsertSubjectArea(new SubjectArea(userData.Name));
+
+    try {
+      this.dbConnection.InsertSubjectArea(new SubjectArea(userData.Name, userData.Customers));
+    } catch (Exception e)
+    {
+      MessageBox.Show(e.Message);
+    }
   }
 }

@@ -9,23 +9,28 @@ public abstract partial class DataAddSearchPage<T> : Window {
   
   protected PageData<T> dataContext;
   protected ExcelLikeDataGrid<T> dataGrid;
+  protected TextBox searchBox;
 
   public DataAddSearchPage(ExcelLikeDataGrid<T> dataGrid, PageData<T> dataContext) {
     this.dataContext = dataContext;
     this.dataGrid = dataGrid;
 
     TextBox searchBox = new TextBox();
-    searchBox.Margin = new Thickness(5);
-    searchBox.TextChanged += updateGrid;
+    this.searchBox = searchBox;
+    this.searchBox.Margin = new Thickness(5);
+    this.searchBox.TextChanged += updateGrid;
 
-    Button chooseButton = new Button{ Name = "Add" };
+    Button chooseButton = new Button{ Content = "Add" };
+    NavBar navBar = new();
+    navBar.Controls.Add(chooseButton);
+
     chooseButton.Click += appendData;
 
     DockPanel dockPanel = new();
-    DockPanel.SetDock(searchBox, Dock.Top);
-    dockPanel.Children.Add(searchBox);
-    DockPanel.SetDock(chooseButton, Dock.Top);
-    dockPanel.Children.Add(chooseButton);
+    DockPanel.SetDock(this.searchBox, Dock.Top);
+    dockPanel.Children.Add(this.searchBox);
+    DockPanel.SetDock(navBar, Dock.Top);
+    dockPanel.Children.Add(navBar);
     dockPanel.Children.Add(dataGrid);
 
     this.Content = dockPanel;

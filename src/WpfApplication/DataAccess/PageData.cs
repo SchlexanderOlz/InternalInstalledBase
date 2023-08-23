@@ -24,7 +24,13 @@ public abstract class PageData<T> {
     add.AddFailed += displayError;
     this.GridData = new();
   }
+
+  public void SetDataGridItemSource(ObservableCollection<T> itemSource)
+  {
+    this.GridData = itemSource;
+  }
   
+
   protected void displayError(object? sender, ErrorEventArgs args) {
     MessageBox.Show(args.Message);
   }

@@ -18,7 +18,8 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
     this.customer = customer;
   }
 
-  protected override void updateGrid(object sender, RoutedEventArgs e) {
+  protected override void updateGrid(object sender, RoutedEventArgs e)
+  {
     TextBox searchBox = (TextBox)sender;
     string searchText = searchBox.Text;
 

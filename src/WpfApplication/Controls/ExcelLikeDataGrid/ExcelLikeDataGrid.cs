@@ -35,6 +35,11 @@ public class ExcelLikeDataGrid<T> : UserControl
       this.DeleteEntry?.Invoke(this, deleted);
     }
 
+    public void SetItemSource(ObservableCollection<T> itemSource)
+    {
+      this.dataGrid.ItemsSource = itemSource;
+    }
+
     private void keyDown(object sender, KeyEventArgs e) {
       if (this.dataGrid.IsReadOnly) {
         return;

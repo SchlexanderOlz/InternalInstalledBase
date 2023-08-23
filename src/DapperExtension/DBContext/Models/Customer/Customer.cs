@@ -24,8 +24,7 @@ public class Customer : Descriptable
         entityBuilder.Property(e => e.DeskStatus)
               .IsRequired();
         entityBuilder.HasMany(e => e.SubjectAreas)
-              .WithOne()
-              .HasForeignKey(e => e.SubjectAreaId);
+              .WithMany(s => s.Customers);
         entityBuilder.HasMany(e => e.Products)
               .WithMany(p => p.Customers);
       }
