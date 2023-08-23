@@ -4,26 +4,23 @@ using DapperExtension.DBContext.Models.Users;
 using System.Windows.Controls;
 using System.Windows;
 using WpfApplication.Pages;
-using System;
 
 
 public partial class AdminContent : ModeratorContent {
   public AdminContent(User user) : base(user) {
-    var userButton = new Button { Content = "Users" };
+    Button userButton = new Button { Content = "Users" };
+
+    userButton.Click += loadUserPage;
     this.NavBar.Controls.Add(userButton);
   }
 
   protected void loadUserPage(object sender, RoutedEventArgs args) {
-    // Load user Page
+    UserPage page = new UserPage(this.user);
+    appendToGrid(page);
   }
 
   protected override void loadCustomerPage(object sender, RoutedEventArgs e) {
     AdminCustomerPage page = new AdminCustomerPage(this.user);
     appendToGrid(page);
-    try {
-      page.InitializeComponent();
-    } catch (Exception ex) {
-      MessageBox.Show(ex.ToString());
-    }
   }
 }

@@ -33,7 +33,7 @@ public class User : IDataObject {
                 .IsRequired();
             entityBuilder.Property(e => e.UserType)
                 .IsRequired()
-                .HasDefaultValue(UserType.kUser);
+                .HasDefaultValue(UserType.User);
             entityBuilder.HasMany(e => e.Sessions)
               .WithOne(s => s.User);
         });
@@ -41,7 +41,7 @@ public class User : IDataObject {
 }
 
 public enum UserType {
-    kUser,
-    kModerator,
-    kAdmin
+    User,
+    Moderator,
+    Admin
 }

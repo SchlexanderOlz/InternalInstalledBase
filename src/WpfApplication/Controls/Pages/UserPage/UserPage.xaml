@@ -1,0 +1,49 @@
+<local:ContentPage x:Class="WpfApplication.Pages.UserPage"
+             x:TypeArguments="models:User"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:models="clr-namespace:DapperExtension.DBContext.Models.Users"
+             xmlns:local="clr-namespace:WpfApplication.Pages"
+             xmlns:converters="clr-namespace:WpfApplication.ValueConverters"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:action="clr-namespace:WpfApplication"
+             xmlns:commands="clr-namespace:DataAccess.Commands">
+    <Grid x:Name="contentGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <converters:UserTypeValueConverter x:Key="UserTypeConverter" />
+            <commands:UserData x:Key="Data" />
+        </Grid.Resources>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="UserName:"/>
+        <TextBox Grid.Row="0" Grid.Column="1" x:Name="userNameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=UserName, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="1" Grid.Column="0" Content="Password:"/>
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="password" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Password, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Label Grid.Row="2" Grid.Column="0" Content="User Type:"/>
+        <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding Source={
+          StaticResource Data}, Path=UserType, UpdateSourceTrigger=PropertyChanged,
+          Converter={StaticResource UserTypeConverter}
+        }">
+            <ComboBoxItem>User</ComboBoxItem>
+            <ComboBoxItem>Moderator</ComboBoxItem>
+            <ComboBoxItem>Admin</ComboBoxItem>
+        </ComboBox>
+
+
+
+        <action:NavBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
+
+    </Grid>
+</local:ContentPage>

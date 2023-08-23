@@ -148,7 +148,21 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     return query.ToList();
   }
 
+  public ICollection<User> GetUsersByParam(string? userName, UserType? type) {
 
+    IQueryable<User> query = this.context.Users.AsQueryable();
+    if (userName != null)
+    {
+      query = query.Where(user => user.UserName == userName);
+    }
+
+    if (type != null)
+    {
+      query = query.Where(user => user.UserType == type);
+    }
+
+    return query.ToList();
+  }
 
   #endregion
   #region DeleteQueries
