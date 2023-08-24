@@ -16,13 +16,19 @@ public partial class SubjectAreaAddSearch : DataAddSearchPage<SubjectArea> {
   public SubjectAreaAddSearch(Customer customer) : base(new SubjectAreaExcelLikeGrid(
         new ObservableCollection<SubjectArea>()), new SubjectAreaPageData()) {
     this.customer = customer;
-    this.dataGrid.SetItemSource(this.dataContext.GridData);
+    this.dataContext.Search.Execute(new SubjectAreaData{ Customers = new Customer[] { customer }});
+    this.dataGrid.MakeWritable();
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e) {
     TextBox searchBox = this.searchBox;
     string searchText = searchBox.Text;
 
+    if (searchText.Length == 0)
+    {
+      this.dataContext.Search.Execute(new SubjectAreaData{ Customers = new Customer[] {this.customer}});
+      return;
+    }
     this.dataContext.Search.Execute(new SubjectAreaData{ Name = searchText });
   }
 
@@ -31,9 +37,15 @@ public partial class SubjectAreaAddSearch : DataAddSearchPage<SubjectArea> {
     ICollection<SubjectArea> areas = this.dataGrid.GetSelectedItems();
     if (areas.Count == 0) {
       this.dataContext.Add.Execute(new SubjectAreaData{ Name = this.searchBox.Text,
-          Customers = new Customer[] {this.customer}} );
+          Customers = new Customer[] { this.customer }} );
     }
-    this.customer.SubjectAreas = this.customer.SubjectAreas.Concat(areas).ToList();
+
+    if (this.customer.SubjectAreas == null)
+    {
+      this.customer.SubjectAreas = areas;
+    } else {
+      this.customer.SubjectAreas = this.customer.SubjectAreas.Concat(areas).ToList();
+    }
     this.dataContext.Save.Execute(null);
   }
 }

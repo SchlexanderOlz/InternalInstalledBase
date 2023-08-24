@@ -24,7 +24,7 @@ public class ExcelLikeDataGrid<T> : UserControl
       };
       Grid.SetColumn(this, 2);
       Grid.SetRow(this, 0);
-      Grid.SetRowSpan(this, 7);
+      Grid.SetRowSpan(this, 10);
       this.Content = this.dataGrid;
       this.dbConnection = DBInteraction.GetInstance();
       this.dataGrid.PreviewKeyDown += this.keyDown;

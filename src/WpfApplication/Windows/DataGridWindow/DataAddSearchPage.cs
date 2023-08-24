@@ -3,6 +3,7 @@ namespace WpfApplication;
 using System.Windows;
 using DataAccess;
 using System.Windows.Controls;
+using System.Collections.Generic;
 
 
 public abstract partial class DataAddSearchPage<T> : Window {
@@ -34,8 +35,15 @@ public abstract partial class DataAddSearchPage<T> : Window {
     dockPanel.Children.Add(dataGrid);
 
     this.Content = dockPanel;
+    this.dataGrid.SetItemSource(this.dataContext.GridData);
+    this.dataGrid.DeleteEntry += deleteEntry;
+    this.dataGrid.MakeReadOnly();
   }
 
   protected abstract void updateGrid(object sender, RoutedEventArgs e); 
   protected abstract void appendData(object sender, RoutedEventArgs e);
+  protected virtual void deleteEntry(object? sender, ICollection<T> deleted)
+  {
+    this.dataContext.Delete.Execute(deleted);
+  }
 }

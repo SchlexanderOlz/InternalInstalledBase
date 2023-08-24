@@ -97,7 +97,7 @@ public class DBInteraction
       uint? versionNumber)
   {
     IQueryable<Software> query = this.context.Software.AsQueryable();
-    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDescriptableSimilar(ref query, name, shortcut, description);
 
     if (versionNumber.HasValue) {
       query.Where(software => software.Version == versionNumber);
@@ -110,7 +110,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
 {
     IQueryable<Customer> query = this.context.Customers.AsQueryable();
 
-    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDescriptableSimilar(ref query, name, shortcut, description);
     if (status.HasValue)
     {
         query = query.Where(customer => customer.DeskStatus == status);
@@ -120,13 +120,18 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   }
 
 
-  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name) {
+  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name, ICollection<Customer> customers) {
 
     IQueryable<SubjectArea> query = this.context.SubjectAreas.AsQueryable();
 
     if (name != null)
     {
-      query = query.Where(subjectArea => subjectArea.Name == name);
+      query = query.Where(subjectArea => EF.Functions.Like(subjectArea.Name, $"%{name}%"));
+    }
+
+    if (customers != null)
+    {
+      query = query.Where(subjectArea => subjectArea.Customers.Any(customer => customers.Contains(customer)));
     }
     return query.ToList();
   }
@@ -136,7 +141,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     string? description, Hardware? hardware, Software? software) {
 
     IQueryable<Product> query = this.context.Products.AsQueryable();
-    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDescriptableSimilar(ref query, name, shortcut, description);
     if (hardware != null)
     {
       query = query.Where(product => product.Hardware == hardware);
@@ -153,7 +158,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     string? description, uint? ip, uint? materialNumber) {
 
     IQueryable<Hardware> query = this.context.Hardware.AsQueryable();
-    buildQueryDecriptableSimilar(ref query, name, shortcut, description);
+    buildQueryDescriptableSimilar(ref query, name, shortcut, description);
     if (ip != null)
     {
       query = query.Where(hardware => hardware.Ip == ip);
@@ -163,7 +168,6 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     {
       query = query.Where(hardware => hardware.MaterialNumber == materialNumber);
     }
-
     return query.ToList();
   }
 
@@ -216,7 +220,7 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   }
   #endregion
 
-  private void buildQueryDecriptableSimilar<T>(ref IQueryable<T> query, string? name,
+  private void buildQueryDescriptableSimilar<T>(ref IQueryable<T> query, string? name,
                                     string? shortcut, string? description)
   where T : Descriptable
   {

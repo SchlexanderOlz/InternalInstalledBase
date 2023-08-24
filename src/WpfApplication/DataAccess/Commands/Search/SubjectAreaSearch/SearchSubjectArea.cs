@@ -13,7 +13,7 @@ public class SearchSubjectArea : SearchCommand<SubjectArea> {
     if (data == null) {
       throw new InvalidOperationException($"Data passed was not {typeof(SubjectAreaData)}");
     }
-    ICollection<SubjectArea> users = this.dbConnection.GetSubjectAreasByParam(data.Name); 
+    ICollection<SubjectArea> users = this.dbConnection.GetSubjectAreasByParam(data.Name, data.Customers); 
 
     if (users.Count > 0) {
       OnSearchResult(new SearchResults<SubjectArea>(users));

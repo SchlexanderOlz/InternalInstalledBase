@@ -60,7 +60,7 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     {
       data = new(customer.Products);
     }
-    ProductDataGridWindow gridWindow = new(customer, data);
+    ProductAddSearchPage gridWindow = new(customer);
     gridWindow.Show();
   }
 

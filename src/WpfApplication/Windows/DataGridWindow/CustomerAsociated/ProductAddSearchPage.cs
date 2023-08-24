@@ -14,8 +14,10 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
   private Customer customer;
 
   public ProductAddSearchPage(Customer customer) : base(new ProductExcelLikeGrid(
-        new ObservableCollection<Product>()), new ProductPageData()) {
+        new ObservableCollection<Product>()), new ProductPageData())
+  {
     this.customer = customer;
+    this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { customer }});
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)
@@ -23,13 +25,25 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
     TextBox searchBox = (TextBox)sender;
     string searchText = searchBox.Text;
 
+    if (searchText.Length == 0)
+    {
+      this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { this.customer }});     
+    }
+
     this.dataContext.Search.Execute(new ProductData{ Name = searchText });
   }
 
   protected override void appendData(object sender, RoutedEventArgs e)
   {
     ICollection<Product> products = this.dataGrid.GetSelectedItems();
-    this.customer.Products = this.customer.Products.Concat(products).ToList();
+    if (this.customer.Products == null)
+    {
+      this.customer.Products = products;
+    } else {
+      this.customer.Products = this.customer.Products.Concat(products).ToList();
+    }
+
     this.dataContext.Save.Execute(null);
+
   }
 }
