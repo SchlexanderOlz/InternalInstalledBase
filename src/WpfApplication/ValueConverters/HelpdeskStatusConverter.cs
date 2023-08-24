@@ -5,10 +5,12 @@ using System;
 using System.Globalization;
 using DapperExtension.DBContext.Models;
 
-public class HelpdeskStatusConverter : IValueConverter {
+public class HelpdeskStatusConverter : IValueConverter
+{
 
-  public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-    if (value is HelpDeskStatus status) 
+  public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+  {
+    if (value is HelpDeskStatus status)
     {
       return (int)status;
     }
@@ -23,4 +25,4 @@ public class HelpdeskStatusConverter : IValueConverter {
     }
     return Binding.DoNothing;
   }
-} 
+}

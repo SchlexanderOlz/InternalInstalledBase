@@ -11,4 +11,3 @@
         <UserControl x:Name="userContent" Grid.Row="1" />
     </Grid>
 </UserControl>
-

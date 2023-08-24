@@ -5,8 +5,10 @@ using DataAccess.Commands;
 using System.Windows.Controls;
 using DataAccess;
 
-public partial class UserPage : ContentPage<User> {
-  public UserPage(User user) : base(new UserPageData()) {
+public partial class UserPage : ContentPage<User>
+{
+  public UserPage() : base(new UserPageData())
+  {
     this.InitializeComponent();
 
     this.DataGrid = new UserExcelLikeGrid(this.dataContext.GridData);
@@ -21,6 +23,6 @@ public partial class UserPage : ContentPage<User> {
     this.DataGrid.DeleteEntry += deleteEntry;
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
 
-    this.dataContext.Search.Execute(new UserData{});
+    this.dataContext.Search.Execute(new UserData { });
   }
 }

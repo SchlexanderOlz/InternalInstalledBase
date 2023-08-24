@@ -8,13 +8,14 @@ public class Descriptable : IDataObject
   public string Description { get; set; }
   public string Shortcut { get; set; }
 
-  public Descriptable(string name, string description, string shortcut) {
+  public Descriptable(string name, string description, string shortcut)
+  {
     this.Name = name;
     this.Description = description;
     this.Shortcut = shortcut;
   }
 
-  internal Descriptable() : base() {}
+  internal Descriptable() : base() { }
 
   public virtual void Up(ModelBuilder modelBuilder)
   {

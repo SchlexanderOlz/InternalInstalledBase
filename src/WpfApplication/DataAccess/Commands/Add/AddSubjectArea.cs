@@ -5,19 +5,24 @@ using System;
 using System.Windows;
 
 
-public class AddSubjectArea : AddCommand {
-  public AddSubjectArea() : base() {}
+public class AddSubjectArea : AddCommand
+{
+  public AddSubjectArea() : base() { }
 
-  public override void Execute(object? param) {
+  public override void Execute(object? param)
+  {
     SubjectAreaData? userData = param as SubjectAreaData;
-    if (userData == null) {
+    if (userData == null)
+    {
       OnAddFailed(new ErrorEventArgs($"Data passed to Execute was not typeof {typeof(SubjectAreaData)}"));
       return;
     }
 
-    if (userData.Name == null || userData.Customers == null) {
+    if (userData.Name == null || userData.Customers == null)
+    {
       string msg = "Missing fields";
-      if (userData.Name == null) {
+      if (userData.Name == null)
+      {
         msg += ", " + nameof(userData.Name);
       }
 
@@ -25,9 +30,11 @@ public class AddSubjectArea : AddCommand {
       return;
     }
 
-    try {
+    try
+    {
       this.dbConnection.InsertSubjectArea(new SubjectArea(userData.Name, userData.Customers));
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       MessageBox.Show(e.Message);
     }

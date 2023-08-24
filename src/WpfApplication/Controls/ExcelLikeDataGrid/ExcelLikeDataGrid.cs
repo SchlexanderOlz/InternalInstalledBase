@@ -10,59 +10,64 @@ using System.Collections.Generic;
 
 public class ExcelLikeDataGrid<T> : UserControl
 {
-    protected DataGrid dataGrid;
-    protected DBInteraction dbConnection;
-    public event EventHandler<ICollection<T>>? DeleteEntry;
+  protected DataGrid dataGrid;
+  protected DBInteraction dbConnection;
+  public event EventHandler<ICollection<T>>? DeleteEntry;
 
-    public ExcelLikeDataGrid(ObservableCollection<T> itemSource) : base()
+  public ExcelLikeDataGrid(ObservableCollection<T> itemSource) : base()
+  {
+    this.dataGrid = new DataGrid
     {
-      this.dataGrid = new DataGrid
-      {
-        Name = "dataGrid",
-        ItemsSource = itemSource,
-        AutoGenerateColumns = false,
-      };
-      Grid.SetColumn(this, 2);
-      Grid.SetRow(this, 0);
-      Grid.SetRowSpan(this, 10);
-      this.Content = this.dataGrid;
-      this.dbConnection = DBInteraction.GetInstance();
-      this.dataGrid.PreviewKeyDown += this.keyDown;
-    }
+      Name = "dataGrid",
+      ItemsSource = itemSource,
+      AutoGenerateColumns = false,
+    };
+    Grid.SetColumn(this, 2);
+    Grid.SetRow(this, 0);
+    Grid.SetRowSpan(this, 10);
+    this.Content = this.dataGrid;
+    this.dbConnection = DBInteraction.GetInstance();
+    this.dataGrid.PreviewKeyDown += this.keyDown;
+  }
 
-    protected void OnDeleteEntry(ICollection<T> deleted)
+  protected void OnDeleteEntry(ICollection<T> deleted)
+  {
+    this.DeleteEntry?.Invoke(this, deleted);
+  }
+
+  public void SetItemSource(ObservableCollection<T> itemSource)
+  {
+    this.dataGrid.ItemsSource = itemSource;
+  }
+
+  private void keyDown(object sender, KeyEventArgs e)
+  {
+    if (this.dataGrid.IsReadOnly)
     {
-      this.DeleteEntry?.Invoke(this, deleted);
+      return;
     }
 
-    public void SetItemSource(ObservableCollection<T> itemSource)
+    if (e.Key == Key.Delete)
     {
-      this.dataGrid.ItemsSource = itemSource;
+      this.OnDeleteEntry(this.GetSelectedItems());
+      return;
     }
+  }
 
-    private void keyDown(object sender, KeyEventArgs e) {
-      if (this.dataGrid.IsReadOnly) {
-        return;
-      }
+  public void MakeReadOnly()
+  {
+    this.dataGrid.IsReadOnly = true;
+  }
 
-      if (e.Key == Key.Delete)
-      {
-        this.OnDeleteEntry(this.GetSelectedItems());
-        return;
-      }
-    }
+  public void MakeWritable()
+  {
+    this.dataGrid.IsReadOnly = false;
+  }
 
-    public void MakeReadOnly() {
-      this.dataGrid.IsReadOnly = true;
-    }
+  public ICollection<T> GetSelectedItems()
+  {
+    return this.dataGrid.SelectedItems.Cast<T>().ToList();
+  }
 
-    public void MakeWritable() {
-      this.dataGrid.IsReadOnly = false;
-    }
-
-    public ICollection<T> GetSelectedItems() {
-      return this.dataGrid.SelectedItems.Cast<T>().ToList();
-    }
-
-    static ExcelLikeDataGrid() {}
+  static ExcelLikeDataGrid() { }
 }

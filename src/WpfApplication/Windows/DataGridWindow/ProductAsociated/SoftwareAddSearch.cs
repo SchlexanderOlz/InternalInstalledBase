@@ -9,7 +9,8 @@ using DataAccess.Commands;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class SoftwareAddSearch : DataAddSearchPage<Software> {
+public partial class SoftwareAddSearch : DataAddSearchPage<Software>
+{
 
   private ProductData product;
 
@@ -17,7 +18,7 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software> {
         new ObservableCollection<Software>()), new SoftwarePageData())
   {
     this.product = product;
-    this.dataContext.Search.Execute(new SoftwareData {});
+    this.dataContext.Search.Execute(new SoftwareData { });
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)
@@ -27,21 +28,23 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software> {
 
     if (searchText.Length == 0)
     {
-      this.dataContext.Search.Execute(new SoftwareData {});
+      this.dataContext.Search.Execute(new SoftwareData { });
       return;
     }
 
-    this.dataContext.Search.Execute(new SoftwareData { Name = searchText });     
+    this.dataContext.Search.Execute(new SoftwareData { Name = searchText });
   }
 
   protected override void appendData(object sender, RoutedEventArgs e)
   {
     // Make sure only one element comes in
     ICollection<Software> software = this.dataGrid.GetSelectedItems();
-    if (software.Count() == 0) {
+    if (software.Count() == 0)
+    {
       return;
     }
-    if (software.Count() > 1) {
+    if (software.Count() > 1)
+    {
       MessageBox.Show("Can only select one Hardware");
       return;
     }

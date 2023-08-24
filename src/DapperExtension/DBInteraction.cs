@@ -17,14 +17,17 @@ public class DBInteraction
     this.context.Database.EnsureCreated();
   }
 
-  public void SaveChanges() {
+  public void SaveChanges()
+  {
     this.context.SaveChanges();
   }
 
-  public static DBInteraction GetInstance() {
-    if (DBInteraction.dbInteraction == null) {
-      DBInteraction.dbInteraction = new(); 
-    } 
+  public static DBInteraction GetInstance()
+  {
+    if (DBInteraction.dbInteraction == null)
+    {
+      DBInteraction.dbInteraction = new();
+    }
     return DBInteraction.dbInteraction;
   }
 
@@ -32,6 +35,12 @@ public class DBInteraction
   public void InsertProduct(Product product)
   {
     this.context.Products.Add(product);
+    this.context.SaveChanges();
+  }
+
+  public void InsertSession(Session session)
+  {
+    this.context.Sessions.Add(session);
     this.context.SaveChanges();
   }
 
@@ -53,12 +62,14 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
-  public void InsertCustomer(Customer customer) {
+  public void InsertCustomer(Customer customer)
+  {
     this.context.Customers.Add(customer);
     this.context.SaveChanges();
   }
 
-  public void InsertSoftware(Software software) {
+  public void InsertSoftware(Software software)
+  {
     this.context.Software.Add(software);
     this.context.SaveChanges();
   }
@@ -67,10 +78,10 @@ public class DBInteraction
   #region SelectStatements
   public User? GetUserByCredentials(string username, string password)
   {
-      byte[] passwordHash = User.HashPassword(password);
-      return this.context.Users
-          .Where(u => u.UserName == username && u.Password.SequenceEqual(passwordHash))
-          .FirstOrDefault();
+    byte[] passwordHash = User.HashPassword(password);
+    return this.context.Users
+        .Where(u => u.UserName == username && u.Password.SequenceEqual(passwordHash))
+        .FirstOrDefault();
   }
 
   public ICollection<Customer> GetAllCustomers()
@@ -99,28 +110,30 @@ public class DBInteraction
     IQueryable<Software> query = this.context.Software.AsQueryable();
     buildQueryDescriptableSimilar(ref query, name, shortcut, description);
 
-    if (versionNumber.HasValue) {
+    if (versionNumber.HasValue)
+    {
       query.Where(software => software.Version == versionNumber);
     }
     return query.ToList();
   }
 
-public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
-    string? description, HelpDeskStatus? status)
-{
+  public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
+      string? description, HelpDeskStatus? status)
+  {
     IQueryable<Customer> query = this.context.Customers.AsQueryable();
 
     buildQueryDescriptableSimilar(ref query, name, shortcut, description);
     if (status.HasValue)
     {
-        query = query.Where(customer => customer.DeskStatus == status);
+      query = query.Where(customer => customer.DeskStatus == status);
     }
 
     return query.ToList();
   }
 
 
-  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name, ICollection<Customer> customers) {
+  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name, ICollection<Customer> customers)
+  {
 
     IQueryable<SubjectArea> query = this.context.SubjectAreas.AsQueryable();
 
@@ -138,7 +151,8 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
 
 
   public ICollection<Product> GetProductsByParam(string? name, string? shortcut,
-    string? description, Hardware? hardware, Software? software) {
+    string? description, Hardware? hardware, Software? software)
+  {
 
     IQueryable<Product> query = this.context.Products.AsQueryable();
     buildQueryDescriptableSimilar(ref query, name, shortcut, description);
@@ -155,7 +169,8 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   }
 
   public ICollection<Hardware> GetHardwareByParam(string? name, string? shortcut,
-    string? description, uint? ip, uint? materialNumber) {
+    string? description, uint? ip, uint? materialNumber)
+  {
 
     IQueryable<Hardware> query = this.context.Hardware.AsQueryable();
     buildQueryDescriptableSimilar(ref query, name, shortcut, description);
@@ -171,7 +186,8 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
     return query.ToList();
   }
 
-  public ICollection<User> GetUsersByParam(string? userName, UserType? type) {
+  public ICollection<User> GetUsersByParam(string? userName, UserType? type)
+  {
 
     IQueryable<User> query = this.context.Users.AsQueryable();
     if (userName != null)
@@ -190,35 +206,47 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   #endregion
   #region DeleteQueries
 
-  public void DeleteSubjectAreas(ICollection<SubjectArea> subjectAreas) {
+  public void DeleteSubjectAreas(ICollection<SubjectArea> subjectAreas)
+  {
     this.context.SubjectAreas.RemoveRange(subjectAreas);
     this.SaveChanges();
   }
-  public void DeleteCustomers(ICollection<Customer> customers) {
-    this.context.Customers.RemoveRange(customers); 
+  public void DeleteCustomers(ICollection<Customer> customers)
+  {
+    this.context.Customers.RemoveRange(customers);
     this.SaveChanges();
   }
-  
-  public void DeleteHardware(ICollection<Hardware> hardware) {
+
+  public void DeleteHardware(ICollection<Hardware> hardware)
+  {
     this.context.Hardware.RemoveRange(hardware);
     this.SaveChanges();
   }
 
-  public void DeleteProducts(ICollection<Product> products) {
+  public void DeleteProducts(ICollection<Product> products)
+  {
     this.context.Products.RemoveRange(products);
     this.SaveChanges();
   }
 
-  public void DeleteUsers(ICollection<User> users) {
+  public void DeleteUsers(ICollection<User> users)
+  {
     this.context.Users.RemoveRange(users);
     this.SaveChanges();
   }
 
-  public void DeleteSoftware(ICollection<Software> software) {
+  public void DeleteSoftware(ICollection<Software> software)
+  {
     this.context.Software.RemoveRange(software);
     this.SaveChanges();
   }
   #endregion
+
+  public void Log(DataChange change)
+  {
+    
+  }
+
 
   private void buildQueryDescriptableSimilar<T>(ref IQueryable<T> query, string? name,
                                     string? shortcut, string? description)
@@ -226,17 +254,17 @@ public ICollection<Customer> GetCustomersByParam(string? name, string? shortcut,
   {
     if (!string.IsNullOrEmpty(name))
     {
-        query = query.Where(descriptable => EF.Functions.Like(descriptable.Name, $"%{name}%"));
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Name, $"%{name}%"));
     }
 
     if (!string.IsNullOrEmpty(shortcut))
     {
-        query = query.Where(descriptable => EF.Functions.Like(descriptable.Shortcut, $"%{shortcut}%"));
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Shortcut, $"%{shortcut}%"));
     }
 
     if (!string.IsNullOrEmpty(description))
     {
-        query = query.Where(descriptable => EF.Functions.Like(descriptable.Description, $"%{description}%"));
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Description, $"%{description}%"));
     }
   }
 

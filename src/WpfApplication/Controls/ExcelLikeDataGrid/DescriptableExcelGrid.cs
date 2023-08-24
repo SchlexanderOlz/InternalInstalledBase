@@ -7,11 +7,12 @@ using System.Collections.ObjectModel;
 
 public class DescriptableExcelLikeGrid<T> : ExcelLikeDataGrid<T>
 {
-  public DescriptableExcelLikeGrid(ObservableCollection<T> itemSource) : base(itemSource) {
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Name", Binding = new Binding("Name") });
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Description", Binding = new Binding("Description") });
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Shortcut", Binding = new Binding("Shortcut") });
+  public DescriptableExcelLikeGrid(ObservableCollection<T> itemSource) : base(itemSource)
+  {
+    this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Name", Binding = new Binding("Name") });
+    this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Description", Binding = new Binding("Description") });
+    this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Shortcut", Binding = new Binding("Shortcut") });
   }
 
-  static DescriptableExcelLikeGrid() {}
+  static DescriptableExcelLikeGrid() { }
 }

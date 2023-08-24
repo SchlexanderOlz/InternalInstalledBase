@@ -5,10 +5,12 @@ using System;
 using System.Globalization;
 using DapperExtension.DBContext.Models.Users;
 
-public class UserTypeValueConverter : IValueConverter {
+public class UserTypeValueConverter : IValueConverter
+{
 
-  public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-    if (value is UserType type) 
+  public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+  {
+    if (value is UserType type)
     {
       return (int)type;
     }
@@ -23,4 +25,4 @@ public class UserTypeValueConverter : IValueConverter {
     }
     return Binding.DoNothing;
   }
-} 
+}

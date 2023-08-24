@@ -2,16 +2,20 @@ namespace WpfApplication.UserControls;
 
 using System.Windows.Controls;
 using System.Windows;
+using System;
 using DapperExtension.DBContext.Models.Users;
 using WpfApplication.Pages;
 
 
-public partial class UserContent : UserControl {
+public partial class UserContent : UserControl
+{
   public NavBar NavBar { get; set; }
-  protected User user;
+  protected Session session;
+  public event EventHandler<Session> Back;
 
-  public UserContent(User user) : base() {
-    this.user = user;
+  public UserContent(Session session) : base()
+  {
+    this.session = session;
     Button customerButton = new Button { Content = "Customers" };
     Button productButton = new Button { Content = "Products" };
     Button hardwareButton = new Button { Content = "Hardware" };
@@ -25,36 +29,52 @@ public partial class UserContent : UserControl {
     customerButton.Click += loadCustomerPage;
     productButton.Click += loadProductPage;
     hardwareButton.Click += loadHardwarePage;
-    softwareButton.Click += loadSoftwarePage; 
+    softwareButton.Click += loadSoftwarePage;
   }
 
-  protected void appendToGrid(UserControl element) {
+  protected void addPage<T>(ContentPage<T> element)
+  {
     Grid.SetRow(element, 6);
     Grid.SetColumn(element, 1);
     this.userContent.Content = element;
+    element.Back += reset;
   }
 
-  protected virtual void loadCustomerPage(object sender, RoutedEventArgs e) {
-    CustomerPage page = new CustomerPage(this.user);
-    appendToGrid(page);
+  protected void reset(object? sender, EventArgs? e)
+  {
+    OnBack(this.session);
+  }
+
+  protected virtual void OnBack(Session session)
+  {
+    this.Back?.Invoke(this, session);
+  }
+
+  protected virtual void loadCustomerPage(object sender, RoutedEventArgs e)
+  {
+    CustomerPage page = new CustomerPage();
+    addPage(page);
     page.InitializeComponent();
   }
 
-  protected virtual void loadProductPage(object sender, RoutedEventArgs e) {
-    ProductPage page = new ProductPage(this.user);
-    appendToGrid(page);
+  protected virtual void loadProductPage(object sender, RoutedEventArgs e)
+  {
+    ProductPage page = new ProductPage();
+    addPage(page);
     page.InitializeComponent();
   }
 
-  protected virtual void loadHardwarePage(object sender, RoutedEventArgs e) {
-    HardwarePage page = new HardwarePage(this.user);
-    appendToGrid(page);
+  protected virtual void loadHardwarePage(object sender, RoutedEventArgs e)
+  {
+    HardwarePage page = new HardwarePage();
+    addPage(page);
     page.InitializeComponent();
   }
 
-  protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e) {
-    SoftwarePage page = new SoftwarePage(this.user);
-    appendToGrid(page);
+  protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e)
+  {
+    SoftwarePage page = new SoftwarePage();
+    addPage(page);
     page.InitializeComponent();
   }
 }

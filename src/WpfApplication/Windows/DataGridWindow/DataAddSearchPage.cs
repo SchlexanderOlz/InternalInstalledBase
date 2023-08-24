@@ -6,13 +6,15 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 
 
-public abstract partial class DataAddSearchPage<T> : Window {
-  
+public abstract partial class DataAddSearchPage<T> : Window
+{
+
   protected PageData<T> dataContext;
   protected ExcelLikeDataGrid<T> dataGrid;
   protected TextBox searchBox;
 
-  public DataAddSearchPage(ExcelLikeDataGrid<T> dataGrid, PageData<T> dataContext) {
+  public DataAddSearchPage(ExcelLikeDataGrid<T> dataGrid, PageData<T> dataContext)
+  {
     this.dataContext = dataContext;
     this.dataGrid = dataGrid;
 
@@ -21,7 +23,7 @@ public abstract partial class DataAddSearchPage<T> : Window {
     this.searchBox.Margin = new Thickness(5);
     this.searchBox.TextChanged += updateGrid;
 
-    Button chooseButton = new Button{ Content = "Add" };
+    Button chooseButton = new Button { Content = "Add" };
     NavBar navBar = new();
     navBar.Controls.Add(chooseButton);
 
@@ -40,7 +42,7 @@ public abstract partial class DataAddSearchPage<T> : Window {
     this.dataGrid.MakeReadOnly();
   }
 
-  protected abstract void updateGrid(object sender, RoutedEventArgs e); 
+  protected abstract void updateGrid(object sender, RoutedEventArgs e);
   protected abstract void appendData(object sender, RoutedEventArgs e);
   protected virtual void deleteEntry(object? sender, ICollection<T> deleted)
   {

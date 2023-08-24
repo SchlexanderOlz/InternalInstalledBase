@@ -8,13 +8,20 @@ using DapperExtension.DBContext.Models.Users;
 
 public class UserExcelLikeGrid : ExcelLikeDataGrid<User>
 {
-  public UserExcelLikeGrid(ObservableCollection<User> itemSource) : base(itemSource) {
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Username",
-            Binding = new Binding("UserName") });
+  public UserExcelLikeGrid(ObservableCollection<User> itemSource) : base(itemSource)
+  {
+    this.dataGrid.Columns.Add(new DataGridTextColumn
+    {
+      Header = "Username",
+      Binding = new Binding("UserName")
+    });
 
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "UserType",
-            Binding = new Binding("UserType")});
+    this.dataGrid.Columns.Add(new DataGridTextColumn
+    {
+      Header = "UserType",
+      Binding = new Binding("UserType")
+    });
   }
 
-  static UserExcelLikeGrid() {}
+  static UserExcelLikeGrid() { }
 }

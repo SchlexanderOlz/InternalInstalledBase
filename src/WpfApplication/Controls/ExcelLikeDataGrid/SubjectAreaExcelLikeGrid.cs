@@ -8,11 +8,15 @@ using DapperExtension.DBContext.Models;
 
 public class SubjectAreaExcelLikeGrid : ExcelLikeDataGrid<SubjectArea>
 {
-  public SubjectAreaExcelLikeGrid(ObservableCollection<SubjectArea> itemSource) : base(itemSource) {
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Name",
-            Binding = new Binding("Name") });
+  public SubjectAreaExcelLikeGrid(ObservableCollection<SubjectArea> itemSource) : base(itemSource)
+  {
+    this.dataGrid.Columns.Add(new DataGridTextColumn
+    {
+      Header = "Name",
+      Binding = new Binding("Name")
+    });
 
   }
 
-  static SubjectAreaExcelLikeGrid() {}
+  static SubjectAreaExcelLikeGrid() { }
 }

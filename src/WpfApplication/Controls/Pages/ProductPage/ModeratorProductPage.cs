@@ -1,11 +1,12 @@
 namespace WpfApplication.Pages;
 
-using DapperExtension.DBContext.Models.Users;
 using System.Windows.Controls;
 
-public partial class ModeratorProductPage : ProductPage {
+public partial class ModeratorProductPage : ProductPage
+{
 
-  public ModeratorProductPage(User user) : base(user) {
+  public ModeratorProductPage() : base()
+  {
     Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
 
     this.ActionBar.Controls.Add(addButton);

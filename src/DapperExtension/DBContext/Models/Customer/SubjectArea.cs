@@ -7,12 +7,13 @@ public class SubjectArea : IDataObject
     public string Name { get; set; }
     public ICollection<Customer> Customers { get; set; }
 
-    public SubjectArea(string name, ICollection<Customer> customers) : base() {
-      this.Name = name;
-      this.Customers = customers;
+    public SubjectArea(string name, ICollection<Customer> customers) : base()
+    {
+        this.Name = name;
+        this.Customers = customers;
     }
 
-    internal SubjectArea() {}
+    internal SubjectArea() { }
 
     public void Up(ModelBuilder modelBuilder)
     {

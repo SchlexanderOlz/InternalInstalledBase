@@ -24,13 +24,10 @@
             <converters:UserTypeValueConverter x:Key="UserTypeConverter" />
             <commands:UserData x:Key="Data" />
         </Grid.Resources>
-
         <Label Grid.Row="0" Grid.Column="0" Content="UserName:"/>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="userNameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=UserName, UpdateSourceTrigger=PropertyChanged}" />
-
         <Label Grid.Row="1" Grid.Column="0" Content="Password:"/>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="password" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Password, UpdateSourceTrigger=PropertyChanged}" />
-
         <Label Grid.Row="2" Grid.Column="0" Content="User Type:"/>
         <ComboBox Grid.Row="2" Grid.Column="1" SelectedIndex="{Binding Source={
           StaticResource Data}, Path=UserType, UpdateSourceTrigger=PropertyChanged,
@@ -40,10 +37,6 @@
             <ComboBoxItem>Moderator</ComboBoxItem>
             <ComboBoxItem>Admin</ComboBoxItem>
         </ComboBox>
-
-
-
         <action:NavBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-
     </Grid>
 </local:ContentPage>

@@ -18,7 +18,7 @@
         <TextBlock Text="Username:" />
         <TextBox x:Name="usernameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Credentials}, Path=Username, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Text="Password:" />
-        <TextBox x:Name="passwordTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Credentials}, Path=Password, UpdateSourceTrigger=PropertyChanged}" />
+        <PasswordBox x:Name="passwordBox" Margin="0,0,0,10" PasswordChanged="passwordChanged" />
         <Button x:Name="submitButton" Content="Submit" Command="{Binding SubmitUserCommand}" CommandParameter="{Binding Source={StaticResource Credentials}}" />
     </StackPanel>
 </Window>

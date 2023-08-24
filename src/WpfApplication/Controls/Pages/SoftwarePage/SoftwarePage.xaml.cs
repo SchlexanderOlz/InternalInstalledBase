@@ -1,13 +1,14 @@
 namespace WpfApplication.Pages;
 
 using DapperExtension.DBContext.Models;
-using DapperExtension.DBContext.Models.Users;
 using DataAccess.Commands;
 using System.Windows.Controls;
 using DataAccess;
 
-public partial class SoftwarePage : ContentPage<Software> {
-  public SoftwarePage(User user) : base(new SoftwarePageData()) {
+public partial class SoftwarePage : ContentPage<Software>
+{
+  public SoftwarePage() : base(new SoftwarePageData())
+  {
     this.InitializeComponent();
 
     this.DataGrid = new SoftwareExcelLikeGrid(this.dataContext.GridData);
@@ -17,6 +18,6 @@ public partial class SoftwarePage : ContentPage<Software> {
     Grid.SetRowSpan(this.DataGrid, 5);
     this.contentGrid.Children.Add(this.DataGrid);
 
-    this.dataContext.Search.Execute(new SoftwareData{});
+    this.dataContext.Search.Execute(new SoftwareData { });
   }
 }

@@ -1,39 +1,43 @@
-namespace DataAccess.Commands; 
+namespace DataAccess.Commands;
 
-using System.Windows.Input;
 using System;
 using System.Windows;
-using DapperExtension;
 using DapperExtension.DBContext.Models.Users;
 
-public class SubmitUser : DBCommand {
+public class SubmitUser : DBCommand
+{
 
-  public event EventHandler<LogonSuccessArgs> LogonSuccess;
+  public event EventHandler<Session> LogonSuccess;
   public event EventHandler LogonFailure;
 
   public SubmitUser() : base() {}
 
   public override void Execute(object parameter)
   {
-    UserCredentials? logonData = parameter as UserCredentials;
-    if (logonData == null) {
-      throw new InvalidOperationException("Execute function was not passed valid UserDatvalid UserDataa");
+    UserCredentials logonData = (UserCredentials)parameter;
+
+    try
+    {
+      this.dbConnection.GetUserByCredentials(logonData.Username, logonData.Password);
     }
-    var dbInteraction = DBInteraction.GetInstance();
-    try {
-     dbInteraction.GetUserByCredentials(logonData.Username, logonData.Password);   
-    } catch (Exception e) {
+    catch (Exception e)
+    {
       MessageBox.Show(e.Message);
     }
-    User? user = dbInteraction.GetUserByCredentials(logonData.Username, logonData.Password);
-    if (user != null) {
-      OnLogonSuccess(new LogonSuccessArgs(user));
-    } else {
+    User? user = this.dbConnection.GetUserByCredentials(logonData.Username, logonData.Password);
+    if (user != null)
+    {
+      Session session = new(user);
+      session.Start();
+      OnLogonSuccess(session);
+    }
+    else
+    {
       OnLogonFailure();
     }
   }
 
-  protected virtual void OnLogonSuccess(LogonSuccessArgs args)
+  protected virtual void OnLogonSuccess(Session args)
   {
     LogonSuccess?.Invoke(this, args);
   }

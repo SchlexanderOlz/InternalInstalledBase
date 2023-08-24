@@ -4,9 +4,11 @@ using System.Windows.Data;
 using System;
 using System.Globalization;
 
-public class IpConverter : IValueConverter {
+public class IpConverter : IValueConverter
+{
 
-  public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+  public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+  {
     if (value is uint ipAddr)
     {
       string ipString = "";
@@ -18,26 +20,28 @@ public class IpConverter : IValueConverter {
       }
       return ipString;
     }
-   return Binding.DoNothing;
+    return Binding.DoNothing;
   }
 
   public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
   {
-    if (value is string ipString) 
+    if (value is string ipString)
     {
-      string[] addrParts = ipString.Split("."); 
+      string[] addrParts = ipString.Split(".");
       if (addrParts.Length != 4)
       {
         return Binding.DoNothing;
       }
 
       uint ipInt = 0;
-      foreach(var part in addrParts)
+      foreach (var part in addrParts)
       {
         byte num = 0;
-        try {
-          num = byte.Parse(part);  
-        } catch (Exception ex) when (ex is FormatException || ex is OverflowException)
+        try
+        {
+          num = byte.Parse(part);
+        }
+        catch (Exception ex) when (ex is FormatException || ex is OverflowException)
         {
           return Binding.DoNothing;
         }
@@ -47,4 +51,4 @@ public class IpConverter : IValueConverter {
     }
     return Binding.DoNothing;
   }
-} 
+}

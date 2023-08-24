@@ -1,28 +1,34 @@
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
-using System.Windows;
 
-public class AddHardware : AddCommand {
-  public AddHardware() : base() {}
+public class AddHardware : AddCommand
+{
+  public AddHardware() : base() { }
 
-  public override void Execute(object? param) {
+  public override void Execute(object? param)
+  {
     HardwareData? hardwareData = param as HardwareData;
-    if (hardwareData == null) {
+    if (hardwareData == null)
+    {
       OnAddFailed(new ErrorEventArgs($"Data passed to Execute was not typeof {typeof(HardwareData)}"));
       return;
     }
 
     if (hardwareData.Name == null || hardwareData.Description == null ||
-        hardwareData.Shortcut == null || !hardwareData.Ip.HasValue || !hardwareData.MaterialNumber.HasValue) {
+        hardwareData.Shortcut == null || !hardwareData.Ip.HasValue || !hardwareData.MaterialNumber.HasValue)
+    {
       string msg = "Missing fields";
-      if (hardwareData.Name == null) {
+      if (hardwareData.Name == null)
+      {
         msg += ", " + nameof(hardwareData.Name);
       }
-      if (hardwareData.Description == null) {
+      if (hardwareData.Description == null)
+      {
         msg += ", " + nameof(hardwareData.Description);
       }
-      if (hardwareData.Shortcut == null) {
+      if (hardwareData.Shortcut == null)
+      {
         msg += ", " + nameof(hardwareData.Shortcut);
       }
       if (!hardwareData.Ip.HasValue)

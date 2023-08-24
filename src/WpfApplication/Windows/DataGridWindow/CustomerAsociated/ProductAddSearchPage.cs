@@ -9,7 +9,8 @@ using DataAccess.Commands;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
+public partial class ProductAddSearchPage : DataAddSearchPage<Product>
+{
 
   private Customer customer;
 
@@ -17,7 +18,7 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
         new ObservableCollection<Product>()), new ProductPageData())
   {
     this.customer = customer;
-    this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { customer }});
+    this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { customer } });
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)
@@ -27,10 +28,10 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
 
     if (searchText.Length == 0)
     {
-      this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { this.customer }});     
+      this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { this.customer } });
     }
 
-    this.dataContext.Search.Execute(new ProductData{ Name = searchText });
+    this.dataContext.Search.Execute(new ProductData { Name = searchText });
   }
 
   protected override void appendData(object sender, RoutedEventArgs e)
@@ -39,7 +40,9 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product> {
     if (this.customer.Products == null)
     {
       this.customer.Products = products;
-    } else {
+    }
+    else
+    {
       this.customer.Products = this.customer.Products.Concat(products).ToList();
     }
 

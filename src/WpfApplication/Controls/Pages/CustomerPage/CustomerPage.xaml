@@ -24,7 +24,6 @@
             <commands:CustomerData x:Key="Data" />
             <converters:HelpdeskStatusConverter x:Key="HelpdeskStatusConverter" />
         </Grid.Resources>
-
         <Label Grid.Row="0" Grid.Column="0" Content="Helpdesk Status:"/>
         <ComboBox Grid.Row="0" Grid.Column="1" SelectedIndex="{Binding Source={
           StaticResource Data}, Path=Status, UpdateSourceTrigger=PropertyChanged,
@@ -34,18 +33,12 @@
             <ComboBoxItem>Temporarily transmitted</ComboBoxItem>
             <ComboBoxItem>Not transmitted</ComboBoxItem>
         </ComboBox>
-
         <Label Grid.Row="1" Grid.Column="0" Content="Name:"/>
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />
-
         <Label Grid.Row="2" Grid.Column="0" Content="Description:"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="descriptionTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Description, UpdateSourceTrigger=PropertyChanged}" />
-
         <Label Grid.Row="3" Grid.Column="0" Content="Shortcut:"/>
         <TextBox Grid.Row="3" Grid.Column="1" x:Name="shortcutTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Shortcut, UpdateSourceTrigger=PropertyChanged}" />
-
         <action:NavBar x:Name="actionBar" Grid.Row="4" Grid.Column="0" Controls="{Binding ActionBar.Controls, RelativeSource={RelativeSource AncestorType=UserControl}}" />
-
     </Grid>
 </local:ContentPage>
-

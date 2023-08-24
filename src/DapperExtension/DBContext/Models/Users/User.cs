@@ -3,28 +3,33 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
-public class User : IDataObject {
+public class User : IDataObject
+{
     public int? UserId { get; set; }
     public string UserName { get; set; }
-    public byte[] Password { get; set;}
+    public byte[] Password { get; set; }
     public UserType UserType { get; set; }
-    public ICollection<Session> ?Sessions { get; set; }
+    public ICollection<Session>? Sessions { get; set; }
+    public ICollection<DataChange>? Changes { get; set; }
 
-    public User(string userName, string password, UserType userType) 
-    { 
-      this.UserName = userName;
-      this.Password = User.HashPassword(password);
-      this.UserType = userType;
+    public User(string userName, string password, UserType userType)
+    {
+        this.UserName = userName;
+        this.Password = User.HashPassword(password);
+        this.UserType = userType;
     }
 
-    public User() {}
+    public User() { }
 
-    public static byte[] HashPassword(in string password) {
-      return SHA256.HashData(Encoding.UTF8.GetBytes(password));
+    public static byte[] HashPassword(in string password)
+    {
+        return SHA256.HashData(Encoding.UTF8.GetBytes(password));
     }
 
-    public void Up(ModelBuilder modelBuilder) {
-        modelBuilder.Entity<User>(entityBuilder => {
+    public void Up(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>(entityBuilder =>
+        {
             entityBuilder.HasKey(e => e.UserId);
             entityBuilder.Property(e => e.UserName)
                 .IsRequired()
@@ -36,11 +41,14 @@ public class User : IDataObject {
                 .HasDefaultValue(UserType.User);
             entityBuilder.HasMany(e => e.Sessions)
               .WithOne(s => s.User);
+            entityBuilder.HasMany(e => e.Changes)
+              .WithOne(c => c.User);
         });
     }
 }
 
-public enum UserType {
+public enum UserType
+{
     User,
     Moderator,
     Admin

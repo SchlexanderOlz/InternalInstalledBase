@@ -15,7 +15,7 @@ public class Product : Descriptable
     this.Software = software;
     this.Hardware = hardware;
   }
-  internal Product() : base() {}
+  internal Product() : base() { }
 
   public override void Up(ModelBuilder modelBuilder)
   {

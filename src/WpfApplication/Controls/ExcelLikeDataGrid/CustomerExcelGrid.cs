@@ -8,34 +8,35 @@ using DapperExtension.DBContext.Models;
 using WpfApplication.Pages;
 
 
-public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer> 
+public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 {
-  public CustomerExcelLikeGrid(ObservableCollection<Customer> itemSource) : base(itemSource) {
-        this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Helpdesk Status", Binding = new Binding("DeskStatus") });
+  public CustomerExcelLikeGrid(ObservableCollection<Customer> itemSource) : base(itemSource)
+  {
+    this.dataGrid.Columns.Add(new DataGridTextColumn { Header = "Helpdesk Status", Binding = new Binding("DeskStatus") });
 
-        var actionsColumn = new DataGridTemplateColumn { Header = "Actions" };
-        actionsColumn.CellTemplate = new DataTemplate();
+    var actionsColumn = new DataGridTemplateColumn { Header = "Actions" };
+    actionsColumn.CellTemplate = new DataTemplate();
 
-        var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
-        stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
+    var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
+    stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
-        var showInterestsButtonFactory = new FrameworkElementFactory(typeof(Button));
-        showInterestsButtonFactory.SetValue(Button.ContentProperty, "Show Interests");
-        showInterestsButtonFactory.AddHandler(Button.ClickEvent,
-            new RoutedEventHandler(loadSubjectAreaList));
+    var showInterestsButtonFactory = new FrameworkElementFactory(typeof(Button));
+    showInterestsButtonFactory.SetValue(Button.ContentProperty, "Show Interests");
+    showInterestsButtonFactory.AddHandler(Button.ClickEvent,
+        new RoutedEventHandler(loadSubjectAreaList));
 
-        stackPanelFactory.AppendChild(showInterestsButtonFactory);
+    stackPanelFactory.AppendChild(showInterestsButtonFactory);
 
-        var showProductsButtonFactory = new FrameworkElementFactory(typeof(Button));
-        showProductsButtonFactory.SetValue(Button.ContentProperty, "Show Products");
-        showProductsButtonFactory.AddHandler(Button.ClickEvent,
-            new RoutedEventHandler(loadProductList));
+    var showProductsButtonFactory = new FrameworkElementFactory(typeof(Button));
+    showProductsButtonFactory.SetValue(Button.ContentProperty, "Show Products");
+    showProductsButtonFactory.AddHandler(Button.ClickEvent,
+        new RoutedEventHandler(loadProductList));
 
-        stackPanelFactory.AppendChild(showProductsButtonFactory);
+    stackPanelFactory.AppendChild(showProductsButtonFactory);
 
-        actionsColumn.CellTemplate.VisualTree = stackPanelFactory;
+    actionsColumn.CellTemplate.VisualTree = stackPanelFactory;
 
-        this.dataGrid.Columns.Add(actionsColumn);
+    this.dataGrid.Columns.Add(actionsColumn);
   }
 
   protected void loadProductList(object sender, RoutedEventArgs e)
@@ -51,12 +52,13 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     {
       return;
     }
-    
+
     ObservableCollection<Product> data;
     if (customer.Products == null)
     {
       data = new();
-    } else
+    }
+    else
     {
       data = new(customer.Products);
     }
@@ -77,12 +79,13 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     {
       return;
     }
-    
+
     ObservableCollection<SubjectArea> data;
     if (customer.Products == null)
     {
       data = new();
-    } else
+    }
+    else
     {
       data = new(customer.SubjectAreas);
     }
@@ -91,5 +94,5 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 
   }
 
-  static CustomerExcelLikeGrid() {}
+  static CustomerExcelLikeGrid() { }
 }
