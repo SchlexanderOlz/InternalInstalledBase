@@ -1,6 +1,5 @@
 namespace DataAccess.Commands;
 
-using System;
 using System.Collections.Generic;
 using DapperExtension.DBContext.Models;
 

@@ -38,6 +38,12 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
+  public void InsertProperty(Property property)
+  {
+    this.context.Properties.Add(property);
+    this.context.SaveChanges();
+  }
+
   public void InsertSession(Session session)
   {
     this.context.Sessions.Add(session);
@@ -102,6 +108,12 @@ public class DBInteraction
   public ICollection<Software> GetAllSoftware()
   {
     return this.context.Software.ToList();
+  }
+
+  public ICollection<Property> GetPropertiesByParam(string? name, string? effect,
+      ICollection<Product> products)
+  {
+
   }
 
   public ICollection<Software> GetSoftwareByParam(string? name, string? shortcut, string? description,
@@ -205,12 +217,18 @@ public class DBInteraction
 
   #endregion
   #region DeleteQueries
+  public void DeleteProperty(ICollection<Property> properties)
+  {
+    this.context.Properties.RemoveRange(properties);
+    this.SaveChanges();
+  }
 
   public void DeleteSubjectAreas(ICollection<SubjectArea> subjectAreas)
   {
     this.context.SubjectAreas.RemoveRange(subjectAreas);
     this.SaveChanges();
   }
+
   public void DeleteCustomers(ICollection<Customer> customers)
   {
     this.context.Customers.RemoveRange(customers);

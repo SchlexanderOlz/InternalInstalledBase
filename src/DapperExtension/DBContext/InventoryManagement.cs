@@ -16,6 +16,7 @@ public class InventoryManagementContext : DbContext
   public DbSet<Software> Software { get; set; }
   public DbSet<User> Users { get; set; }
   public DbSet<Session> Sessions { get; set; }
+  public DbSet<Property> Properties { get; set; }
 
   #region ModelConnection
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
