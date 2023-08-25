@@ -1,6 +1,7 @@
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
+using System;
 
 
 public class AddProduct : AddCommand
@@ -16,8 +17,8 @@ public class AddProduct : AddCommand
       return;
     }
 
-    if (productData.Name == null || productData.Description == null ||
-        productData.Shortcut == null || productData.Hardware == null || productData.Software == null)
+    if (isNull(productData.Name) || isNull(productData.Description) ||
+        isNull(productData.Shortcut) || productData.Hardware == null || productData.Software == null)
     {
       string msg = "Missing fields";
       if (productData.Name == null)
@@ -35,7 +36,14 @@ public class AddProduct : AddCommand
       OnAddFailed(new ErrorEventArgs(msg));
       return;
     }
-    this.dbConnection.InsertProduct(new Product(productData.Name,
-        productData.Description, productData.Shortcut, productData.Hardware, productData.Software));
+
+    try {
+      this.dbConnection.InsertProduct(new Product(productData.Name,
+          productData.Description, productData.Shortcut, productData.Hardware, productData.Software));
+      OnAddSuccessfull();
+    } catch (InvalidOperationException ex)
+    {
+      OnAddFailed(new ErrorEventArgs(ex.Message));
     }
+  }
 }

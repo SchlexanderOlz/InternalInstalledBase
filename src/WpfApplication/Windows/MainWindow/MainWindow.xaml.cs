@@ -36,6 +36,7 @@ namespace WpfApplication
       content.InitializeComponent();
 
       content.Back += logout;
+      this.passwordBox.Clear();
       this.Content = content;
     }
 

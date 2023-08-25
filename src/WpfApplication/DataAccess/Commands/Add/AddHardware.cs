@@ -1,6 +1,7 @@
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
+using System;
 
 public class AddHardware : AddCommand
 {
@@ -15,19 +16,19 @@ public class AddHardware : AddCommand
       return;
     }
 
-    if (hardwareData.Name == null || hardwareData.Description == null ||
-        hardwareData.Shortcut == null || !hardwareData.Ip.HasValue || !hardwareData.MaterialNumber.HasValue)
+    if (isNull(hardwareData.Name) || isNull(hardwareData.Description) ||
+        isNull(hardwareData.Shortcut) || !hardwareData.Ip.HasValue || !hardwareData.MaterialNumber.HasValue)
     {
       string msg = "Missing fields";
-      if (hardwareData.Name == null)
+      if (isNull(hardwareData.Name))
       {
         msg += ", " + nameof(hardwareData.Name);
       }
-      if (hardwareData.Description == null)
+      if (isNull(hardwareData.Description))
       {
         msg += ", " + nameof(hardwareData.Description);
       }
-      if (hardwareData.Shortcut == null)
+      if (isNull(hardwareData.Shortcut))
       {
         msg += ", " + nameof(hardwareData.Shortcut);
       }
@@ -42,8 +43,15 @@ public class AddHardware : AddCommand
       OnAddFailed(new ErrorEventArgs(msg));
       return;
     }
-    this.dbConnection.InsertHardware(new Hardware(hardwareData.Name,
-          hardwareData.Description, hardwareData.Shortcut, hardwareData.Ip.Value,
-          hardwareData.MaterialNumber.Value));
+
+    try {
+      this.dbConnection.InsertHardware(new Hardware(hardwareData.Name,
+            hardwareData.Description, hardwareData.Shortcut, hardwareData.Ip.Value,
+            hardwareData.MaterialNumber.Value));
+      OnAddSuccessfull();
+    } catch (InvalidOperationException ex)
+    {
+      OnAddFailed(new ErrorEventArgs(ex.Message));
+    }
   }
 }

@@ -12,12 +12,8 @@ public class SearchProduct : SearchCommand<Product>
   public override void Execute(object? param)
   {
     ProductData? data = param as ProductData;
-    if (data == null)
-    {
-      throw new InvalidOperationException($"Data passed was not {typeof(ProductData)}");
-    }
     ICollection<Product> products = this.dbConnection.GetProductsByParam(
-        data.Name, data.Shortcut, data.Description, data.Hardware, data.Software);
+        data?.Name, data?.Shortcut, data?.Description, data?.Hardware, data?.Software);
 
     if (products.Count > 0)
     {

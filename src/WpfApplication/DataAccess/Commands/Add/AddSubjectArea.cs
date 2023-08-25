@@ -18,7 +18,7 @@ public class AddSubjectArea : AddCommand
       return;
     }
 
-    if (userData.Name == null || userData.Customers == null)
+    if (isNull(userData.Name) || userData.Customers == null)
     {
       string msg = "Missing fields";
       if (userData.Name == null)
@@ -33,10 +33,11 @@ public class AddSubjectArea : AddCommand
     try
     {
       this.dbConnection.InsertSubjectArea(new SubjectArea(userData.Name, userData.Customers));
+      OnAddSuccessfull();
     }
-    catch (Exception e)
+    catch (InvalidOperationException e)
     {
-      MessageBox.Show(e.Message);
+      OnAddFailed(new ErrorEventArgs(e.Message));
     }
   }
 }

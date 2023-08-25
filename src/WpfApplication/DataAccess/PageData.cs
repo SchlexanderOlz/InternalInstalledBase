@@ -8,8 +8,8 @@ using System.Collections.ObjectModel;
 public abstract class PageData<T>
 {
   public ICommand Save { get; set; }
-  public ICommand Add { get; set; }
-  public ICommand Search { get; set; }
+  public AddCommand Add { get; set; }
+  public SearchCommand<T> Search { get; set; }
   public ICommand Delete { get; set; }
   public ObservableCollection<T> GridData { get; set; }
 

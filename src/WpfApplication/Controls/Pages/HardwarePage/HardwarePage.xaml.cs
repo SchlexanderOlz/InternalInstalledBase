@@ -3,6 +3,7 @@ namespace WpfApplication.Pages;
 using DapperExtension.DBContext.Models;
 using DataAccess;
 using DataAccess.Commands;
+using System;
 using System.Windows.Controls;
 
 public partial class HardwarePage : ContentPage<Hardware>
@@ -19,5 +20,20 @@ public partial class HardwarePage : ContentPage<Hardware>
     this.contentGrid.Children.Add(this.DataGrid);
 
     this.dataContext.Search.Execute(new HardwareData { });
+  }
+
+  protected override void clearInputFields(object? sender, EventArgs e)
+  {
+    this.nameTextBox.Clear();
+    this.descriptionTextBox.Clear();
+    this.shortcutTextBox.Clear();
+    this.ipTextBox.Clear();
+    this.materialNumberTextBox.Clear();
+    this.getDataField().Clear();
+  }
+
+  protected override ISearchData getDataField()
+  {
+    return (HardwareData)this.actionBar.FindResource("Data");
   }
 }

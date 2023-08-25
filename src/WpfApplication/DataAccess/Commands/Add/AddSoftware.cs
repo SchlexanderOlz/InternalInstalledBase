@@ -1,6 +1,7 @@
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
+using System;
 
 
 public class AddSoftware : AddCommand
@@ -16,8 +17,8 @@ public class AddSoftware : AddCommand
       return;
     }
 
-    if (softwareData.Name == null || softwareData.Description == null ||
-      softwareData.Version == null || softwareData.Shortcut == null)
+    if (isNull(softwareData.Name) || isNull(softwareData.Description) ||
+      softwareData.Version == null || isNull(softwareData.Shortcut))
     {
       string msg = "Missing fields";
       if (softwareData.Name == null)
@@ -35,7 +36,14 @@ public class AddSoftware : AddCommand
       OnAddFailed(new ErrorEventArgs(msg));
       return;
     }
-    this.dbConnection.InsertSoftware(new Software(softwareData.Name,
-          softwareData.Description, softwareData.Shortcut, softwareData.Version.Value));
+
+    try {
+      this.dbConnection.InsertSoftware(new Software(softwareData.Name,
+            softwareData.Description, softwareData.Shortcut, softwareData.Version.Value));
+      OnAddSuccessfull();
+    } catch (InvalidOperationException ex)
+    {
+      OnAddFailed(new ErrorEventArgs(ex.Message));
+    }
   }
 }

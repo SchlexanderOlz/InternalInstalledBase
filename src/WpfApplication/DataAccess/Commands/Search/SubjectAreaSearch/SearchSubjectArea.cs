@@ -12,11 +12,7 @@ public class SearchSubjectArea : SearchCommand<SubjectArea>
   public override void Execute(object? param)
   {
     SubjectAreaData? data = param as SubjectAreaData;
-    if (data == null)
-    {
-      throw new InvalidOperationException($"Data passed was not {typeof(SubjectAreaData)}");
-    }
-    ICollection<SubjectArea> users = this.dbConnection.GetSubjectAreasByParam(data.Name, data.Customers);
+    ICollection<SubjectArea> users = this.dbConnection.GetSubjectAreasByParam(data?.Name, data?.Customers);
 
     if (users.Count > 0)
     {

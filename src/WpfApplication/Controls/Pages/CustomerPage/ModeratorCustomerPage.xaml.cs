@@ -14,6 +14,5 @@ public partial class ModeratorCustomerPage : CustomerPage
     this.DataGrid.DeleteEntry += deleteEntry;
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
   }
-
 }
 

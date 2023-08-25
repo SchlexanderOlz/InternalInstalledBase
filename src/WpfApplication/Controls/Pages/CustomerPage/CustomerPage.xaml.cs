@@ -1,6 +1,8 @@
 namespace WpfApplication.Pages;
 
 using DataAccess;
+using System;
+using System.Windows;
 using DataAccess.Commands;
 using DapperExtension.DBContext.Models;
 
@@ -19,4 +21,16 @@ public partial class CustomerPage : ContentPage<Customer>
     this.dataContext.Search.Execute(new CustomerData { });
   }
 
+  protected override void clearInputFields(object? sender, EventArgs e)
+  {
+    this.nameTextBox.Clear();
+    this.descriptionTextBox.Clear();
+    this.shortcutTextBox.Clear();
+    this.getDataField().Clear();
+  }
+
+  protected override ISearchData getDataField()
+  {
+    return (CustomerData)((FrameworkElement)this.actionBar).FindResource("Data");
+  }
 }

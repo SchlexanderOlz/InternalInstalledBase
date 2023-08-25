@@ -8,7 +8,7 @@ using DapperExtension.Config;
 public class InventoryManagementContext : DbContext
 {
 
-  private const string CONFIG_PATH = "../../../../DapperExtension/dbconfig.yml"; 
+  private const string CONFIG_PATH = "../DapperExtension/dbconfig.yml"; 
   public DbSet<Customer> Customers { get; set; }
   public DbSet<Product> Products { get; set; }
   public DbSet<SubjectArea> SubjectAreas { get; set; }

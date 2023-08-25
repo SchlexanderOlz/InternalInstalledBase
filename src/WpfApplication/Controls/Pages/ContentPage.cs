@@ -2,6 +2,7 @@ namespace WpfApplication.Pages;
 
 using System.Windows.Controls;
 using DataAccess;
+using DataAccess.Commands;
 using System;
 using System.Collections.Generic;
 
@@ -26,6 +27,9 @@ public abstract class ContentPage<T> : UserControl
     searchButton.SetResourceReference(Button.CommandParameterProperty, "Data");
     backButton.Click += OnBack;
 
+    this.dataContext.Add.AddSuccess += clearInputFields;
+    this.dataContext.Add.AddSuccess += this.reloadGrid;
+
     this.ActionBar.Controls.Add(backButton);
     this.ActionBar.Controls.Add(searchButton);
     this.ActionBar.Controls.Add(saveButton);
@@ -45,4 +49,8 @@ public abstract class ContentPage<T> : UserControl
   {
     this.dataContext.Delete.Execute(deleted);
   }
+
+  protected void reloadGrid(object? sender, EventArgs e) { this.dataContext.Search.Execute(null); }
+  protected abstract void clearInputFields(object? sender, EventArgs e);
+  protected abstract ISearchData getDataField();
 }

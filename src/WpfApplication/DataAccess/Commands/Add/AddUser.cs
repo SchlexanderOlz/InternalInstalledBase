@@ -1,5 +1,6 @@
 namespace DataAccess.Commands;
 
+using System;
 using DapperExtension.DBContext.Models.Users;
 
 
@@ -16,8 +17,7 @@ public class AddUser : AddCommand
       return;
     }
 
-    if (userData.UserName == null || userData.UserType == null ||
-      userData.Password == null)
+    if (isNull(userData.UserName) || userData.UserType == null || isNull(userData.Password))
     {
       string msg = "Missing fields";
       if (userData.UserName == null)
@@ -35,7 +35,14 @@ public class AddUser : AddCommand
       OnAddFailed(new ErrorEventArgs(msg));
       return;
     }
-    this.dbConnection.InsertUser(new User(userData.UserName,
-          userData.Password, userData.UserType.Value));
+
+    try {
+      this.dbConnection.InsertUser(new User(userData.UserName,
+            userData.Password, userData.UserType.Value));
+      OnAddSuccessfull();
+    } catch (InvalidOperationException ex)
+    {
+      OnAddFailed(new ErrorEventArgs(ex.Message));
+    }
   }
 }

@@ -1,6 +1,8 @@
 namespace WpfApplication.Pages;
 
 using DapperExtension.DBContext.Models;
+using System;
+using System.Windows;
 using DataAccess.Commands;
 using System.Windows.Controls;
 using DataAccess;
@@ -19,5 +21,19 @@ public partial class SoftwarePage : ContentPage<Software>
     this.contentGrid.Children.Add(this.DataGrid);
 
     this.dataContext.Search.Execute(new SoftwareData { });
+  }
+
+  protected override void clearInputFields(object? sender, EventArgs e)
+  {
+    this.nameTextBox.Clear();
+    this.descriptionTextBox.Clear();
+    this.shortcutTextBox.Clear();
+    this.versionTextBox.Clear();
+    this.getDataField().Clear();
+  }
+
+  protected override ISearchData getDataField()
+  {
+    return (SoftwareData)((FrameworkElement)this.actionBar).FindResource("Data");
   }
 }

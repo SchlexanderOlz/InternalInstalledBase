@@ -5,3 +5,4 @@ bin/
 .log
 .vs
 neovide_backtraces.log
+dbconfig.yml

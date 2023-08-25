@@ -13,12 +13,9 @@ public class SearchCustomer : SearchCommand<Customer>
   public override void Execute(object param)
   {
     CustomerData? data = param as CustomerData;
-    if (data == null)
-    {
-      throw new InvalidOperationException($"Data passed was not {typeof(CustomerData)}");
-    }
+
     ICollection<Customer> customers = this.dbConnection.GetCustomersByParam(
-        data.Name, data.Shortcut, data.Description, data.Status);
+        data?.Name, data?.Shortcut, data?.Description, data?.Status);
 
     if (customers.Count > 0)
     {

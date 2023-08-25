@@ -2,6 +2,7 @@ namespace WpfApplication.Pages;
 
 using DapperExtension.DBContext.Models;
 using DataAccess;
+using System;
 using DataAccess.Commands;
 using System.Windows.Controls;
 using System.Windows;
@@ -27,7 +28,6 @@ public partial class ProductPage : ContentPage<Product>
     ProductData data = (ProductData)((FrameworkElement)sender).FindResource("Data");
     HardwareAddSearch window = new(data);
     window.Show();
-
   }
 
   protected void loadSoftwareLinkPage(object sender, RoutedEventArgs e)
@@ -35,7 +35,18 @@ public partial class ProductPage : ContentPage<Product>
     ProductData data = (ProductData)((FrameworkElement)sender).FindResource("Data");
     SoftwareAddSearch window = new(data);
     window.Show();
+  }
 
-    MessageBox.Show(data.Hardware.Name);
+  protected override void clearInputFields(object? sender, EventArgs e)
+  {
+    this.nameTextBox.Clear();
+    this.descriptionTextBox.Clear();
+    this.shortcutTextBox.Clear();
+    this.getDataField().Clear();
+  }
+
+  protected override ISearchData getDataField()
+  {
+    return (ProductData)((FrameworkElement)this.actionBar).FindResource("Data");
   }
 }

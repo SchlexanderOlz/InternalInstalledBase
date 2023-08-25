@@ -1,6 +1,8 @@
 namespace WpfApplication.Pages;
 
 using DapperExtension.DBContext.Models.Users;
+using System;
+using System.Windows;
 using DataAccess.Commands;
 using System.Windows.Controls;
 using DataAccess;
@@ -24,5 +26,17 @@ public partial class UserPage : ContentPage<User>
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
 
     this.dataContext.Search.Execute(new UserData { });
+  }
+
+  protected override void clearInputFields(object? sender, EventArgs e)
+  {
+    this.userNameTextBox.Clear();
+    this.password.Clear();
+    this.getDataField().Clear();
+  }
+
+  protected override ISearchData getDataField()
+  {
+    return (SoftwareData)((FrameworkElement)this.actionBar).FindResource("Data");
   }
 }
