@@ -7,7 +7,7 @@ public class Product : Descriptable
   public Software Software { get; set; }
   public Hardware Hardware { get; set; }
   public ICollection<Customer>? Customers { get; set; }
-  public ICollection<Property>? Properties { get; set; }
+  public ICollection<ProductProperty>? Properties { get; set; }
 
   public Product(string name, string description, string shortcut, Hardware hardware,
       Software software) : base(name, description, shortcut)
@@ -29,7 +29,7 @@ public class Product : Descriptable
       entityBuilder.HasMany(e => e.Customers)
             .WithMany(c => c.Products);
       entityBuilder.HasMany(e => e.Properties)
-            .WithMany(p => p.Products);
+            .WithOne(p => p.Product);
     });
   }
 }

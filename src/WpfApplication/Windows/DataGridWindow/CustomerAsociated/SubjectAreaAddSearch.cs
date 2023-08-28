@@ -1,6 +1,7 @@
 namespace WpfApplication;
 
 using System.Windows;
+using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
@@ -56,5 +57,10 @@ public partial class SubjectAreaAddSearch : DataAddSearchPage<SubjectArea>
       this.customer.SubjectAreas = this.customer.SubjectAreas.Concat(areas).ToList();
     }
     this.dataContext.Save.Execute(null);
+  }
+
+  protected override void reloadSearch(object sender, SearchResults<SubjectArea> e)
+  {
+    this.dataContext.Search.Execute(new SubjectAreaData { Name = this.searchBox.Text });
   }
 }

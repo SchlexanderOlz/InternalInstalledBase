@@ -3,6 +3,7 @@ namespace WpfApplication;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
+using System;
 using DapperExtension.DBContext.Models;
 using DataAccess;
 using DataAccess.Commands;
@@ -49,5 +50,10 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software>
       return;
     }
     this.product.Software = software.Last();
+  }
+
+  protected override void reloadSearch(object sender, SearchResults<Software> e)
+  {
+    this.dataContext.Search.Execute(new SoftwareData { Name = this.searchBox.Text });
   }
 }

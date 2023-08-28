@@ -1,6 +1,5 @@
 namespace DataAccess.Commands;
 
-using System;
 using System.Collections.Generic;
 using DapperExtension.DBContext.Models;
 
@@ -15,9 +14,6 @@ public class SearchSoftware : SearchCommand<Software>
     ICollection<Software> products = this.dbConnection.GetSoftwareByParam(
         data?.Name, data?.Shortcut, data?.Description, data?.Version);
 
-    if (products.Count > 0)
-    {
-      OnSearchResult(new SearchResults<Software>(products));
-    }
+    OnSearchResult(new SearchResults<Software>(products));
   }
 }

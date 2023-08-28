@@ -1,6 +1,8 @@
 namespace DataAccess.Commands;
 
 using System;
+using System.Collections.Generic;
+using DapperExtension.DBContext.Models;
 
 public class AddProperty : AddCommand
 {
@@ -8,7 +10,23 @@ public class AddProperty : AddCommand
 
   public override void Execute(object param)
   {
-    PropertyData property = (PropertyData)param;
-    throw new NotImplementedException();
+    PropertyData propertyData = (PropertyData)param;
+
+    if (isNull(propertyData.Name) || propertyData.IsMultipleChoice == null
+        || isNull(propertyData.Options)) {
+      OnAddFailed(new ErrorEventArgs("Some property was not supplied"));
+      return;
+    }
+    Property property = new(propertyData.Name, propertyData.IsMultipleChoice.Value);
+
+    ICollection<Option> options = propertyData.ParseOptions();
+
+    try {
+      this.dbConnection.InsertPropertyOptionPack(property, options);
+      OnAddSuccessfull();
+    } catch (Exception e)
+    {
+      OnAddFailed(new ErrorEventArgs(e.Message));
+    }
   }
 }

@@ -5,7 +5,6 @@ using System.Windows.Data;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
-using WpfApplication.Pages;
 
 
 public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>

@@ -1,6 +1,5 @@
 namespace DataAccess.Commands;
 
-using System;
 using System.Collections.Generic;
 using DapperExtension.DBContext.Models;
 
@@ -17,10 +16,7 @@ public class SearchCustomer : SearchCommand<Customer>
     ICollection<Customer> customers = this.dbConnection.GetCustomersByParam(
         data?.Name, data?.Shortcut, data?.Description, data?.Status);
 
-    if (customers.Count > 0)
-    {
-      OnSearchResult(new SearchResults<Customer>(customers));
-    }
+    OnSearchResult(new SearchResults<Customer>(customers));
   }
 
 }

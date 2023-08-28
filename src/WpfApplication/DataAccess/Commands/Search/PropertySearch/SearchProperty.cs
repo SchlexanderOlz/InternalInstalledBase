@@ -12,11 +12,8 @@ public class SearchProperty : SearchCommand<Property>
   {
     PropertyData? data = param as PropertyData;
     ICollection<Property> properties = this.dbConnection.GetPropertiesByParam(
-        data?.Name, data?.Effect, data?.Products);
+        data?.Name, data?.Options?.Split(";"), data?.Products);
 
-    if (properties.Count > 0)
-    {
-      OnSearchResult(new SearchResults<Property>(properties));
-    }
+    OnSearchResult(new SearchResults<Property>(properties));
   }
 }

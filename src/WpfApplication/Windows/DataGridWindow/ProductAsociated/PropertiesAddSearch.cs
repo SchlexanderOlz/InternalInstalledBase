@@ -39,7 +39,7 @@ public partial class PropertiesAddSearch : DataAddSearchPage<Property>
 
   protected override void appendData(object sender, RoutedEventArgs e)
   {
-    ICollection<Hardware> hardware = this.dataGrid.GetSelectedItems();
+    ICollection<Property> hardware = this.dataGrid.GetSelectedItems();
     if (hardware.Count() == 0)
     {
       return;
@@ -49,6 +49,10 @@ public partial class PropertiesAddSearch : DataAddSearchPage<Property>
       MessageBox.Show("Can only select one Hardware");
       return;
     }
-    this.product.Hardware = hardware.Last();
+  }
+
+  protected override void reloadSearch(object sender, SearchResults<Property> e)
+  {
+    this.dataContext.Search.Execute(new PropertyData { Name = this.searchBox.Text });
   }
 }

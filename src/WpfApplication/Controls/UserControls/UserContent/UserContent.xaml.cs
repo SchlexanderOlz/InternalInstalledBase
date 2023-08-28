@@ -22,18 +22,21 @@ public partial class UserContent : UserControl
     Button productButton = new Button { Content = "Products" };
     Button hardwareButton = new Button { Content = "Hardware" };
     Button softwareButton = new Button { Content = "Software" };
+    Button propertyButton = new Button { Content = "Properties" };
     this.NavBar = new();
     this.NavBar.Controls.Add(logoutButton);
     this.NavBar.Controls.Add(customerButton);
     this.NavBar.Controls.Add(productButton);
     this.NavBar.Controls.Add(hardwareButton);
     this.NavBar.Controls.Add(softwareButton);
+    this.NavBar.Controls.Add(propertyButton);
 
     logoutButton.Click += logout;
     customerButton.Click += loadCustomerPage;
     productButton.Click += loadProductPage;
     hardwareButton.Click += loadHardwarePage;
     softwareButton.Click += loadSoftwarePage;
+    propertyButton.Click += loadPropertyPage;
   }
 
   protected void addPage<T>(ContentPage<T> element)
@@ -59,6 +62,13 @@ public partial class UserContent : UserControl
   protected virtual void OnBack(Session session)
   {
     this.Back?.Invoke(this, session);
+  }
+
+  protected virtual void loadPropertyPage(object sender, RoutedEventArgs e)
+  {
+    PropertyPage page = new();
+    addPage(page);
+    page.InitializeComponent();
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e)

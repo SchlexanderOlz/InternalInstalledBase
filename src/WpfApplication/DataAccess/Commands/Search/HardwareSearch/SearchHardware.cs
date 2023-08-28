@@ -14,9 +14,6 @@ public class SearchHardware : SearchCommand<Hardware>
     ICollection<Hardware> hardware = this.dbConnection.GetHardwareByParam(
         data?.Name, data?.Shortcut, data?.Description, data?.Ip, data?.MaterialNumber);
 
-    if (hardware.Count > 0)
-    {
-      OnSearchResult(new SearchResults<Hardware>(hardware));
-    }
+    OnSearchResult(new SearchResults<Hardware>(hardware));
   }
 }

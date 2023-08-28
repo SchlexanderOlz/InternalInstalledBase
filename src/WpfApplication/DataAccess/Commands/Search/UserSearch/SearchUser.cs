@@ -14,9 +14,6 @@ public class SearchUser : SearchCommand<User>
     ICollection<User> users = this.dbConnection.GetUsersByParam(
         data?.UserName, data?.UserType);
 
-    if (users.Count > 0)
-    {
-      OnSearchResult(new SearchResults<User>(users));
-    }
+    OnSearchResult(new SearchResults<User>(users));
   }
 }

@@ -1,3 +1,5 @@
+namespace DataAccess.Commands;
+
 using System.Windows.Input;
 using System;
 using DapperExtension;

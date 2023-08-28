@@ -9,6 +9,13 @@ public partial class ModeratorContent : UserContent
 
   public ModeratorContent(Session session) : base(session) { }
 
+  protected override void loadPropertyPage(object sender, RoutedEventArgs e)
+  {
+    ModeratorPropertyPage page = new ModeratorPropertyPage();
+    addPage(page);
+    page.InitializeComponent();
+  }
+
   protected override void loadCustomerPage(object sender, RoutedEventArgs e)
   {
     ModeratorCustomerPage page = new ModeratorCustomerPage();

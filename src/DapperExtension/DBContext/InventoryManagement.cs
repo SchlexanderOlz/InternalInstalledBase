@@ -17,6 +17,8 @@ public class InventoryManagementContext : DbContext
   public DbSet<User> Users { get; set; }
   public DbSet<Session> Sessions { get; set; }
   public DbSet<Property> Properties { get; set; }
+  public DbSet<Option> Options { get; set; }
+  public DbSet<ProductProperty> ProductProperties { get; set; }
 
   #region ModelConnection
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -36,6 +38,8 @@ public class InventoryManagementContext : DbContext
     new User().Up(modelBuilder);
     new Session().Up(modelBuilder);
     new Property().Up(modelBuilder);
+    new Option().Up(modelBuilder);
+    new ProductProperty().Up(modelBuilder); 
   }
 
   #endregion

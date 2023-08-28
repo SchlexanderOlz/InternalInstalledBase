@@ -38,6 +38,23 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
+  public void InsertOption(Option option)
+  {
+    this.context.Options.Add(option);
+    this.context.SaveChanges();
+  }
+
+  public void InsertPropertyOptionPack(Property property, ICollection<Option> options)
+  {
+    foreach(var option in options)
+    {
+      option.Property = property;
+    }
+    this.context.Properties.Add(property);
+    this.context.Options.AddRange(options);
+    this.SaveChanges();
+  }
+
   public void InsertProperty(Property property)
   {
     this.context.Properties.Add(property);
@@ -110,10 +127,43 @@ public class DBInteraction
     return this.context.Software.ToList();
   }
 
-  public ICollection<Property> GetPropertiesByParam(string? name, string? effect,
-      ICollection<Product> products)
+  public ICollection<Option> GetOptionsByParam(string? name, Property? property)
   {
+    IQueryable<Option> query = this.context.Options.AsQueryable();
 
+    if (name != null)
+    {
+      query = query.Where(o =>  EF.Functions.Like(o.OptionName, $"%{name}%"));
+    }
+
+    if (property != null)
+    {
+      query = query.Where(o => o.Property == property);
+    }
+
+    return query.ToList();
+  }
+
+  public ICollection<Property> GetPropertiesByParam(string? name, ICollection<string>? options,
+      ICollection<Product>? products)
+  {
+    IQueryable<Property> query = this.context.Properties.AsQueryable();
+    if (name != null)
+    {
+      query = query.Where(p => p.Name == name);
+    }
+
+    if (options != null)
+    {
+      query = query.Where(p => p.Options.Any(option => options.Contains(option.OptionName)));
+    }
+
+    if (products != null)
+    {
+      query = query.Where(p => p.ProductProperty.Any(pp => products.Contains(pp.Product)));
+    }
+
+    return query.ToList();
   }
 
   public ICollection<Software> GetSoftwareByParam(string? name, string? shortcut, string? description,
@@ -220,6 +270,12 @@ public class DBInteraction
   public void DeleteProperty(ICollection<Property> properties)
   {
     this.context.Properties.RemoveRange(properties);
+    this.SaveChanges();
+  }
+
+  public void DeleteOptions(ICollection<Option> options)
+  {
+    this.context.Options.RemoveRange(options);
     this.SaveChanges();
   }
 

@@ -1,6 +1,7 @@
 namespace WpfApplication;
 
 using System.Windows;
+using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
@@ -48,5 +49,10 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product>
 
     this.dataContext.Save.Execute(null);
 
+  }
+
+  protected override void reloadSearch(object sender, SearchResults<Product> e)
+  {
+    this.dataContext.Search.Execute(new ProductData { Name = this.searchBox.Text });
   }
 }

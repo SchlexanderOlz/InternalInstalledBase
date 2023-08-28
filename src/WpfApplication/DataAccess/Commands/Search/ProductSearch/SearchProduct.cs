@@ -14,9 +14,6 @@ public class SearchProduct : SearchCommand<Product>
     ICollection<Product> products = this.dbConnection.GetProductsByParam(
         data?.Name, data?.Shortcut, data?.Description, data?.Hardware, data?.Software);
 
-    if (products.Count > 0)
-    {
-      OnSearchResult(new SearchResults<Product>(products));
-    }
+    OnSearchResult(new SearchResults<Product>(products));
   }
 }

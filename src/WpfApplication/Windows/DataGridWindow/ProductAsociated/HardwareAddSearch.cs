@@ -2,6 +2,7 @@ namespace WpfApplication;
 
 using System.Windows;
 using System.Windows.Controls;
+using System;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
 using DataAccess;
@@ -48,5 +49,10 @@ public partial class HardwareAddSearch : DataAddSearchPage<Hardware>
       return;
     }
     this.product.Hardware = hardware.Last();
+  }
+
+  protected override void reloadSearch(object sender, SearchResults<Hardware> e)
+  {
+    this.dataContext.Search.Execute(new HardwareData { Name = this.searchBox.Text });
   }
 }
