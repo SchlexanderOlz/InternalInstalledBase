@@ -48,6 +48,8 @@ public abstract class ContentPage<T> : UserControl
     this.ActionBar.Controls.Add(saveButton);
   }
 
+  public PageData<T> GetDataContext() { return this.dataContext; }
+
   protected virtual void OnBack(object sender, EventArgs e)
   {
     this.Back?.Invoke(this, EventArgs.Empty);
@@ -58,7 +60,7 @@ public abstract class ContentPage<T> : UserControl
     this.dataContext.Save.Execute(null);
   }
 
-  protected void deleteEntry(object? sender, ICollection<T> deleted)
+  public void DeleteEntry(object? sender, ICollection<T> deleted)
   {
     this.dataContext.Delete.Execute(deleted);
   }

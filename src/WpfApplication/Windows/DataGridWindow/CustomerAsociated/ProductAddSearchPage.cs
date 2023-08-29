@@ -51,13 +51,6 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product>
     {
       this.customer.Products = this.customer.Products.Concat(products).ToList();
     }
-
     this.dataContext.Save.Execute(null);
-
-  }
-
-  protected override void reloadSearch(object sender, SearchResults<Product> e)
-  {
-    this.dataContext.Search.Execute(new ProductData { Name = this.searchBox.Text });
   }
 }

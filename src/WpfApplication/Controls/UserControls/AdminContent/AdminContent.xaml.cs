@@ -26,7 +26,42 @@ public partial class AdminContent : ModeratorContent
   protected void loadUserPage(object sender, RoutedEventArgs args)
   {
     UserPage page = new UserPage();
-    addPage(page);
+    this.addPage(page);
+    page.InitializeComponent();
+  }
+
+  protected override void loadPropertyPage(object sender, RoutedEventArgs e)
+  {
+    AdminPropertyPage page = new();
+    this.addPage(page);
+    page.InitializeComponent();
+  }
+
+  protected override void loadCustomerPage(object sender, RoutedEventArgs e)
+  {
+    AdminCustomerPage page = new();
+    this.addPage(page);
+    page.InitializeComponent();
+  }
+
+  protected override void loadProductPage(object sender, RoutedEventArgs e)
+  {
+    AdminProductPage page = new();
+    this.addPage(page);
+    page.InitializeComponent();
+  }
+
+  protected override void loadHardwarePage(object sender, RoutedEventArgs e)
+  {
+    AdminHardwarePage page = new();
+    this.addPage(page);
+    page.InitializeComponent();
+  }
+
+  protected override void loadSoftwarePage(object sender, RoutedEventArgs e)
+  {
+    AdminSoftwarePage page = new();
+    this.addPage(page);
     page.InitializeComponent();
   }
 #endregion

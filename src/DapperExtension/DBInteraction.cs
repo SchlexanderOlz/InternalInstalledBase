@@ -246,7 +246,7 @@ public class DBInteraction
   }
 
 
-  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name, ICollection<Customer> customers)
+  public ICollection<SubjectArea> GetSubjectAreasByParam(string? name, ICollection<Customer>? customers)
   {
 
     IQueryable<SubjectArea> query = this.context.SubjectAreas.AsQueryable();

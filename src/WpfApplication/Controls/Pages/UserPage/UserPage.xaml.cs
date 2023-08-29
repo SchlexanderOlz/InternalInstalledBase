@@ -1,6 +1,6 @@
 /**
  * @file
- * @brief This file contains the definition of the UserPage class
+ * @brief This file contains the definition of the ModeratorSoftwarePage class
  * @author Alexander Scholz
  * @date 29-08-2023
  */
@@ -28,7 +28,7 @@ public partial class UserPage : ContentPage<User>
     Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
 
     this.ActionBar.Controls.Add(addButton);
-    this.DataGrid.DeleteEntry += deleteEntry;
+    this.DataGrid.DeleteEntry += DeleteEntry;
     addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
 
     this.dataContext.Search.Execute(new UserData { });

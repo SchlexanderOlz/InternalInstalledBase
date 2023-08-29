@@ -55,9 +55,4 @@ public partial class HardwareAddSearch : DataAddSearchPage<Hardware>
     }
     this.product.Hardware = hardware.Last();
   }
-
-  protected override void reloadSearch(object sender, SearchResults<Hardware> e)
-  {
-    this.dataContext.Search.Execute(new HardwareData { Name = this.searchBox.Text });
-  }
 }

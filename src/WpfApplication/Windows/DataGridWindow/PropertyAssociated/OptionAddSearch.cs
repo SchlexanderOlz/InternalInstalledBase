@@ -60,9 +60,4 @@ public partial class OptionAddSearchPage : DataAddSearchPage<Option>
 
     this.property.Options.Concat(options);
   }
-
-  protected override void reloadSearch(object sender, SearchResults<Option> e)
-  {
-    this.dataContext.Search.Execute(new OptionData { Name = this.searchBox.Text });
-  }
 }

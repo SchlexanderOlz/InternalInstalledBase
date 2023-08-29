@@ -56,10 +56,6 @@ public abstract partial class DataAddSearchPage<T> : Window
     this.dataGrid.SetItemSource(this.dataContext.GridData);
     this.dataGrid.DeleteEntry += deleteEntry;
     this.dataGrid.MakeReadOnly();
-
-    // If some new element was added reloadSearch is called to display the newly
-    // added element
-    this.dataContext.Search.SearchResultIn += reloadSearch;
   }
 
   protected virtual void collapseButton(object sender, RoutedEventArgs e)
@@ -92,9 +88,4 @@ public abstract partial class DataAddSearchPage<T> : Window
   {
     this.dataContext.Delete.Execute(deleted);
   }
-
-  /**
-   * @brief Reloads the datagrid after some new data has been added via the searh-field
-   */
-  protected abstract void reloadSearch(object sender, SearchResults<T> e);
 }

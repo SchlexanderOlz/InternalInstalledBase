@@ -63,9 +63,4 @@ public partial class SubjectAreaAddSearch : DataAddSearchPage<SubjectArea>
     }
     this.dataContext.Save.Execute(null);
   }
-
-  protected override void reloadSearch(object sender, SearchResults<SubjectArea> e)
-  {
-    this.dataContext.Search.Execute(new SubjectAreaData { Name = this.searchBox.Text });
-  }
 }

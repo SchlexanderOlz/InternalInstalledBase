@@ -56,9 +56,4 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software>
     }
     this.product.Software = software.Last();
   }
-
-  protected override void reloadSearch(object sender, SearchResults<Software> e)
-  {
-    this.dataContext.Search.Execute(new SoftwareData { Name = this.searchBox.Text });
-  }
 }

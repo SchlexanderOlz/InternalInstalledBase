@@ -24,7 +24,7 @@ public partial class CustomerPage : ContentPage<Customer>
     this.DataGrid.MakeReadOnly();
     this.contentGrid.Children.Add(this.DataGrid);
 
-    this.dataContext.Search.Execute(new CustomerData { });
+    this.dataContext.Search.Execute(null);
   }
 
   protected override void clearInputFields(object? sender, EventArgs e)

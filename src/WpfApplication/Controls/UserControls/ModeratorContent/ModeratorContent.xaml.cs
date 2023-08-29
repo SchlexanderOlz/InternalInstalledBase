@@ -19,35 +19,35 @@ public partial class ModeratorContent : UserContent
   protected override void loadPropertyPage(object sender, RoutedEventArgs e)
   {
     ModeratorPropertyPage page = new ModeratorPropertyPage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected override void loadCustomerPage(object sender, RoutedEventArgs e)
   {
     ModeratorCustomerPage page = new ModeratorCustomerPage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected override void loadProductPage(object sender, RoutedEventArgs e)
   {
     ModeratorProductPage page = new ModeratorProductPage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected override void loadHardwarePage(object sender, RoutedEventArgs e)
   {
     ModeratorHardwarePage page = new ModeratorHardwarePage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected override void loadSoftwarePage(object sender, RoutedEventArgs e)
   {
     ModeratorSoftwarePage page = new ModeratorSoftwarePage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 #endregion

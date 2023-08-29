@@ -25,6 +25,7 @@ public abstract class ExcelLikeDataGrid<T> : UserControl
   protected DataGrid dataGrid;
   protected DBInteraction dbConnection;
   public event EventHandler<ICollection<T>>? DeleteEntry;
+  private bool isDeletable;
 
   public ExcelLikeDataGrid(ObservableCollection<T> itemSource) : base()
   {
@@ -58,7 +59,7 @@ public abstract class ExcelLikeDataGrid<T> : UserControl
    */
   private void keyDown(object sender, KeyEventArgs e)
   {
-    if (this.dataGrid.IsReadOnly)
+    if (!this.isDeletable)
     {
       return;
     }
@@ -78,6 +79,16 @@ public abstract class ExcelLikeDataGrid<T> : UserControl
   public void MakeWritable()
   {
     this.dataGrid.IsReadOnly = false;
+  }
+
+  public void MakeDeleteable()
+  {
+    this.isDeletable = true;
+  }
+
+  public void MakeNonDeletable()
+  {
+    this.isDeletable = false;
   }
 
   /**

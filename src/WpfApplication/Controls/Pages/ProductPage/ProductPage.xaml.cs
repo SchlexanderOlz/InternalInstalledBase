@@ -26,7 +26,7 @@ public partial class ProductPage : ContentPage<Product>
     Grid.SetRowSpan(this.DataGrid, 15);
     this.contentGrid.Children.Add(this.DataGrid);
 
-    this.dataContext.Search.Execute(new ProductData { });
+    this.dataContext.Search.Execute(null);
   }
 
   protected void loadHardwareLinkPage(object sender, RoutedEventArgs e)

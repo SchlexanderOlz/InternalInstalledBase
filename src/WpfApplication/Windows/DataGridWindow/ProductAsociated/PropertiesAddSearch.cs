@@ -56,9 +56,4 @@ public partial class PropertiesAddSearch : DataAddSearchPage<Property>
       return;
     }
   }
-
-  protected override void reloadSearch(object sender, SearchResults<Property> e)
-  {
-    this.dataContext.Search.Execute(new PropertyData { Name = this.searchBox.Text });
-  }
 }

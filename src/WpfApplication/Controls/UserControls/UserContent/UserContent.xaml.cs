@@ -83,35 +83,35 @@ public partial class UserContent : UserControl
   protected virtual void loadPropertyPage(object sender, RoutedEventArgs e)
   {
     PropertyPage page = new();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected virtual void loadCustomerPage(object sender, RoutedEventArgs e)
   {
     CustomerPage page = new CustomerPage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected virtual void loadProductPage(object sender, RoutedEventArgs e)
   {
     ProductPage page = new ProductPage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected virtual void loadHardwarePage(object sender, RoutedEventArgs e)
   {
     HardwarePage page = new HardwarePage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 
   protected virtual void loadSoftwarePage(object sender, RoutedEventArgs e)
   {
     SoftwarePage page = new SoftwarePage();
-    addPage(page);
+    this.addPage(page);
     page.InitializeComponent();
   }
 #endregion
