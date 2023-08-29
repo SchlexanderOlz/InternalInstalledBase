@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the AdminContent class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication.UserControls;
 
 using DapperExtension.DBContext.Models.Users;
@@ -16,10 +22,12 @@ public partial class AdminContent : ModeratorContent
     this.NavBar.Controls.Add(userButton);
   }
 
+#region PageLoaders
   protected void loadUserPage(object sender, RoutedEventArgs args)
   {
     UserPage page = new UserPage();
     addPage(page);
     page.InitializeComponent();
   }
+#endregion
 }

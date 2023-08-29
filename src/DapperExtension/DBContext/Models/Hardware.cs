@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the Hardware class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DapperExtension.DBContext.Models;
 using Microsoft.EntityFrameworkCore;
 public class Hardware : Descriptable

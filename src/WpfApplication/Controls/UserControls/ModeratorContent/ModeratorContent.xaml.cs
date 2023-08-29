@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the ModeratorContent class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication.UserControls;
 
 using DapperExtension.DBContext.Models.Users;
@@ -9,6 +15,7 @@ public partial class ModeratorContent : UserContent
 
   public ModeratorContent(Session session) : base(session) { }
 
+#region PageLoaders
   protected override void loadPropertyPage(object sender, RoutedEventArgs e)
   {
     ModeratorPropertyPage page = new ModeratorPropertyPage();
@@ -43,4 +50,5 @@ public partial class ModeratorContent : UserContent
     addPage(page);
     page.InitializeComponent();
   }
+#endregion
 }

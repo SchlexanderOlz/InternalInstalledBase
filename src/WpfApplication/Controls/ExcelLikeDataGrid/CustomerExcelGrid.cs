@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the CustomerExcelGrid class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication;
 
 using System.Windows;
@@ -7,6 +13,9 @@ using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;
 
 
+/**
+ * @brief ExcelGrid for the customer
+ */
 public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 {
   public CustomerExcelLikeGrid(ObservableCollection<Customer> itemSource) : base(itemSource)
@@ -16,6 +25,7 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     var actionsColumn = new DataGridTemplateColumn { Header = "Actions" };
     actionsColumn.CellTemplate = new DataTemplate();
 
+    // The stackPanelFactory is used to attach buttons into one column (actionsColumn)
     var stackPanelFactory = new FrameworkElementFactory(typeof(StackPanel));
     stackPanelFactory.SetValue(StackPanel.OrientationProperty, Orientation.Horizontal);
 
@@ -33,11 +43,17 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
 
     stackPanelFactory.AppendChild(showProductsButtonFactory);
 
+    // Here the elements of the stackPanelFactory are attached
     actionsColumn.CellTemplate.VisualTree = stackPanelFactory;
 
     this.dataGrid.Columns.Add(actionsColumn);
   }
 
+  /**
+   * @brief Loads the page of associated products of the customer,
+   * currently selected in the ExcelGrid
+   *    -> Handles an Event
+   */
   protected void loadProductList(object sender, RoutedEventArgs e)
   {
     Button? button = sender as Button;
@@ -65,6 +81,11 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     gridWindow.Show();
   }
 
+  /**
+   * @brief Loads the page of associated SubjectAreas of the customer,
+   * currently selected in the ExcelGrid
+   *    -> Handles an Event
+   */
   private void loadSubjectAreaList(object sender, RoutedEventArgs e)
   {
     Button? button = sender as Button;
@@ -92,6 +113,6 @@ public class CustomerExcelLikeGrid : DescriptableExcelLikeGrid<Customer>
     gridWindow.Show();
 
   }
-
+  // Static constructor needed to use component in .xaml
   static CustomerExcelLikeGrid() { }
 }

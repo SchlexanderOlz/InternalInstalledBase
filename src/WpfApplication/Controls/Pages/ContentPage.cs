@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the ContentPage abstract class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication.Pages;
 
 using System.Windows.Controls;
@@ -6,6 +12,12 @@ using DataAccess.Commands;
 using System;
 using System.Collections.Generic;
 
+
+/**
+ * @brief ContentPage is the base class for all pages. It defines view components
+ * which are used by all pages. It takes in a dataContext with the same type-param,
+ * which contains all command which are always used (Add, Delete, etc.)
+ */
 public abstract class ContentPage<T> : UserControl
 {
   public NavBar ActionBar { get; set; }
@@ -20,6 +32,7 @@ public abstract class ContentPage<T> : UserControl
     this.DataContext = this.dataContext;
     this.ActionBar.DataContext = this;
 
+    // Buttons which are used to modify the data
     var searchButton = new Button { Content = "Search", Command = this.dataContext.Search };
     var backButton = new Button { Content = "Back" };
     var saveButton = new Button { Content = "Save", Command = this.dataContext.Save };

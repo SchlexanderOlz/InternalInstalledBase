@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the Session class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DapperExtension.DBContext.Models.Users;
 
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +23,13 @@ public class Session : IDataObject
 
   internal Session() {}
 
+  // Sets the BeginTime to the currentTime
   public void Start()
   {
     this.BeginTime = DateTime.Now;
   }
 
+  // Sets the EndTime to the currentTime
   public void End()
   {
     this.EndTime = DateTime.Now;

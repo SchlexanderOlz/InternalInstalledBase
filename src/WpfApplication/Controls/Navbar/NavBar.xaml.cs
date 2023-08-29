@@ -1,12 +1,21 @@
+/**
+ * @file
+ * @brief This file contains the definition of the NavBar class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication;
 
 using System.Windows.Controls;
 using System.Windows;
 using System.Collections.ObjectModel;
 
+
+/**
+ * @brief NavBar is a container which holds controls (usually buttons) in a horizontal way
+ */
 public class NavBar : ContentControl
 {
-
   static NavBar()
   {
     DefaultStyleKeyProperty.OverrideMetadata(typeof(NavBar),

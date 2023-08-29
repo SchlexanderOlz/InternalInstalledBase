@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the UserContent class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication.UserControls;
 
 using System.Windows.Controls;
@@ -7,6 +13,9 @@ using DapperExtension.DBContext.Models.Users;
 using WpfApplication.Pages;
 
 
+/**
+ * @brief UserContent contains the Navbar and all user-related stuff, like f.e. sessions
+ */
 public partial class UserContent : UserControl
 {
   public NavBar NavBar { get; set; }
@@ -39,6 +48,11 @@ public partial class UserContent : UserControl
     propertyButton.Click += loadPropertyPage;
   }
 
+  /**
+   * @brief Replaces the userContent field definied in the .xaml with the page
+   * given as the parameter
+   * @param element Element is the new page which is placed into the view
+   */
   protected void addPage<T>(ContentPage<T> element)
   {
     Grid.SetRow(element, 6);
@@ -64,6 +78,8 @@ public partial class UserContent : UserControl
     this.Back?.Invoke(this, session);
   }
 
+// PageLoaders load the page in question
+#region PageLoaders
   protected virtual void loadPropertyPage(object sender, RoutedEventArgs e)
   {
     PropertyPage page = new();
@@ -98,4 +114,5 @@ public partial class UserContent : UserControl
     addPage(page);
     page.InitializeComponent();
   }
+#endregion
 }

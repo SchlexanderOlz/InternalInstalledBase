@@ -1,3 +1,9 @@
+/**
+* @file
+* @brief This file contains the definition of the DataAddSearchPage class 
+* @author Alexander Scholz
+* @date 29-08-2023
+*/
 namespace WpfApplication;
 
 using System.Windows;
@@ -7,9 +13,12 @@ using System.Collections.Generic;
 using DataAccess.Commands;
 
 
+/**
+ * @brief The data add-search page contains an ExcelLikeGrid which contains data
+ * of the specified type T
+ */
 public abstract partial class DataAddSearchPage<T> : Window
 {
-
   protected PageData<T> dataContext;
   protected ExcelLikeDataGrid<T> dataGrid;
   protected TextBox searchBox;
@@ -20,12 +29,14 @@ public abstract partial class DataAddSearchPage<T> : Window
     this.dataContext = dataContext;
     this.dataGrid = dataGrid;
 
+    // Defintiion of the search TextBox
     TextBox searchBox = new TextBox();
     this.searchBox = searchBox;
     this.searchBox.Margin = new Thickness(5);
     this.searchBox.TextChanged += updateGrid;
     this.searchBox.TextChanged += collapseButton;
 
+    // The chooseButton is hidden if the TextBox is empty
     Button chooseButton = new Button { Content = "Add" };
     NavBar navBar = new();
     navBar.Controls.Add(chooseButton);
@@ -46,6 +57,8 @@ public abstract partial class DataAddSearchPage<T> : Window
     this.dataGrid.DeleteEntry += deleteEntry;
     this.dataGrid.MakeReadOnly();
 
+    // If some new element was added reloadSearch is called to display the newly
+    // added element
     this.dataContext.Search.SearchResultIn += reloadSearch;
   }
 
@@ -61,11 +74,27 @@ public abstract partial class DataAddSearchPage<T> : Window
     }
   }
 
+  /**
+   * @brief The text of the TextBox is used to query for the input data and then
+   * the grid is updated with the results
+   */
   protected abstract void updateGrid(object sender, RoutedEventArgs e);
+
+  /**
+   * @brief Appends data to the element for which this associated page has been called
+   */
   protected abstract void appendData(object sender, RoutedEventArgs e);
+
+  /**
+   * @brief Deletes data associated with the element in question
+   */
   protected virtual void deleteEntry(object? sender, ICollection<T> deleted)
   {
     this.dataContext.Delete.Execute(deleted);
   }
+
+  /**
+   * @brief Reloads the datagrid after some new data has been added via the searh-field
+   */
   protected abstract void reloadSearch(object sender, SearchResults<T> e);
 }

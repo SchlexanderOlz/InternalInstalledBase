@@ -1,9 +1,20 @@
+/**
+ * @file
+ * @brief This file contains the definition of the SubmitUser class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DataAccess.Commands;
 
 using System;
 using System.Windows;
 using DapperExtension.DBContext.Models.Users;
 
+
+/**
+ * @brief The SubmitUser command is used to check is a user is contained in the
+ * databse or not. Return the whole user if the credentials match
+ */
 public class SubmitUser : DBCommand
 {
 

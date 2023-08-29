@@ -1,12 +1,8 @@
 ﻿using System.Windows;
 
-namespace WpfApplication
-{
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// /// </summary>
+namespace WpfApplication;
 
-    public partial class App : Application
-    {
-    }
+
+public partial class App : Application
+{
 }

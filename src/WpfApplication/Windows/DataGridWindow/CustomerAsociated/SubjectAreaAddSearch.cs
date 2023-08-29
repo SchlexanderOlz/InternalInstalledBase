@@ -1,7 +1,12 @@
+/**
+* @file
+* @brief This file contains the definition of the SubjectAreaData class 
+* @author Alexander Scholz
+* @date 29-08-2023
+*/
 namespace WpfApplication;
 
 using System.Windows;
-using System;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
 using DapperExtension.DBContext.Models;

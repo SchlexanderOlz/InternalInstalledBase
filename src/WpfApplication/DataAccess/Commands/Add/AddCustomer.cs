@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the AddCustomer class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
@@ -17,25 +23,24 @@ public class AddCustomer : AddCommand
       return;
     }
 
-    if (isNull(customerData.Name) || isNull(customerData.Description)
-        || isNull(customerData.Shortcut))
+    string msg = "Missing fields";
+    if (isNull(customerData.Name))
     {
-      string msg = "Missing fields";
-      if (customerData.Name == null)
-      {
-        msg += ", " + nameof(customerData.Name);
-      }
-      if (customerData.Description == null)
-      {
-        msg += ", " + nameof(customerData.Description);
-      }
-      if (customerData.Shortcut == null)
-      {
-        msg += ", " + nameof(customerData.Shortcut);
-      }
-      OnAddFailed(new ErrorEventArgs(msg));
+      msg += ", " + nameof(customerData.Name);
       return;
     }
+    if (isNull(customerData.Description))
+    {
+      msg += ", " + nameof(customerData.Description);
+      return;
+    }
+    if (isNull(customerData.Shortcut))
+    {
+      msg += ", " + nameof(customerData.Shortcut);
+      return;
+    }
+    OnAddFailed(new ErrorEventArgs(msg));
+
     try {
       this.dbConnection.InsertCustomer(new Customer(customerData.Name,
           customerData.Description, customerData.Shortcut, customerData.Status));

@@ -1,8 +1,15 @@
+/**
+ * @file
+ * @brief This file contains the definition of the Descriptable abstract class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DapperExtension.DBContext.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-public class Descriptable : IDataObject
+using Microsoft.EntityFrameworkCore;
+
+
+public abstract class Descriptable : IDataObject
 {
   public string Name { get; set; }
   public string Description { get; set; }

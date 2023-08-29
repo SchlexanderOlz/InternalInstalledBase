@@ -1,4 +1,10 @@
-﻿namespace DapperExtension;
+﻿/**
+ * @file
+ * @brief This file contains the definition of the DBInteraction class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
+namespace DapperExtension;
 
 using DapperExtension.DBContext;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +12,10 @@ using System;
 using DBContext.Models.Users;
 using DBContext.Models;
 
+/**
+ * @brief DBInteraction contains all queries made to the database
+ *    -> Singleton
+ */
 public class DBInteraction
 {
   private readonly InventoryManagementContext context;
@@ -22,6 +32,9 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
+  /**
+   * @brief Get's the one and only instance of the class
+   */
   public static DBInteraction GetInstance()
   {
     if (DBInteraction.dbInteraction == null)
@@ -31,6 +44,7 @@ public class DBInteraction
     return DBInteraction.dbInteraction;
   }
 
+  // InsertStatements all save the changes after adding a specific object to a DbSet
   #region InsertStatements
   public void InsertProduct(Product product)
   {
@@ -44,6 +58,9 @@ public class DBInteraction
     this.context.SaveChanges();
   }
 
+  /**
+   * @brief Inserts a Property with it's options in one transaction
+   */
   public void InsertPropertyOptionPack(Property property, ICollection<Option> options)
   {
     foreach(var option in options)
@@ -99,12 +116,41 @@ public class DBInteraction
   #endregion
 
   #region SelectStatements
+  /**
+   * @brief Searches for a user 
+   * @param username Username of the user
+   * @param password Password as string from the user -> will be hashed on search 
+   */
   public User? GetUserByCredentials(string username, string password)
   {
     byte[] passwordHash = User.HashPassword(password);
     return this.context.Users
         .Where(u => u.UserName == username && u.Password.SequenceEqual(passwordHash))
         .FirstOrDefault();
+  }
+
+  /**
+   * @brief Adds all vaguely definied where queries to the given reference to a query
+   * @param query The query which should be modified to search for Descriptables
+   */
+  private void buildQueryDescriptableSimilar<T>(ref IQueryable<T> query, string? name,
+                                    string? shortcut, string? description)
+  where T : Descriptable
+  {
+    if (!string.IsNullOrEmpty(name))
+    {
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Name, $"%{name}%"));
+    }
+
+    if (!string.IsNullOrEmpty(shortcut))
+    {
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Shortcut, $"%{shortcut}%"));
+    }
+
+    if (!string.IsNullOrEmpty(description))
+    {
+      query = query.Where(descriptable => EF.Functions.Like(descriptable.Description, $"%{description}%"));
+    }
   }
 
   public ICollection<Customer> GetAllCustomers()
@@ -126,6 +172,12 @@ public class DBInteraction
   {
     return this.context.Software.ToList();
   }
+
+  #endregion
+
+  // SelectByParamStatements select data from the database which vaguely matches
+  // the given parameters
+  #region SelectByParamStatements
 
   public ICollection<Option> GetOptionsByParam(string? name, Property? property)
   {
@@ -266,6 +318,7 @@ public class DBInteraction
   }
 
   #endregion
+  // Delete Queries always take a range of objects which will be deleted from the database
   #region DeleteQueries
   public void DeleteProperty(ICollection<Property> properties)
   {
@@ -315,31 +368,4 @@ public class DBInteraction
     this.SaveChanges();
   }
   #endregion
-
-  public void Log(DataChange change)
-  {
-    
-  }
-
-
-  private void buildQueryDescriptableSimilar<T>(ref IQueryable<T> query, string? name,
-                                    string? shortcut, string? description)
-  where T : Descriptable
-  {
-    if (!string.IsNullOrEmpty(name))
-    {
-      query = query.Where(descriptable => EF.Functions.Like(descriptable.Name, $"%{name}%"));
-    }
-
-    if (!string.IsNullOrEmpty(shortcut))
-    {
-      query = query.Where(descriptable => EF.Functions.Like(descriptable.Shortcut, $"%{shortcut}%"));
-    }
-
-    if (!string.IsNullOrEmpty(description))
-    {
-      query = query.Where(descriptable => EF.Functions.Like(descriptable.Description, $"%{description}%"));
-    }
-  }
-
 }

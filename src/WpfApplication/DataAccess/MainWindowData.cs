@@ -1,7 +1,17 @@
+/**
+* @file
+* @brief This file contains the definition of the MainWindowData class 
+* @author Alexander Scholz
+* @date 29-08-2023
+*/
 namespace DataAccess;
 
 using Commands;
 
+
+/**
+ * @brief The MainWindowData contains all commands for the MainWindow class
+ */
 public class MainWindowData
 {
 

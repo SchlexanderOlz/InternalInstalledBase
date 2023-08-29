@@ -1,8 +1,13 @@
+/**
+ * @file
+ * @brief This file contains the definition of the AddSubjectArea class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DataAccess.Commands;
 
 using DapperExtension.DBContext.Models;
 using System;
-using System.Windows;
 
 
 public class AddSubjectArea : AddCommand

@@ -1,8 +1,18 @@
+/**
+ * @file
+ * @brief This file contains the definition of the User class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DapperExtension.DBContext.Models.Users;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 using System.Text;
 
+/**
+ * @brief User implements the IDataObject interface
+ *    -> User is the type which is used to manage logon and sessions
+ */
 public class User : IDataObject
 {
     public int? UserId { get; set; }
@@ -21,6 +31,11 @@ public class User : IDataObject
 
     public User() { }
 
+    /**
+     * @brief Hashes the password
+     * @param password The password by reference which will be hashed
+     * @return The SHA256 hash of the password
+     */
     public static byte[] HashPassword(in string password)
     {
         return SHA256.HashData(Encoding.UTF8.GetBytes(password));

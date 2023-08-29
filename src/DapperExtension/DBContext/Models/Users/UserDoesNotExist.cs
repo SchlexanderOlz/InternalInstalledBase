@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the UserDoesNotExistException exception
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace DapperExtension.DBContext.Models.Users;
 
 class UserDoesNotExistException : Exception

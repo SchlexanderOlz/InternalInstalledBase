@@ -1,3 +1,9 @@
+/**
+* @file
+* @brief This file contains the definition of the PageData abstract class 
+* @author Alexander Scholz
+* @date 29-08-2023
+*/
 namespace DataAccess;
 
 using Commands;
@@ -5,6 +11,11 @@ using System.Windows.Input;
 using System.Windows;
 using System.Collections.ObjectModel;
 
+
+/**
+ * @brief PageData is the base class for all modelview data. It contains all
+ * database-interaction commands (Save, Add, Delete, etc.)
+ */
 public abstract class PageData<T>
 {
   public ICommand Save { get; set; }

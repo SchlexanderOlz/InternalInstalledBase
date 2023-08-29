@@ -1,9 +1,14 @@
+/**
+* @file
+* @brief This file contains the definition of the SoftwareAddSearch class 
+* @author Alexander Scholz
+* @date 29-08-2023
+*/
 namespace WpfApplication;
 
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.ObjectModel;
-using System;
 using DapperExtension.DBContext.Models;
 using DataAccess;
 using DataAccess.Commands;

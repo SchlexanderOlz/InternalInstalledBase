@@ -1,3 +1,9 @@
+/**
+ * @file
+ * @brief This file contains the definition of the ModeratorSoftwarePage class
+ * @author Alexander Scholz
+ * @date 29-08-2023
+ */
 namespace WpfApplication.Pages;
 
 using System.Windows.Controls;
