@@ -22,7 +22,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.Resources>
-            <commands:PropertyData x:Key="Data" />
+            <commands:PropertyData x:Key="Data" IsMultipleChoice="False" />
         </Grid.Resources>
         <Label Grid.Row="0" Grid.Column="0" Content="Name:"/>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="nameTextBox" Margin="0,0,0,10" Text="{Binding Source={StaticResource Data}, Path=Name, UpdateSourceTrigger=PropertyChanged}" />

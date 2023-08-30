@@ -8,6 +8,7 @@ using System;
 using System.Windows;
 using DataAccess;
 using WpfApplication.UserControls;
+using WpfApplication.Pages;
 using DataAccess.Commands;
 using DapperExtension.DBContext.Models.Users;
 
@@ -27,12 +28,22 @@ public partial class MainWindow : Window
 
     MainWindowData data = new();
     SubmitUser submitUser = data.SubmitUserCommand;
+    data.CheckUsersExistingCommand.UsersNonExistant += loadNewUserPage;
+    data.CheckUsersExistingCommand.Execute(null);
 
     this.DataContext = data;
     this.dataContext = data;
 
     submitUser.LogonFailure += logonFailed;     
     submitUser.LogonSuccess += logon;
+  }
+
+  protected void loadNewUserPage(object sender, EventArgs e)
+  {
+    this.content = this.Content;
+    CreateUserPage page = new CreateUserPage();
+    this.Content = page;
+    page.Back += this.reload;
   }
 
   /**
@@ -61,6 +72,11 @@ public partial class MainWindow : Window
   {
     session.End();
     this.dataContext.AddSessionCommand.Execute(session);
+    this.reload(null, null);
+  }
+
+  private void reload(object? sender, EventArgs? e)
+  {
     this.Content = this.content;
   }
 

@@ -44,6 +44,10 @@ public class DBInteraction
     return DBInteraction.dbInteraction;
   }
 
+  public bool AnyUsers() {
+    return this.context.Users.Count() == 0;
+  }
+
   // InsertStatements all save the changes after adding a specific object to a DbSet
   #region InsertStatements
   public void InsertProduct(Product product)

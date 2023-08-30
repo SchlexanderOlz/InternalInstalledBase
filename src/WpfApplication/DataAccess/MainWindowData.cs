@@ -14,13 +14,17 @@ using Commands;
  */
 public class MainWindowData
 {
-
   public SubmitUser SubmitUserCommand { get; set; }
   public AddSession AddSessionCommand { get; set; }
+  public CheckUsersExisting CheckUsersExistingCommand { get; set; }
 
   public MainWindowData()
   {
+    this.CheckUsersExistingCommand = new();
+    this.CheckUsersExistingCommand.Execute(null);
+
     this.SubmitUserCommand = new();
     this.AddSessionCommand = new();
   }
+
 }
