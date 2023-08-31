@@ -12,7 +12,7 @@ public partial class ModeratorHardwarePage : HardwarePage
 
   public ModeratorHardwarePage() : base()
   {
-    PageBuilder.UpgradeToModerator(this);
+    this.UpgradeToModerator();
   }
 }
 

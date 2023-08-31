@@ -25,11 +25,8 @@ public partial class UserPage : ContentPage<User>
     Grid.SetRowSpan(this.DataGrid, 5);
     this.contentGrid.Children.Add(this.DataGrid);
 
-    Button addButton = new Button { Content = "Add", Command = this.dataContext.Add };
-
-    this.ActionBar.Controls.Add(addButton);
-    this.DataGrid.DeleteEntry += DeleteEntry;
-    addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
+    this.UpgradeToModerator();
+    this.UpgradeToAdmin();
 
     this.dataContext.Search.Execute(new UserData { });
   }
@@ -43,6 +40,6 @@ public partial class UserPage : ContentPage<User>
 
   protected override ISearchData getDataField()
   {
-    return (SoftwareData)((FrameworkElement)this.actionBar).FindResource("Data");
+    return (UserData)((FrameworkElement)this.actionBar).FindResource("Data");
   }
 }

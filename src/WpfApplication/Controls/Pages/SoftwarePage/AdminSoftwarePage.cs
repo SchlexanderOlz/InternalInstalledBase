@@ -12,7 +12,7 @@ public partial class AdminSoftwarePage : SoftwarePage
 
   public AdminSoftwarePage() : base()
   {
-    PageBuilder.UpgradeToAdmin(this);
+    this.UpgradeToAdmin();
   }
 }
 

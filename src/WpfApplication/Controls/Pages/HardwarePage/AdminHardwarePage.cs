@@ -11,7 +11,7 @@ public partial class AdminHardwarePage : ModeratorHardwarePage
 {
   public AdminHardwarePage() : base()
   {
-    PageBuilder.UpgradeToAdmin(this);
+    this.UpgradeToAdmin();
   }
 }
 

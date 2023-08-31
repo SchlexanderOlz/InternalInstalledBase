@@ -26,7 +26,9 @@ public partial class PropertiesAddSearch : DataAddSearchPage<Property>
   {
     this.product = product;
     this.dataContext.Search.Execute(new HardwareData { });
-    throw new NotImplementedException("Implement PropertyAddSearch -> How to display Effect-value in grid and how to add");
+    // TODO:
+    // Implement PropertyAddSearch -> How to display Effect-value in grid and how to add
+    throw new NotImplementedException();
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)

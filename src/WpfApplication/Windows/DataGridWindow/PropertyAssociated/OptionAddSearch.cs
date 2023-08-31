@@ -27,6 +27,7 @@ public partial class OptionAddSearchPage : DataAddSearchPage<Option>
     this.property = property;
     this.dataGrid.MakeWritable();
     this.dataContext.Search.Execute(new OptionData { Property = this.property });
+    this.searchBox.TextChanged += collapseButton;
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)

@@ -25,6 +25,7 @@ public partial class ProductAddSearchPage : DataAddSearchPage<Product>
   {
     this.customer = customer;
     this.dataContext.Search.Execute(new ProductData { Customers = new Customer[] { customer } });
+    this.searchBox.TextChanged += collapseButton;
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)

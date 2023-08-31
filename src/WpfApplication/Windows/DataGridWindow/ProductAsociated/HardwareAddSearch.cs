@@ -24,7 +24,8 @@ public partial class HardwareAddSearch : DataAddSearchPage<Hardware>
         new ObservableCollection<Hardware>()), new HardwarePageData())
   {
     this.product = product;
-    this.dataContext.Search.Execute(new HardwareData { });
+    this.dataContext.Search.Execute(null);
+    this.chooseButton.Visibility = Visibility.Visible;
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)
@@ -34,10 +35,9 @@ public partial class HardwareAddSearch : DataAddSearchPage<Hardware>
 
     if (searchText.Length == 0)
     {
-      this.dataContext.Search.Execute(new HardwareData { });
+      this.dataContext.Search.Execute(null);
       return;
     }
-
     this.dataContext.Search.Execute(new HardwareData { Name = searchText });
   }
 
@@ -54,5 +54,6 @@ public partial class HardwareAddSearch : DataAddSearchPage<Hardware>
       return;
     }
     this.product.Hardware = hardware.Last();
+    this.Close();
   }
 }

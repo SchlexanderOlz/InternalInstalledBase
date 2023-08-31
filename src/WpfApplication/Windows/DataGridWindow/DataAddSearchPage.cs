@@ -6,11 +6,11 @@
 */
 namespace WpfApplication;
 
+using System;
 using System.Windows;
 using DataAccess;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using DataAccess.Commands;
 
 
 /**
@@ -34,7 +34,6 @@ public abstract partial class DataAddSearchPage<T> : Window
     this.searchBox = searchBox;
     this.searchBox.Margin = new Thickness(5);
     this.searchBox.TextChanged += updateGrid;
-    this.searchBox.TextChanged += collapseButton;
 
     // The chooseButton is hidden if the TextBox is empty
     Button chooseButton = new Button { Content = "Add" };

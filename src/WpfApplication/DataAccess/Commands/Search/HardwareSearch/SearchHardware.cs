@@ -18,7 +18,8 @@ public class SearchHardware : SearchCommand<Hardware>
   {
     HardwareData? data = param as HardwareData;
     ICollection<Hardware> hardware = this.dbConnection.GetHardwareByParam(
-        data?.Name, data?.Shortcut, data?.Description, data?.Ip, data?.MaterialNumber);
+        data?.Name, data?.Shortcut, data?.Description, data?.Ip, data?.MaterialNumber,
+        null);
 
     OnSearchResult(new SearchResults<Hardware>(hardware));
   }

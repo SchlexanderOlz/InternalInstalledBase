@@ -12,7 +12,7 @@ public partial class ModeratorCustomerPage : CustomerPage
 
   public ModeratorCustomerPage() : base()
   {
-    PageBuilder.UpgradeToModerator(this);
+    this.UpgradeToModerator();
   }
 }
 

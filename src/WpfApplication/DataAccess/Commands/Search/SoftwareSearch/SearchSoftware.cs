@@ -18,7 +18,7 @@ public class SearchSoftware : SearchCommand<Software>
   {
     SoftwareData? data = param as SoftwareData;
     ICollection<Software> products = this.dbConnection.GetSoftwareByParam(
-        data?.Name, data?.Shortcut, data?.Description, data?.Version);
+        data?.Name, data?.Shortcut, data?.Description, data?.Version, null);
 
     OnSearchResult(new SearchResults<Software>(products));
   }

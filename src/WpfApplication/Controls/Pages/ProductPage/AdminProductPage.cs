@@ -12,7 +12,7 @@ public partial class AdminProductPage : ProductPage
 
   public AdminProductPage() : base()
   {
-    PageBuilder.UpgradeToAdmin(this);
+    this.UpgradeToAdmin();
   }
 }
 

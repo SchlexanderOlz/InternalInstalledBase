@@ -223,14 +223,19 @@ public class DBInteraction
   }
 
   public ICollection<Software> GetSoftwareByParam(string? name, string? shortcut, string? description,
-      uint? versionNumber)
+      uint? versionNumber, ICollection<Product>? products)
   {
     IQueryable<Software> query = this.context.Software.AsQueryable();
     buildQueryDescriptableSimilar(ref query, name, shortcut, description);
 
     if (versionNumber.HasValue)
     {
-      query.Where(software => software.Version == versionNumber);
+      query = query.Where(software => software.Version == versionNumber);
+    }
+
+    if (products != null)
+    {
+      query = query.Where(software => software.Products.Any(product => products.Contains(product)));
     }
     return query.ToList();
   }
@@ -287,7 +292,7 @@ public class DBInteraction
   }
 
   public ICollection<Hardware> GetHardwareByParam(string? name, string? shortcut,
-    string? description, uint? ip, uint? materialNumber)
+    string? description, uint? ip, uint? materialNumber, ICollection<Product>? products)
   {
 
     IQueryable<Hardware> query = this.context.Hardware.AsQueryable();
@@ -300,6 +305,11 @@ public class DBInteraction
     if (materialNumber != null)
     {
       query = query.Where(hardware => hardware.MaterialNumber == materialNumber);
+    }
+
+    if (products != null)
+    {
+      query = query.Where(hardware => hardware.Products != null && hardware.Products.Any(product => products.Contains(product)));
     }
     return query.ToList();
   }

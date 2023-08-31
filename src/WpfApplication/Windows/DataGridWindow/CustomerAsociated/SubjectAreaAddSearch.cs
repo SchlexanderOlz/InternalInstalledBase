@@ -26,6 +26,7 @@ public partial class SubjectAreaAddSearch : DataAddSearchPage<SubjectArea>
     this.customer = customer;
     this.dataContext.Search.Execute(new SubjectAreaData { Customers = new Customer[] { customer } });
     this.dataGrid.MakeWritable();
+    this.searchBox.TextChanged += collapseButton;
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)

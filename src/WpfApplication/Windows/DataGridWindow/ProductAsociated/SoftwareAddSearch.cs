@@ -24,7 +24,8 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software>
         new ObservableCollection<Software>()), new SoftwarePageData())
   {
     this.product = product;
-    this.dataContext.Search.Execute(new SoftwareData { });
+    this.dataContext.Search.Execute(null);
+    this.chooseButton.Visibility = Visibility.Visible;
   }
 
   protected override void updateGrid(object sender, RoutedEventArgs e)
@@ -34,7 +35,7 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software>
 
     if (searchText.Length == 0)
     {
-      this.dataContext.Search.Execute(new SoftwareData { });
+      this.dataContext.Search.Execute(null);
       return;
     }
 
@@ -55,5 +56,6 @@ public partial class SoftwareAddSearch : DataAddSearchPage<Software>
       return;
     }
     this.product.Software = software.Last();
+    this.Close();
   }
 }

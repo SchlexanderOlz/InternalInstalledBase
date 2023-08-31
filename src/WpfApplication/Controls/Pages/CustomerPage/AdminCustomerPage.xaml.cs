@@ -11,7 +11,7 @@ public partial class AdminCustomerPage : ModeratorCustomerPage
 {
   public AdminCustomerPage() : base()
   {
-    PageBuilder.UpgradeToAdmin(this);
+    this.UpgradeToAdmin();
   }
 }
 

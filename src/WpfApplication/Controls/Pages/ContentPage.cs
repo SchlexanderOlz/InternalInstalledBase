@@ -68,4 +68,22 @@ public abstract class ContentPage<T> : UserControl
   protected void reloadGrid(object? sender, EventArgs e) { this.dataContext.Search.Execute(null); }
   protected abstract void clearInputFields(object? sender, EventArgs e);
   protected abstract ISearchData getDataField();
+
+  #region PageBuilder
+  public void UpgradeToModerator()
+  {
+    this.DataGrid.MakeWritable();
+  }
+
+  public void UpgradeToAdmin()
+  {
+    this.DataGrid.MakeDeleteable();
+
+    Button addButton = new Button { Content = "Add", Command = this.GetDataContext().Add };
+    this.ActionBar.Controls.Add(addButton);
+    this.DataGrid.DeleteEntry += this.DeleteEntry;
+
+    addButton.SetResourceReference(Button.CommandParameterProperty, "Data");
+  }
+  #endregion
 }
