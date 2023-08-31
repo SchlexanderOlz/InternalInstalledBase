@@ -1,5 +1,5 @@
-server: localhost
-port: 7400
-database: IIB
-user: user
-password: tmp
+server:
+port:
+database:
+user:
+password:
